@@ -1,0 +1,1 @@
+{"extends":["next/eslint"],"rules":{"@next/next":"warn"}}

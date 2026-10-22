@@ -1,0 +1,1 @@
+// Blank scaffold for Skip Link Keyboard Tests (M4.G9.T8)
