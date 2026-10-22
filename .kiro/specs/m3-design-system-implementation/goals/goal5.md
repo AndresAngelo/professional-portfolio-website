@@ -26,7 +26,7 @@ Implement the `EventTypeBadge` primitive in `src/components/ui/event-type-badge.
 
 - Goals M3.G1 through M3.G4 completed
 - Milestone 2 content contracts available at `src/types/content.ts` (exporting `EventType`)
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 ---
 
@@ -52,7 +52,7 @@ Implement the `EventTypeBadge` primitive in `src/components/ui/event-type-badge.
 
 Write `src/components/ui/event-type-badge.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -98,7 +98,7 @@ export function EventTypeBadge({ eventType, className }: EventTypeBadgeProps): J
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/event-type-badge.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -131,7 +131,7 @@ Expected output: `PASS`
 
 Write `src/components/ui/filter-chip.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 // Server-compatible: consumer owns filter state (e.g. URL query params);
@@ -203,7 +203,7 @@ export function FilterChip({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/filter-chip.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -232,7 +232,7 @@ Expected output: `PASS`
 
 Write the unit tests using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -267,7 +267,7 @@ describe('EventTypeBadge Primitive (Req 6)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/event-type-badge.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -298,7 +298,7 @@ Expected output: `PASS`
 
 Write the unit tests using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -344,7 +344,7 @@ describe('FilterChip Primitive (Req 7)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/filter-chip.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -373,7 +373,7 @@ Expected output: `PASS`
 
 Append activation tests to `tests/unit/components/ui/filter-chip.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -414,7 +414,7 @@ $content | Set-Content "tests\unit\components\ui\filter-chip.test.tsx" -Encoding
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/filter-chip.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -443,7 +443,7 @@ Expected output: `PASS`
 
 Append property test to `tests/unit/components/ui/filter-chip.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -486,7 +486,7 @@ $content | Set-Content "tests\unit\components\ui\filter-chip.test.tsx" -Encoding
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/filter-chip.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -514,7 +514,7 @@ Expected output: `PASS`
 
 Append axe checks using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 # 1. Append to event-type-badge.test.tsx
 $appendBadgeAxe = @'
@@ -558,7 +558,7 @@ $chipContent | Set-Content "tests\unit\components\ui\filter-chip.test.tsx" -Enco
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/event-type-badge.test.tsx tests/unit/components/ui/filter-chip.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -585,7 +585,7 @@ Expected output: `PASS`
 
 Execute cursor pointer audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $tagFiles = @("tag.tsx", "status-badge.tsx", "event-type-badge.tsx")
 $violations = @()
@@ -636,7 +636,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute source audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $files = @("src\components\ui\event-type-badge.tsx", "src\components\ui\filter-chip.tsx")
 $allPass = $true
@@ -684,7 +684,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test -- tests/unit/components/ui/event-type-badge.test.tsx tests/unit/components/ui/filter-chip.test.tsx
@@ -692,7 +692,7 @@ npm run test -- tests/unit/components/ui/event-type-badge.test.tsx tests/unit/co
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/ui/event-type-badge.test.tsx tests/unit/components/ui/filter-chip.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
@@ -709,7 +709,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 5 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\ui\event-type-badge.tsx"
 Test-Path "src\components\ui\filter-chip.tsx"
 Test-Path "tests\unit\components\ui\event-type-badge.test.tsx"

@@ -24,7 +24,7 @@ Implement the complete `ProjectFrontmatterSchema` and `ProjectSchema` in `src/co
 ## Prerequisites
 
 - Goal M2.G1, M2.G2, and M2.G3 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `src/content/schemas/utils.ts` and `src/content/schemas/enums.ts` exist and compile
 
 ---
@@ -41,19 +41,19 @@ Implement the complete `ProjectFrontmatterSchema` and `ProjectSchema` in `src/co
 - ✓ `npm install` completes cleanly with no peer dependency errors
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 
 Install `gray-matter` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm install gray-matter
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.dependencies."gray-matter") { "PASS" } else { "FAIL" }
 ```
@@ -94,7 +94,7 @@ Expected output: `PASS`
 
 Write the frontmatter schema using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { z } from 'zod';
 import { ProjectStatusSchema } from './enums';
@@ -166,7 +166,7 @@ export type ProjectFrontmatter = z.infer<typeof ProjectFrontmatterSchema>;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/project.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -194,7 +194,7 @@ Expected output: `PASS`
 
 Append `ProjectSchema` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
 /**
@@ -223,7 +223,7 @@ Add-Content -Path "src\content\schemas\project.ts" -Value $appendCode -Encoding 
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/project.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -254,7 +254,7 @@ Expected output: `PASS`
 
 Write the project loaders using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import fs from 'fs/promises';
 import path from 'path';
@@ -375,7 +375,7 @@ export async function getProjectBySlug(slug: string, projectsDir = DEFAULT_PROJE
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/loaders/projects.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -403,7 +403,7 @@ Expected output: `PASS`
 
 Write the project seed file using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "content\projects")) {
     New-Item -ItemType Directory -Path "content\projects" -Force | Out-Null
@@ -442,7 +442,7 @@ Explain the problem, constraints, architecture decisions, implementation approac
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "content\projects\example-project.mdx"
 ```
 Expected output: `True`
@@ -471,7 +471,7 @@ Expected output: `True`
 
 Write `tests/unit/schemas/project.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { describe, it, expect } from 'vitest';
 import { ProjectSchema, ProjectFrontmatterSchema } from '@/content/schemas/project';
@@ -569,7 +569,7 @@ describe('ProjectSchema Validation', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/schemas/project.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -597,7 +597,7 @@ Expected output: `PASS`
 
 Write `tests/unit/loaders/projects.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { describe, it, expect } from 'vitest';
 import path from 'path';
@@ -669,7 +669,7 @@ Body content.
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/loaders/projects.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -696,7 +696,7 @@ Expected output: `PASS`
 
 Append the featured count test suite to `tests/unit/loaders/projects.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
   describe('validateFeaturedCount Constraint (AGENTS.md 5.2)', () => {
@@ -751,7 +751,7 @@ $content | Set-Content "tests\unit\loaders\projects.test.ts" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/loaders/projects.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -779,7 +779,7 @@ Expected output: `PASS`
 
 Update `src/types/content.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Content Contracts (Single Source of Truth)
@@ -815,7 +815,7 @@ export type {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/types/content.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -842,7 +842,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test
@@ -850,7 +850,7 @@ npm run test
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test" -NoNewWindow -PassThru -Wait).ExitCode
@@ -867,7 +867,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 4 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\content\schemas\project.ts"
 Test-Path "src\content\loaders\projects.ts"
 Test-Path "content\projects\example-project.mdx"

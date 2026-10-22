@@ -23,7 +23,7 @@ Implement the complete `CertificationFrontmatterSchema` and `CertificationSchema
 ## Prerequisites
 
 - Goals M2.G1 through M2.G4 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `src/content/schemas/enums.ts` (`CertificationCategorySchema`) and `src/content/schemas/utils.ts` exist and compile
 - `tests/fixtures/certifications/valid-certification.mdx` exists from M2.G1.T6
 
@@ -56,7 +56,7 @@ Implement the complete `CertificationFrontmatterSchema` and `CertificationSchema
 
 Write the initial `certification.ts` module using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { z } from 'zod';
 import { CertificationCategorySchema } from './enums';
@@ -99,7 +99,7 @@ export type CertificationFrontmatter = z.infer<typeof CertificationFrontmatterSc
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/certification.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -128,7 +128,7 @@ Expected output: `PASS`
 
 Update `CertificationFrontmatterSchema` with refinement rules using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { z } from 'zod';
 import { CertificationCategorySchema } from './enums';
@@ -199,7 +199,7 @@ export type CertificationFrontmatter = z.infer<typeof CertificationFrontmatterSc
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/certification.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -227,7 +227,7 @@ Expected output: `PASS`
 
 Append `CertificationSchema` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
 /**
@@ -247,7 +247,7 @@ Add-Content -Path "src\content\schemas\certification.ts" -Value $appendCode -Enc
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/certification.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -276,7 +276,7 @@ Expected output: `PASS`
 
 Write the certifications loader using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import fs from 'fs/promises';
 import path from 'path';
@@ -371,7 +371,7 @@ export async function getCertifications(
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/loaders/certifications.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -399,7 +399,7 @@ Expected output: `PASS`
 
 Write the seed file using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "content\certifications")) {
     New-Item -ItemType Directory -Path "content\certifications" -Force | Out-Null
@@ -425,7 +425,7 @@ Optional supporting context for the certification.
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "content\certifications\example-certification.mdx"
 ```
 Expected output: `True`
@@ -454,7 +454,7 @@ Expected output: `True`
 
 Write `tests/unit/schemas/certification.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { describe, it, expect } from 'vitest';
 import { CertificationSchema } from '@/content/schemas/certification';
@@ -572,7 +572,7 @@ describe('CertificationSchema Validation', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/schemas/certification.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -600,7 +600,7 @@ Expected output: `PASS`
 
 Write `tests/unit/loaders/certifications.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { describe, it, expect } from 'vitest';
 import path from 'path';
@@ -700,7 +700,7 @@ displayOrder: 1
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/loaders/certifications.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -728,7 +728,7 @@ Expected output: `PASS`
 
 Update `src/types/content.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Content Contracts (Single Source of Truth)
@@ -769,7 +769,7 @@ export type {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/types/content.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -796,7 +796,7 @@ Expected output: `PASS`
 
 Append the root path resolution test to `tests/unit/loaders/certifications.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
   it('loads the default content/certifications directory when no path argument is supplied', async () => {
@@ -815,7 +815,7 @@ $content | Set-Content "tests\unit\loaders\certifications.test.ts" -Encoding UTF
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/loaders/certifications.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -842,7 +842,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test
@@ -850,7 +850,7 @@ npm run test
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test" -NoNewWindow -PassThru -Wait).ExitCode
@@ -867,7 +867,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 5 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\content\schemas\certification.ts"
 Test-Path "src\content\loaders\certifications.ts"
 Test-Path "content\certifications\example-certification.mdx"

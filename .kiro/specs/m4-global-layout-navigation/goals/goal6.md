@@ -28,7 +28,7 @@ Implement the pure site metadata generator `buildSiteMetadata` in `src/app/site-
 - Goals M4.G1 through M4.G5 completed (`SkipLink`, `SiteHeader`, `SiteFooter` available)
 - M2 loader `getSiteConfig` available at `src/content/loaders/site.ts`
 - M1 stylesheet available at `src/app/globals.css`
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 ---
 
@@ -56,7 +56,7 @@ Implement the pure site metadata generator `buildSiteMetadata` in `src/app/site-
 
 Write `src/app/site-metadata.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import type { Metadata } from 'next';
@@ -101,7 +101,7 @@ export function buildSiteMetadata(
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/app/site-metadata.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -139,7 +139,7 @@ Expected output: `PASS`
 
 Write `src/app/layout.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React, { type ReactNode } from 'react';
@@ -209,7 +209,7 @@ export default async function RootLayout({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/app/layout.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -241,7 +241,7 @@ Expected output: `PASS`
 
 Write `tests/unit/app/site-metadata.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\unit\app")) {
     New-Item -ItemType Directory -Path "tests\unit\app" -Force | Out-Null
@@ -281,7 +281,7 @@ describe('Site Metadata Builder (Req 10)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/app/site-metadata.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -312,7 +312,7 @@ Expected output: `PASS`
 
 Append Property 12 test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -361,7 +361,7 @@ $content | Set-Content "tests\unit\app\site-metadata.test.ts" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/app/site-metadata.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -390,7 +390,7 @@ Expected output: `PASS`
 
 Append Property 13 test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -425,7 +425,7 @@ $content | Set-Content "tests\unit\app\site-metadata.test.ts" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/app/site-metadata.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -456,7 +456,7 @@ Expected output: `PASS`
 
 Write `tests/unit/app/layout.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -510,7 +510,7 @@ describe('RootLayout Component (Req 1, 7)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/app/layout.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -538,7 +538,7 @@ Expected output: `PASS`
 
 Append loader rejection test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -563,7 +563,7 @@ $content | Set-Content "tests\unit\app\layout.test.tsx" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/app/layout.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -589,7 +589,7 @@ Expected output: `PASS`
 
 Execute boundary audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appFiles = @("src\app\layout.tsx", "src\app\site-metadata.ts")
 $violations = @()
@@ -632,7 +632,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute hygiene audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $files = @("src\app\layout.tsx", "src\app\site-metadata.ts")
 $allPass = $true
@@ -679,7 +679,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npm run typecheck
 npm run lint
@@ -688,7 +688,7 @@ npm run test -- tests/unit/app/site-metadata.test.ts tests/unit/app/layout.test.
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/app/site-metadata.test.ts tests/unit/app/layout.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
@@ -705,7 +705,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 6 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\app\site-metadata.ts"
 Test-Path "src\app\layout.tsx"
 Test-Path "tests\unit\app\site-metadata.test.ts"

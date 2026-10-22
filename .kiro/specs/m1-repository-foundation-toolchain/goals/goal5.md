@@ -23,7 +23,7 @@ Establish the core unit and integration test infrastructure using **Vitest**, **
 ## Prerequisites
 
 - Goals M1.G1, M1.G2, M1.G3, and M1.G4 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `package.json` and `tsconfig.json` present and valid
 
 ---
@@ -43,18 +43,18 @@ Establish the core unit and integration test infrastructure using **Vitest**, **
 - ✓ `package.json` reflects all installed test libraries
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 Execute the following PowerShell command to install dependencies:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm install --save-dev vitest @vitejs/plugin-react jsdom @testing-library/react @testing-library/jest-dom
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 $dev = $pkg.devDependencies
 if ($dev.vitest -and $dev."@testing-library/react" -and $dev.jsdom) { "PASS" } else { "FAIL" }
@@ -71,7 +71,7 @@ Expected output: `PASS`
 
 **Acceptance Criteria:**
 - ✓ `tests/` directory exists in the project root
-- ✓ Path `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tests\` is accessible
+- ✓ Path `c:\dev\andres-webapp-professional\personal-website-portfolio\tests\` is accessible
 
 **Prerequisites:**
 - M1.G5.T1 completed
@@ -79,7 +79,7 @@ Expected output: `PASS`
 **Implementation Details:**
 Create the testing folder using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (-not (Test-Path "tests")) {
     New-Item -ItemType Directory -Path "tests"
 }
@@ -87,7 +87,7 @@ if (-not (Test-Path "tests")) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path "tests") { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -108,12 +108,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G5.T2 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tests\setup.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\tests\setup.ts`
 
 **Implementation Details:**
 Write `tests/setup.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
@@ -128,7 +128,7 @@ afterEach(() => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $setup = Get-Content "tests\setup.ts" -Raw
 if ($setup -match "import '@testing-library/jest-dom/vitest'" -and $setup -match "afterEach") { "PASS" } else { "FAIL" }
 ```
@@ -149,12 +149,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G5.T3 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\vitest.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\vitest.config.ts`
 
 **Implementation Details:**
 Create the initial config skeleton using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
@@ -168,7 +168,7 @@ export default defineConfig({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path "vitest.config.ts") { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -189,12 +189,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G5.T4 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\vitest.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\vitest.config.ts`
 
 **Implementation Details:**
 Update `vitest.config.ts` with test environment options:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
@@ -214,7 +214,7 @@ export default defineConfig({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "vitest.config.ts" -Raw
 if ($cfg -match "environment:\s*'jsdom'" -and $cfg -match "\['\./tests/setup\.ts'\]") { "PASS" } else { "FAIL" }
 ```
@@ -235,12 +235,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G5.T5 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\vitest.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\vitest.config.ts`
 
 **Implementation Details:**
 Append coverage options to `vitest.config.ts`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
@@ -272,7 +272,7 @@ export default defineConfig({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "vitest.config.ts" -Raw
 if ($cfg -match "provider:\s*'v8'") { "PASS" } else { "FAIL" }
 ```
@@ -292,12 +292,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G5.T6 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\vitest.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\vitest.config.ts`
 
 **Implementation Details:**
 Append path resolution mapping to `vitest.config.ts`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
@@ -334,7 +334,7 @@ export default defineConfig({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "vitest.config.ts" -Raw
 if ($cfg -match "alias:\s*\{" -and $cfg -match "path\.resolve\(__dirname, '\./src'\)") { "PASS" } else { "FAIL" }
 ```
@@ -354,12 +354,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G5.T7 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\package.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\package.json`
 
 **Implementation Details:**
 Update the scripts object in `package.json`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 $pkg.scripts.test = "vitest run"
 $pkg.scripts | Add-Member -MemberType NoteProperty -Name "test:coverage" -Value "vitest run --coverage" -Force
@@ -368,7 +368,7 @@ $pkg | ConvertTo-Json -Depth 10 | Set-Content "package.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.scripts.test -eq "vitest run" -and $pkg.scripts."test:coverage" -eq "vitest run --coverage") { "PASS" } else { "FAIL" }
 ```
@@ -390,12 +390,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G5.T8 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tests\example.test.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\tests\example.test.ts`
 
 **Implementation Details:**
 Create the smoke test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { describe, it, expect } from 'vitest';
 
@@ -418,7 +418,7 @@ describe('M1 Repository Foundation Smoke Tests', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path "tests\example.test.ts") { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -442,13 +442,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the test runner via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -462,7 +462,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 5 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "vitest.config.ts"
 Test-Path "tests\setup.ts"
 Test-Path "tests\example.test.ts"

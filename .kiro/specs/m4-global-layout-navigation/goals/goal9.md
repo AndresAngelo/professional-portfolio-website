@@ -28,7 +28,7 @@ Establish the automated accessibility evaluation suite in `tests/unit/components
 - Goals M4.G1 through M4.G8 completed
 - All layout components and app files functional
 - `vitest-axe` and `@testing-library/user-event` available in `devDependencies`
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 ---
 
@@ -54,7 +54,7 @@ Establish the automated accessibility evaluation suite in `tests/unit/components
 
 Write the initial accessibility suite using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -110,7 +110,7 @@ describe('Layout Accessibility Matrix (WCAG 2.1 Level AA) - Part 1', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/a11y.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -138,7 +138,7 @@ Expected output: `PASS`
 
 Append footer axe tests using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -183,7 +183,7 @@ Add-Content -Path "tests\unit\components\layout\a11y.test.tsx" -Value $appendCod
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/a11y.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -211,7 +211,7 @@ Expected output: `PASS`
 
 Append full shell axe test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -239,7 +239,7 @@ Add-Content -Path "tests\unit\components\layout\a11y.test.tsx" -Value $appendCod
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/a11y.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -270,7 +270,7 @@ Expected output: `PASS`
 
 Write the source-hygiene suite using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import { describe, it, expect } from 'vitest';
@@ -310,7 +310,7 @@ describe('Layout Source Hygiene & Repository Guardrails', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/source-hygiene.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -339,7 +339,7 @@ Expected output: `PASS`
 
 Append client boundary and anchor checks using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -372,7 +372,7 @@ $content | Set-Content "tests\unit\components\layout\source-hygiene.test.ts" -En
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/source-hygiene.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -402,7 +402,7 @@ Expected output: `PASS`
 
 Append scope boundary rules using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -448,7 +448,7 @@ $content | Set-Content "tests\unit\components\layout\source-hygiene.test.ts" -En
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/source-hygiene.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -476,7 +476,7 @@ Expected output: `PASS`
 
 Append schema and file constraints using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -509,7 +509,7 @@ $content | Set-Content "tests\unit\components\layout\source-hygiene.test.ts" -En
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/source-hygiene.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -536,14 +536,14 @@ Expected output: `PASS`
 
 Execute keyboard test suite via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npm run test -- tests/unit/components/layout/mobile-nav-toggle.test.tsx tests/unit/components/layout/skip-link.test.tsx
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $res = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/layout/mobile-nav-toggle.test.tsx tests/unit/components/layout/skip-link.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
 if ($res -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -571,7 +571,7 @@ Expected output: `PASS`
 
 Append manual accessibility and mutation checklist to `task-notes.md` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $manualNotes = @'
 
@@ -602,7 +602,7 @@ Add-Content -Path ".kiro\specs\m4-global-layout-navigation\task-notes.md" -Value
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $notes = Get-Content ".kiro\specs\m4-global-layout-navigation\task-notes.md" -Raw
 if ($notes -match "Manual Accessibility & Mutation Verification Protocol") { "PASS" } else { "FAIL" }
 ```
@@ -629,7 +629,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npm run typecheck
 npm run lint
@@ -638,7 +638,7 @@ npm run test -- tests/unit/components/layout/a11y.test.tsx tests/unit/components
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/layout/a11y.test.tsx tests/unit/components/layout/source-hygiene.test.ts" -NoNewWindow -PassThru -Wait).ExitCode
@@ -655,7 +655,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 9 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "tests\unit\components\layout\a11y.test.tsx"
 Test-Path "tests\unit\components\layout\source-hygiene.test.ts"
 npm run typecheck

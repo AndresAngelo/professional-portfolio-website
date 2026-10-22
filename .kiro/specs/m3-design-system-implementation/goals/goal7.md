@@ -25,7 +25,7 @@ Implement the polymorphic server-component `Container` primitive in `src/compone
 ## Prerequisites
 
 - Goals M3.G1 through M3.G6 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `src/components/ui/cx.ts` exists and compiles
 
 ---
@@ -53,7 +53,7 @@ Implement the polymorphic server-component `Container` primitive in `src/compone
 
 Write `src/components/ui/container.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React, { type ReactNode } from 'react';
@@ -96,7 +96,7 @@ export function Container({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/container.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -127,7 +127,7 @@ Expected output: `PASS`
 
 Write the unit tests using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -160,7 +160,7 @@ describe('Container Primitive (Req 13)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/container.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -189,7 +189,7 @@ Expected output: `PASS`
 
 Append polymorphism tests to `tests/unit/components/ui/container.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -221,7 +221,7 @@ $content | Set-Content "tests\unit\components\ui\container.test.tsx" -Encoding U
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/container.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -250,7 +250,7 @@ Expected output: `PASS`
 
 Append property test to `tests/unit/components/ui/container.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -286,7 +286,7 @@ $content | Set-Content "tests\unit\components\ui\container.test.tsx" -Encoding U
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/container.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -315,7 +315,7 @@ Expected output: `PASS`
 
 Append axe checks to `tests/unit/components/ui/container.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -355,7 +355,7 @@ $content | Set-Content "tests\unit\components\ui\container.test.tsx" -Encoding U
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/container.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -383,7 +383,7 @@ Expected output: `PASS`
 
 Append the protocol to `task-notes.md` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $protocolNotes = @'
 
@@ -414,7 +414,7 @@ Add-Content -Path ".kiro\specs\m3-design-system-implementation\task-notes.md" -V
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $notes = Get-Content ".kiro\specs\m3-design-system-implementation\task-notes.md" -Raw
 if ($notes -match "Responsive Verification Protocol") { "PASS" } else { "FAIL" }
 ```
@@ -440,7 +440,7 @@ Expected output: `PASS`
 
 Execute diff verification using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $diff = git diff tailwind.config.ts src/app/globals.css
 if ($diff.Length -eq 0) {
@@ -476,7 +476,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute source audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $content = Get-Content "src\components\ui\container.tsx" -Raw
 $lines = (Get-Content "src\components\ui\container.tsx").Count
@@ -518,7 +518,7 @@ Expected output from the PowerShell check: `PASS`
 
 Append class merge test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -546,7 +546,7 @@ $content | Set-Content "tests\unit\components\ui\container.test.tsx" -Encoding U
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/container.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -573,7 +573,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test -- tests/unit/components/ui/container.test.tsx
@@ -581,7 +581,7 @@ npm run test -- tests/unit/components/ui/container.test.tsx
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/ui/container.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
@@ -598,7 +598,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 7 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\ui\container.tsx"
 Test-Path "tests\unit\components\ui\container.test.tsx"
 npm run typecheck

@@ -25,7 +25,7 @@ Create and enforce the complete directory taxonomy defined in `AGENTS.md` Sectio
 ## Prerequisites
 
 - Goals M1.G1 through M1.G8 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - Toolchain, path aliases, and quality gates operational
 
 ---
@@ -42,12 +42,12 @@ Create and enforce the complete directory taxonomy defined in `AGENTS.md` Sectio
 - ✓ Root `styles/` directory does not exist
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 Execute the following verification script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path "pages") { Remove-Item -Recurse -Force "pages" }
 if (Test-Path "src\pages") { Remove-Item -Recurse -Force "src\pages" }
 if (Test-Path "styles") { Remove-Item -Recurse -Force "styles" }
@@ -55,7 +55,7 @@ if (Test-Path "styles") { Remove-Item -Recurse -Force "styles" }
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $hasPages = (Test-Path "pages") -or (Test-Path "src\pages")
 $hasStyles = (Test-Path "styles")
 if (-not $hasPages -and -not $hasStyles) { "PASS" } else { "FAIL" }
@@ -82,7 +82,7 @@ Expected output: `PASS`
 **Implementation Details:**
 Create the content directories using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $dirs = @(
     "content\projects",
     "content\certifications",
@@ -99,7 +99,7 @@ foreach ($d in $dirs) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $p = Test-Path "content\projects\.gitkeep"
 $c = Test-Path "content\certifications\.gitkeep"
 $b = Test-Path "content\blog\.gitkeep"
@@ -128,7 +128,7 @@ Expected output: `PASS`
 **Implementation Details:**
 Create the asset directories using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $dirs = @(
     "public\images\projects",
     "public\images\certifications",
@@ -146,7 +146,7 @@ foreach ($d in $dirs) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $ip = Test-Path "public\images\projects\.gitkeep"
 $ic = Test-Path "public\images\certifications\.gitkeep"
 $ib = Test-Path "public\images\blog\.gitkeep"
@@ -178,7 +178,7 @@ Expected output: `PASS`
 **Implementation Details:**
 Create the component directories using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $dirs = @(
     "src\components\layout",
     "src\components\home",
@@ -198,7 +198,7 @@ foreach ($d in $dirs) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cl = Test-Path "src\components\layout\.gitkeep"
 $ch = Test-Path "src\components\home\.gitkeep"
 $cp = Test-Path "src\components\projects\.gitkeep"
@@ -229,7 +229,7 @@ Expected output: `PASS`
 **Implementation Details:**
 Create the content code subdirectories using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $dirs = @(
     "src\content\loaders",
     "src\content\markdown",
@@ -246,7 +246,7 @@ foreach ($d in $dirs) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $l = Test-Path "src\content\loaders\.gitkeep"
 $m = Test-Path "src\content\markdown\.gitkeep"
 $s = Test-Path "src\content\schemas\.gitkeep"
@@ -269,12 +269,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G9.T5 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\src\types\index.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\src\types\index.ts`
 
 **Implementation Details:**
 Create `src/types/index.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (-not (Test-Path "src\types")) {
     New-Item -ItemType Directory -Path "src\types" -Force | Out-Null
 }
@@ -291,7 +291,7 @@ export type IsoDateString = string;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path "src\types\index.ts") { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -315,13 +315,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Install Zod via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm install zod
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.dependencies.zod) { "PASS" } else { "FAIL" }
 ```
@@ -345,7 +345,7 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the tree validation script via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $requiredPaths = @(
     "content\projects",
     "content\certifications",
@@ -402,7 +402,7 @@ Expected output from the script above: `PASS`
 **Implementation Details:**
 Execute the quality verification pipeline via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test
@@ -410,7 +410,7 @@ npm run test
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test" -NoNewWindow -PassThru -Wait).ExitCode
@@ -437,14 +437,14 @@ Expected output: `PASS`
 **Implementation Details:**
 Stage and commit changes using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 git add .
 git commit -m "chore(m1): establish AGENTS.md directory taxonomy and install zod"
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $log = git log -1 --pretty=oneline
 if ($log -match "chore\(m1\): establish AGENTS\.md directory taxonomy") { "PASS" } else { "FAIL" }
 ```
@@ -458,7 +458,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 9 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "content\projects"
 Test-Path "public\images\projects"
 Test-Path "src\components\ui"

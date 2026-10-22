@@ -24,7 +24,7 @@ Initialize the local Git repository, establish `.gitignore` boundary rules, and 
 ## Prerequisites
 
 - Goals M1.G1 through M1.G6 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - Git installed and accessible in the system environment PATH
 
 ---
@@ -41,12 +41,12 @@ Initialize the local Git repository, establish `.gitignore` boundary rules, and 
 - ✓ `.git` directory exists
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 Execute the following PowerShell script:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 git --version
 if (-not (Test-Path ".git")) {
     git init
@@ -55,7 +55,7 @@ if (-not (Test-Path ".git")) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path ".git") { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -78,12 +78,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G7.T1 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.gitignore`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.gitignore`
 
 **Implementation Details:**
 Create or overwrite `.gitignore` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 # Dependencies
 node_modules/
@@ -138,7 +138,7 @@ tmp/
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $gi = Get-Content ".gitignore" -Raw
 if ($gi -match "node_modules/" -and $gi -match "\.next/" -and $gi -match "\.env\*\.local") { "PASS" } else { "FAIL" }
 ```
@@ -163,13 +163,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Install the packages using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm install --save-dev husky lint-staged
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 $dev = $pkg.devDependencies
 if ($dev.husky -and $dev."lint-staged") { "PASS" } else { "FAIL" }
@@ -194,13 +194,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the following PowerShell script:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx husky init
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ((Test-Path ".husky") -and $pkg.scripts.prepare -match "husky") { "PASS" } else { "FAIL" }
 ```
@@ -221,12 +221,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G7.T4 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.husky\pre-commit`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.husky\pre-commit`
 
 **Implementation Details:**
 Write the pre-commit hook using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 npx lint-staged
 '@ | Set-Content ".husky\pre-commit" -Encoding UTF8
@@ -234,7 +234,7 @@ npx lint-staged
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $hook = Get-Content ".husky\pre-commit" -Raw
 if ($hook -match "npx lint-staged") { "PASS" } else { "FAIL" }
 ```
@@ -255,12 +255,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G7.T5 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\package.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\package.json`
 
 **Implementation Details:**
 Update `package.json` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 
 $lintStagedObj = [PSCustomObject]@{
@@ -274,7 +274,7 @@ $pkg | ConvertTo-Json -Depth 10 | Set-Content "package.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 $ls = $pkg."lint-staged"
 if ($ls."*.{ts,tsx}" -contains "eslint --fix" -and $ls."*.{json,md,css}" -contains "prettier --write") { "PASS" } else { "FAIL" }
@@ -300,13 +300,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute `lint-staged` via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx lint-staged --allow-empty
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx lint-staged --allow-empty
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -331,14 +331,14 @@ Expected output: `PASS`
 **Implementation Details:**
 Stage files using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 git add .
 git status --short
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $status = git status --porcelain
 if ($status) { "PASS" } else { "FAIL" }
 ```
@@ -363,13 +363,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the commit via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 git commit -m "chore(m1): foundation toolchain and quality gates"
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $log = git log -1 --pretty=oneline
 if ($log -match "chore\(m1\): foundation toolchain and quality gates") { "PASS" } else { "FAIL" }
 ```
@@ -393,13 +393,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Check working tree status using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 git status
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $status = git status --porcelain
 if (-not $status) { "PASS" } else { "FAIL" }
 ```
@@ -413,7 +413,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 7 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path ".git"
 Test-Path ".husky\pre-commit"
 Get-Content "package.json" | Select-String "lint-staged"

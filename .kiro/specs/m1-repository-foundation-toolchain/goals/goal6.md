@@ -29,7 +29,7 @@ Integrate Prettier for deterministic, automated code formatting across TypeScrip
 ## Prerequisites
 
 - Goals M1.G1 through M1.G5 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `package.json` and `.eslintrc.json` present and configured
 
 ---
@@ -46,18 +46,18 @@ Integrate Prettier for deterministic, automated code formatting across TypeScrip
 - ✓ `npm install` completes without peer dependency conflicts
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 Execute the following PowerShell command to install packages:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm install --save-dev prettier eslint-config-prettier
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 $dev = $pkg.devDependencies
 if ($dev.prettier -and $dev."eslint-config-prettier") { "PASS" } else { "FAIL" }
@@ -87,12 +87,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G6.T1 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.prettierrc`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.prettierrc`
 
 **Implementation Details:**
 Create the `.prettierrc` file using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 {
   "semi": true,
@@ -109,7 +109,7 @@ cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-websit
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 try {
     $cfg = Get-Content ".prettierrc" -Raw | ConvertFrom-Json
     if ($cfg.semi -eq $true -and $cfg.singleQuote -eq $true -and $cfg.printWidth -eq 100) { "PASS" } else { "FAIL" }
@@ -133,12 +133,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G6.T2 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.prettierignore`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.prettierignore`
 
 **Implementation Details:**
 Write `.prettierignore` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 # Dependencies
 node_modules/
@@ -163,7 +163,7 @@ next-env.d.ts
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $ignore = Get-Content ".prettierignore" -Raw
 if ($ignore -match "\.next/" -and $ignore -match "node_modules/" -and $ignore -match "coverage/") { "PASS" } else { "FAIL" }
 ```
@@ -183,12 +183,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G6.T3 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.eslintrc.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.eslintrc.json`
 
 **Implementation Details:**
 Update the `extends` array using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 
 $extendsList = [System.Collections.ArrayList]@($cfg.extends)
@@ -203,7 +203,7 @@ $cfg | ConvertTo-Json -Depth 10 | Set-Content ".eslintrc.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 $lastIndex = $cfg.extends.Length - 1
 if ($cfg.extends[$lastIndex] -eq "prettier") { "PASS" } else { "FAIL" }
@@ -224,12 +224,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G6.T4 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\package.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\package.json`
 
 **Implementation Details:**
 Update `package.json` with formatting scripts:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 $pkg.scripts | Add-Member -MemberType NoteProperty -Name "format" -Value "prettier --write ." -Force
 $pkg.scripts | Add-Member -MemberType NoteProperty -Name "format:check" -Value "prettier --check ." -Force
@@ -239,7 +239,7 @@ $pkg | ConvertTo-Json -Depth 10 | Set-Content "package.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.scripts.format -eq "prettier --write ." -and $pkg.scripts."format:check" -eq "prettier --check .") { "PASS" } else { "FAIL" }
 ```
@@ -264,13 +264,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Run formatting command via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run format
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run format
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -295,13 +295,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Run the verification check via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run format:check
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run format:check
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -326,13 +326,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the linter using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -353,12 +353,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G6.T8 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\CONTRIBUTING.md`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\CONTRIBUTING.md`
 
 **Implementation Details:**
 Create `CONTRIBUTING.md` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 # Contributing Guidelines
 
@@ -388,7 +388,7 @@ All Pull Requests and commits must pass `npm run format:check`, `npm run lint`, 
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path "CONTRIBUTING.md") { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -412,7 +412,7 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the triple validation pipeline via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run format:check
 npm run lint
 npm run typecheck
@@ -420,7 +420,7 @@ npm run typecheck
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $p1 = (Start-Process -FilePath "npm" -ArgumentList "run format:check" -NoNewWindow -PassThru -Wait).ExitCode
 $p2 = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $p3 = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
@@ -437,7 +437,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 6 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path ".prettierrc"
 Test-Path ".prettierignore"
 Test-Path "CONTRIBUTING.md"

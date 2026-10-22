@@ -28,7 +28,7 @@ Execute the complete end-to-end verification pipeline (`install` $\rightarrow$ `
 ## Prerequisites
 
 - Goals M1.G1 through M1.G9 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - All configurations, tokens, scripts, and tests committed and clean
 
 ---
@@ -48,12 +48,12 @@ Execute the complete end-to-end verification pipeline (`install` $\rightarrow$ `
 - ✓ `eslint.ignoreDuringBuilds` is set to `false`
 
 **Prerequisites:**
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\next.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\next.config.ts`
 
 **Implementation Details:**
 Write the finalized configuration using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import type { NextConfig } from 'next';
 
@@ -77,7 +77,7 @@ export default nextConfig;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "next.config.ts" -Raw
 if ($cfg -match "output:\s*'export'" -and $cfg -match "unoptimized:\s*true") { "PASS" } else { "FAIL" }
 ```
@@ -98,12 +98,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G10.T1 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\next-env.d.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\next-env.d.ts`
 
 **Implementation Details:**
 Create or verify `next-env.d.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (-not (Test-Path "next-env.d.ts")) {
 @'
 /// <reference types="next" />
@@ -117,7 +117,7 @@ if (-not (Test-Path "next-env.d.ts")) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $dts = Get-Content "next-env.d.ts" -Raw
 if ($dts -match '<reference types="next" />') { "PASS" } else { "FAIL" }
 ```
@@ -141,12 +141,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G10.T2 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\README.md`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\README.md`
 
 **Implementation Details:**
 Write `README.md` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 # personal-website-portfolio-v2
 
@@ -214,7 +214,7 @@ Per `AGENTS.md` and `TRD.md`, the following boundaries are non-negotiable:
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $readme = Get-Content "README.md" -Raw
 if ($readme -match "Architectural Constraints" -and $readme -match "Verification Pipeline") { "PASS" } else { "FAIL" }
 ```
@@ -238,13 +238,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the audit command using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm audit --audit-level=high
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm audit --audit-level=high
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -268,13 +268,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Run ESLint via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -298,13 +298,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Run the typecheck command via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -329,13 +329,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Run Vitest via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -360,13 +360,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the build command via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 if ($LASTEXITCODE -eq 0 -and (Test-Path "out\index.html")) { "PASS" } else { "FAIL" }
 ```
@@ -391,7 +391,7 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the Git commands using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 git add .
 git commit -m "feat(m1): repository foundation & toolchain baseline"
 git tag -a "m1-baseline" -m "Milestone 1 Foundation and Toolchain Verified"
@@ -399,7 +399,7 @@ git tag -a "m1-baseline" -m "Milestone 1 Foundation and Toolchain Verified"
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $tag = git tag -l "m1-baseline"
 if ($tag -eq "m1-baseline") { "PASS" } else { "FAIL" }
 ```
@@ -420,12 +420,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G10.T9 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\local-ai\program-states\progress-tracker.md`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\local-ai\program-states\progress-tracker.md`
 
 **Implementation Details:**
 Create and populate the state tracker using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (-not (Test-Path "local-ai\program-states")) {
     New-Item -ItemType Directory -Path "local-ai\program-states" -Force | Out-Null
 }
@@ -458,7 +458,7 @@ git commit -m "docs(m1): record milestone 1 completion in progress tracker"
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path "local-ai\program-states\progress-tracker.md") { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -471,7 +471,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 10 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "README.md"
 Test-Path "out\index.html"
 Test-Path "local-ai\program-states\progress-tracker.md"

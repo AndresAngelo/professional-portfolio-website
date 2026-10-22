@@ -30,7 +30,7 @@ Implement the accessible `SkipLink` primitive in `src/components/layout/skip-lin
 - Layout text constants available at `src/components/layout/layout-text.ts`
 - M3 primitives (`Container`, `Button`, `FOCUS_RING`, `MOTION_FAST`, `cx`) available at `src/components/ui/`
 - Pure contact helper `getRenderableChannels` available at `src/components/layout/contact-channels.ts`
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 ---
 
@@ -59,7 +59,7 @@ Implement the accessible `SkipLink` primitive in `src/components/layout/skip-lin
 
 Write `src/components/layout/skip-link.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -93,7 +93,7 @@ export function SkipLink(): JSX.Element {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/skip-link.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -131,7 +131,7 @@ Expected output: `PASS`
 
 Write `src/components/layout/site-header.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -207,7 +207,7 @@ export function SiteHeader({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/site-header.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -237,7 +237,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/skip-link.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -269,7 +269,7 @@ describe('SkipLink Primitive (Req 7)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/skip-link.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -301,7 +301,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/site-header.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -380,7 +380,7 @@ describe('SiteHeader Component (Req 3)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/site-header.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -409,7 +409,7 @@ Expected output: `PASS`
 
 Append external primary action test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -446,7 +446,7 @@ $content | Set-Content "tests\unit\components\layout\site-header.test.tsx" -Enco
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/site-header.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -476,7 +476,7 @@ Expected output: `PASS`
 
 Append Property 11 test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -529,7 +529,7 @@ $content | Set-Content "tests\unit\components\layout\site-header.test.tsx" -Enco
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/site-header.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -555,7 +555,7 @@ Expected output: `PASS`
 
 Execute literal audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $files = @("src\components\layout\skip-link.tsx", "src\components\layout\site-header.tsx")
 $forbiddenLiterals = @('Angelo', 'Andres', 'hello@example.com', 'example.vercel.app')
@@ -596,7 +596,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute server boundary check using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $files = @("src\components\layout\skip-link.tsx", "src\components\layout\site-header.tsx")
 $violations = @()
@@ -636,7 +636,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute hygiene audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $files = @("src\components\layout\skip-link.tsx", "src\components\layout\site-header.tsx")
 $allPass = $true
@@ -683,7 +683,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npm run typecheck
 npm run lint
@@ -692,7 +692,7 @@ npm run test -- tests/unit/components/layout/skip-link.test.tsx tests/unit/compo
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/layout/skip-link.test.tsx tests/unit/components/layout/site-header.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
@@ -709,7 +709,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 4 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\layout\skip-link.tsx"
 Test-Path "src\components\layout\site-header.tsx"
 Test-Path "tests\unit\components\layout\skip-link.test.tsx"

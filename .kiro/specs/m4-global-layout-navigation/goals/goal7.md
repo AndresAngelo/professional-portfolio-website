@@ -25,7 +25,7 @@ Implement the global not-found boundary in `src/app/not-found.tsx` (`SCR-07`) as
 ## Prerequisites
 
 - Goals M4.G1 through M4.G6 completed (`layout-text.ts`, `SiteConfig` loader, M3 `Container`, `Button` available)
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - Test fixtures available at `tests/fixtures/site-config.ts`
 
 ---
@@ -57,7 +57,7 @@ Implement the global not-found boundary in `src/app/not-found.tsx` (`SCR-07`) as
 
 Write `src/app/not-found.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -136,7 +136,7 @@ export default async function NotFound(): Promise<JSX.Element> {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/app/not-found.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -166,7 +166,7 @@ Expected output: `PASS`
 
 Write `tests/unit/app/not-found.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -213,7 +213,7 @@ describe('NotFound Component (Req 11)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/app/not-found.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -241,7 +241,7 @@ Expected output: `PASS`
 
 Append shell integration test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -275,7 +275,7 @@ $content | Set-Content "tests\unit\app\not-found.test.tsx" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/app/not-found.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -304,7 +304,7 @@ Expected output: `PASS`
 
 Append Property 14 test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -354,7 +354,7 @@ $content | Set-Content "tests\unit\app\not-found.test.tsx" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/app/not-found.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -383,7 +383,7 @@ Expected output: `PASS`
 
 Append empty navigation test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -412,7 +412,7 @@ $content | Set-Content "tests\unit\app\not-found.test.tsx" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/app/not-found.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -438,7 +438,7 @@ Expected output: `PASS`
 
 Execute literal audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $file = "src\app\not-found.tsx"
 $forbiddenLiterals = @('Angelo', 'Andres', 'hello@example.com', 'example.vercel.app')
@@ -476,7 +476,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute server boundary check using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $file = "src\app\not-found.tsx"
 $content = Get-Content $file -Raw
@@ -512,7 +512,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute main landmark check using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $file = "src\app\not-found.tsx"
 $content = Get-Content $file -Raw
@@ -550,7 +550,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute hygiene audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $file = "src\app\not-found.tsx"
 $content = Get-Content $file -Raw
@@ -593,7 +593,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npm run typecheck
 npm run lint
@@ -602,7 +602,7 @@ npm run test -- tests/unit/app/not-found.test.tsx
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/app/not-found.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
@@ -619,7 +619,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 7 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\app\not-found.tsx"
 Test-Path "tests\unit\app\not-found.test.tsx"
 npm run typecheck

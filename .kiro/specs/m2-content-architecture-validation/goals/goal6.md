@@ -25,7 +25,7 @@ Implement the complete `BlogPostFrontmatterSchema` and `BlogPostSchema` in `src/
 ## Prerequisites
 
 - Goals M2.G1 through M2.G5 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `src/content/schemas/enums.ts` (`EventTypeSchema`) and `src/content/schemas/utils.ts` exist and compile
 - `tests/fixtures/blog/valid-blog-post.mdx` exists from M2.G1.T7
 
@@ -60,7 +60,7 @@ Implement the complete `BlogPostFrontmatterSchema` and `BlogPostSchema` in `src/
 
 Write the schema module using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { z } from 'zod';
 import { EventTypeSchema } from './enums';
@@ -103,7 +103,7 @@ export type BlogPostFrontmatter = z.infer<typeof BlogPostFrontmatterSchema>;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/blog-post.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -131,7 +131,7 @@ Expected output: `PASS`
 
 Update `BlogPostFrontmatterSchema` with refinement rules using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { z } from 'zod';
 import { EventTypeSchema } from './enums';
@@ -184,7 +184,7 @@ export type BlogPostFrontmatter = z.infer<typeof BlogPostFrontmatterSchema>;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/blog-post.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -211,7 +211,7 @@ Expected output: `PASS`
 
 Append `BlogPostSchema` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
 /**
@@ -231,7 +231,7 @@ Add-Content -Path "src\content\schemas\blog-post.ts" -Value $appendCode -Encodin
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/blog-post.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -261,7 +261,7 @@ Expected output: `PASS`
 
 Write the blog loaders using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import fs from 'fs/promises';
 import path from 'path';
@@ -376,7 +376,7 @@ export async function getBlogPostBySlug(
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/loaders/blog.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -403,7 +403,7 @@ Expected output: `PASS`
 
 Write the seed file using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "content\blog")) {
     New-Item -ItemType Directory -Path "content\blog" -Force | Out-Null
@@ -433,7 +433,7 @@ Post content describing participation, learnings, and technical outcomes.
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "content\blog\example-blog-post.mdx"
 ```
 Expected output: `True`
@@ -462,7 +462,7 @@ Expected output: `True`
 
 Write `tests/unit/schemas/blog-post.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { describe, it, expect } from 'vitest';
 import { BlogPostSchema } from '@/content/schemas/blog-post';
@@ -548,7 +548,7 @@ describe('BlogPostSchema Validation', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/schemas/blog-post.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -576,7 +576,7 @@ Expected output: `PASS`
 
 Write `tests/unit/loaders/blog.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { describe, it, expect } from 'vitest';
 import path from 'path';
@@ -717,7 +717,7 @@ draft: true
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/loaders/blog.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -745,7 +745,7 @@ Expected output: `PASS`
 
 Update `src/types/content.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Content Contracts (Single Source of Truth)
@@ -791,7 +791,7 @@ export type {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/types/content.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -818,7 +818,7 @@ Expected output: `PASS`
 
 Append the root path resolution test to `tests/unit/loaders/blog.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
   it('loads the default content/blog directory when no path argument is supplied', async () => {
@@ -837,7 +837,7 @@ $content | Set-Content "tests\unit\loaders\blog.test.ts" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/loaders/blog.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -864,7 +864,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test
@@ -872,7 +872,7 @@ npm run test
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test" -NoNewWindow -PassThru -Wait).ExitCode
@@ -889,7 +889,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 6 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\content\schemas\blog-post.ts"
 Test-Path "src\content\loaders\blog.ts"
 Test-Path "content\blog\example-blog-post.mdx"

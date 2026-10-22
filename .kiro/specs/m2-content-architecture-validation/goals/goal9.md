@@ -23,7 +23,7 @@ Implement the build-time content validation script in `scripts/validate-content.
 ## Prerequisites
 
 - Goals M2.G1 through M2.G8 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - All loaders in `src/content/loaders/` exist and compile
 - `content/site.json`, `content/projects/*.mdx`, `content/certifications/*.mdx`, `content/blog/*.mdx` exist
 
@@ -41,19 +41,19 @@ Implement the build-time content validation script in `scripts/validate-content.
 - ✓ `npm install` completes cleanly with no peer dependency conflicts
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 
 Install `tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm install --save-dev tsx
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.devDependencies.tsx) { "PASS" } else { "FAIL" }
 ```
@@ -81,7 +81,7 @@ Expected output: `PASS`
 
 Write the initial script skeleton using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "scripts")) {
     New-Item -ItemType Directory -Path "scripts" -Force | Out-Null
@@ -169,7 +169,7 @@ validateAllContent().catch((err) => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsx scripts/validate-content.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -196,7 +196,7 @@ Expected output: `PASS`
 
 Update `package.json` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 
 if (-not $pkg.scripts) {
@@ -209,7 +209,7 @@ $pkg | ConvertTo-Json -Depth 10 | Set-Content "package.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.scripts."validate:content" -eq "tsx scripts/validate-content.ts") { "PASS" } else { "FAIL" }
 ```
@@ -236,7 +236,7 @@ Expected output: `PASS`
 
 Update the build script in `package.json` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 
 $pkg.scripts.build = "npm run validate:content && next build"
@@ -245,7 +245,7 @@ $pkg | ConvertTo-Json -Depth 10 | Set-Content "package.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.scripts.build -eq "npm run validate:content && next build") { "PASS" } else { "FAIL" }
 ```
@@ -272,7 +272,7 @@ Expected output: `PASS`
 
 Update `next.config.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import type { NextConfig } from 'next';
 
@@ -296,7 +296,7 @@ export default nextConfig;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit next.config.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -323,7 +323,7 @@ Expected output: `PASS`
 
 Execute the failure test script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $badFile = "content\projects\temp-broken-test.mdx"
 @'---
@@ -380,7 +380,7 @@ Expected output from the test block above: `PASS` (indicating the script correct
 
 Execute the featured count failure test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $tempFiles = @()
 for ($i = 1; $i -le 3; $i++) {
@@ -444,7 +444,7 @@ Expected output from the script above: `PASS`
 
 Create `tests/integration/build-validation.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\integration")) {
     New-Item -ItemType Directory -Path "tests\integration" -Force | Out-Null
@@ -487,7 +487,7 @@ describe('Build-Time Content Integration Pipeline', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/integration/build-validation.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -514,13 +514,13 @@ Expected output: `PASS`
 
 Run production build via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 if ($LASTEXITCODE -eq 0 -and (Test-Path "out\index.html")) { "PASS" } else { "FAIL" }
 ```
@@ -547,7 +547,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test
@@ -555,7 +555,7 @@ npm run test
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test" -NoNewWindow -PassThru -Wait).ExitCode
@@ -572,7 +572,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 9 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "scripts\validate-content.ts"
 Test-Path "tests\integration\build-validation.test.ts"
 npm run validate:content

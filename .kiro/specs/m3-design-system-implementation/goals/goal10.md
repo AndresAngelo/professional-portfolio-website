@@ -25,7 +25,7 @@ Execute the complete end-to-end quality pipeline and strict scope audit for Mile
 ## Prerequisites
 
 - Goals M3.G1 through M3.G9 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - All 10 UI primitives and corresponding test suites functional
 
 ---
@@ -48,13 +48,13 @@ Execute the complete end-to-end quality pipeline and strict scope audit for Mile
 
 Run linting via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -80,13 +80,13 @@ Expected output: `PASS`
 
 Run type checking via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -112,13 +112,13 @@ Expected output: `PASS`
 
 Run test suite via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm test
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm test
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -144,13 +144,13 @@ Expected output: `PASS`
 
 Run production build via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 if ($LASTEXITCODE -eq 0 -and (Test-Path "out\index.html")) { "PASS" } else { "FAIL" }
 ```
@@ -176,7 +176,7 @@ Expected output: `PASS`
 
 Execute file constraint audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $hasBarrel = Test-Path "src\components\ui\index.ts"
 $files = Get-ChildItem -Path "src\components\ui" -Include *.ts, *.tsx, *.css
@@ -222,7 +222,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute boundary audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appDiff = git status --porcelain src/app/
 $forbiddenPatterns = @(
@@ -273,7 +273,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute diff check using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $diffTailwind = git diff tailwind.config.ts
 $diffCss = git diff src/app/globals.css
@@ -317,7 +317,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute test matrix audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $expectedTests = @(
     "button.test.tsx",
@@ -373,7 +373,7 @@ Expected output from the PowerShell check: `PASS`
 
 Append sign-off to `task-notes.md` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $signOff = @'
 
@@ -396,7 +396,7 @@ Add-Content -Path ".kiro\specs\m3-design-system-implementation\task-notes.md" -V
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $notes = Get-Content ".kiro\specs\m3-design-system-implementation\task-notes.md" -Raw
 if ($notes -match "Milestone 3 Final Sign-Off") { "PASS" } else { "FAIL" }
 ```
@@ -423,7 +423,7 @@ Expected output: `PASS`
 
 Commit, tag, and update progress tracker using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 git add .
 git commit -m "feat(m3): design system ui primitives, accessibility matrix, and source hygiene"
@@ -457,7 +457,7 @@ git commit -m "docs(m3): record milestone 3 completion in progress tracker"
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $tag = git tag -l "m3-baseline"
 $status = git status --porcelain
 if ($tag -eq "m3-baseline" -and $status.Length -eq 0) { "PASS" } else { "FAIL" }
@@ -472,7 +472,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 10 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 git tag -l "m3-baseline"
 git status
 npm run lint

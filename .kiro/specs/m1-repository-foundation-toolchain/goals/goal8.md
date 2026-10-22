@@ -27,7 +27,7 @@ Verify and solidify the `@/*` module path alias mapping (`@/*` $\rightarrow$ `./
 ## Prerequisites
 
 - Goals M1.G1 through M1.G7 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `tsconfig.json` and `vitest.config.ts` exist and parse cleanly
 
 ---
@@ -43,19 +43,19 @@ Verify and solidify the `@/*` module path alias mapping (`@/*` $\rightarrow$ `./
 - ✓ `compilerOptions.paths["@/*"]` contains `"./src/*"`
 
 **Prerequisites:**
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tsconfig.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\tsconfig.json`
 
 **Implementation Details:**
 Inspect the paths configuration using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "tsconfig.json" -Raw | ConvertFrom-Json
 $cfg.compilerOptions.paths
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "tsconfig.json" -Raw | ConvertFrom-Json
 if ($cfg.compilerOptions.baseUrl -eq "." -and $cfg.compilerOptions.paths."@/*"[0] -eq "./src/*") { "PASS" } else { "FAIL" }
 ```
@@ -74,18 +74,18 @@ Expected output: `PASS`
 - ✓ `@` points to `path.resolve(__dirname, './src')`
 
 **Prerequisites:**
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\vitest.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\vitest.config.ts`
 
 **Implementation Details:**
 Inspect `vitest.config.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Get-Content "vitest.config.ts" -Raw | Select-String "alias:"
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $vcfg = Get-Content "vitest.config.ts" -Raw
 if ($vcfg -match "'@':\s*path\.resolve\(__dirname,\s*'\./src'\)") { "PASS" } else { "FAIL" }
 ```
@@ -107,12 +107,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G8.T1 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\src\lib\utils.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\src\lib\utils.ts`
 
 **Implementation Details:**
 Create the utility file using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (-not (Test-Path "src\lib")) {
     New-Item -ItemType Directory -Path "src\lib"
 }
@@ -132,7 +132,7 @@ export function formatSiteTitle(pageTitle: string, siteName: string = 'Angelo An
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path "src\lib\utils.ts") { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -152,12 +152,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G8.T3 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tests\unit\utils.test.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\tests\unit\utils.test.ts`
 
 **Implementation Details:**
 Create the unit test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (-not (Test-Path "tests\unit")) {
     New-Item -ItemType Directory -Path "tests\unit"
 }
@@ -182,7 +182,7 @@ describe('formatSiteTitle Utility (@/ alias resolution test)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if (Test-Path "tests\unit\utils.test.ts") { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -206,13 +206,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the test runner via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -232,12 +232,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G8.T3 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\src\app\page.tsx`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\src\app\page.tsx`
 
 **Implementation Details:**
 Update `src/app/page.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { formatSiteTitle } from '@/lib/utils';
 
@@ -260,7 +260,7 @@ export default function HomePage() {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $page = Get-Content "src\app\page.tsx" -Raw
 if ($page -match "from '@/lib/utils'") { "PASS" } else { "FAIL" }
 ```
@@ -285,13 +285,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute typecheck via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -315,13 +315,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute lint via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -346,13 +346,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute static export build via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 if ($LASTEXITCODE -eq 0 -and (Test-Path "out")) { "PASS" } else { "FAIL" }
 ```
@@ -376,14 +376,14 @@ Expected output: `PASS`
 **Implementation Details:**
 Stage and commit changes using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 git add src/lib/utils.ts src/app/page.tsx tests/unit/utils.test.ts
 git commit -m "feat(m1): establish and verify path aliases and utilities"
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $log = git log -1 --pretty=oneline
 if ($log -match "feat\(m1\): establish and verify path aliases") { "PASS" } else { "FAIL" }
 ```
@@ -397,7 +397,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 8 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\lib\utils.ts"
 Test-Path "tests\unit\utils.test.ts"
 npm run typecheck

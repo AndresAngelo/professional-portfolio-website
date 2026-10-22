@@ -21,7 +21,7 @@ Solidify and audit TypeScript strict mode compliance across all content modules 
 ## Prerequisites
 
 - Goals M2.G1 through M2.G7 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `src/types/content.ts` and all schema modules exist and compile
 
 ---
@@ -50,7 +50,7 @@ Solidify and audit TypeScript strict mode compliance across all content modules 
 
 Write the finalized `src/types/content.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Content Contracts (Single Source of Truth)
@@ -102,7 +102,7 @@ export type {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/types/content.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -129,7 +129,7 @@ Expected output: `PASS`
 
 Write `src/types/index.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Root Application Types Barrel
@@ -141,7 +141,7 @@ export * from './content';
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/types/index.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -167,7 +167,7 @@ Expected output: `PASS`
 
 Execute the interface audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $forbiddenPatterns = @(
     "interface\s+SiteConfig\b",
@@ -222,7 +222,7 @@ Expected output from the script above: `PASS`
 
 Execute the unsafe pattern audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $files = Get-ChildItem -Path "src\content", "src\types" -Recurse -Include *.ts, *.tsx
 $violations = @()
@@ -277,7 +277,7 @@ Expected output from the script above: `PASS`
 
 Create `tests/unit/types/inference.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\unit\types")) {
     New-Item -ItemType Directory -Path "tests\unit\types" -Force | Out-Null
@@ -330,7 +330,7 @@ describe('Type Inference Validation (z.infer<> SSOT)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/types/inference.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -361,7 +361,7 @@ Expected output: `PASS`
 
 Write `src/content/schemas/index.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Zod Content Schemas
@@ -378,7 +378,7 @@ export * from './blog-post';
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/index.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -407,7 +407,7 @@ Expected output: `PASS`
 
 Write `src/content/loaders/index.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Content Loaders
@@ -422,7 +422,7 @@ export * from './blog';
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/loaders/index.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -452,13 +452,13 @@ Expected output: `PASS`
 
 Inspect loaders for explicit type annotations using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Get-ChildItem -Path "src\content\loaders\*.ts" | Select-String "export async function"
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $res = Get-ChildItem -Path "src\content\loaders\*.ts" | Select-String "export async function"
 $allHaveReturn = $true
 foreach ($line in $res) {
@@ -491,13 +491,13 @@ Expected output: `PASS`
 
 Execute linting using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -523,14 +523,14 @@ Expected output: `PASS`
 
 Execute typecheck and test runner via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run test
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test" -NoNewWindow -PassThru -Wait).ExitCode
 
@@ -546,7 +546,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 8 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\types\content.ts"
 Test-Path "src\types\index.ts"
 Test-Path "src\content\schemas\index.ts"

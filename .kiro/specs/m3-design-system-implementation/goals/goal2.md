@@ -25,7 +25,7 @@ Implement the server-component `Button` primitive in `src/components/ui/button.t
 ## Prerequisites
 
 - Goal M3.G1 completed successfully
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `src/components/ui/cx.ts`, `focus-ring.ts`, `motion.ts`, and `external-link-attrs.ts` exist and compile
 - React Testing Library, `@testing-library/user-event`, and `fast-check` available in `devDependencies`
 
@@ -54,7 +54,7 @@ Implement the server-component `Button` primitive in `src/components/ui/button.t
 
 Write the type definitions and token maps in `src/components/ui/button.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React, { type ReactNode, type ButtonHTMLAttributes, type AnchorHTMLAttributes } from 'react';
@@ -117,7 +117,7 @@ export const BUTTON_BASE =
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/button.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -147,7 +147,7 @@ Expected output: `PASS`
 
 Append the `Button` implementation to `src/components/ui/button.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -244,7 +244,7 @@ Add-Content -Path "src\components\ui\button.tsx" -Value $appendCode -Encoding UT
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/button.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -274,7 +274,7 @@ Expected output: `PASS`
 
 Write the unit tests using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -325,7 +325,7 @@ describe('Button Primitive', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/button.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -353,7 +353,7 @@ Expected output: `PASS`
 
 Append disabled state tests to `tests/unit/components/ui/button.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -389,7 +389,7 @@ $content | Set-Content "tests\unit\components\ui\button.test.tsx" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/button.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -418,7 +418,7 @@ Expected output: `PASS`
 
 Append anchor tests to `tests/unit/components/ui/button.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -467,7 +467,7 @@ $content | Set-Content "tests\unit\components\ui\button.test.tsx" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/button.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -494,7 +494,7 @@ Expected output: `PASS`
 
 Append keyboard tests to `tests/unit/components/ui/button.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -521,7 +521,7 @@ $content | Set-Content "tests\unit\components\ui\button.test.tsx" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/button.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -550,7 +550,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/ui/button-types.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -584,7 +584,7 @@ describe('Button Static Type Invariants', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -612,7 +612,7 @@ Expected output: `PASS`
 
 Append property test to `tests/unit/components/ui/button.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -652,7 +652,7 @@ $content | Set-Content "tests\unit\components\ui\button.test.tsx" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/button.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -680,7 +680,7 @@ Expected output: `PASS`
 
 Execute source audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $content = Get-Content "src\components\ui\button.tsx" -Raw
 $lines = (Get-Content "src\components\ui\button.tsx").Count
@@ -723,7 +723,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test -- tests/unit/components/ui/button.test.tsx tests/unit/components/ui/button-types.test.tsx
@@ -731,7 +731,7 @@ npm run test -- tests/unit/components/ui/button.test.tsx tests/unit/components/u
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/ui/button.test.tsx tests/unit/components/ui/button-types.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
@@ -748,7 +748,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 2 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\ui\button.tsx"
 Test-Path "tests\unit\components\ui\button.test.tsx"
 Test-Path "tests\unit\components\ui\button-types.test.tsx"

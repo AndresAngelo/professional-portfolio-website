@@ -29,7 +29,7 @@ Implement the server-component `ContactLinks` primitive in `src/components/layou
 - Goals M4.G1 and M4.G2 completed (`contact-channels.ts`, `layout-text.ts` available)
 - M3 primitives (`Container`, `ExternalLink`, `FOCUS_RING`, `MOTION_FAST`, `cx`, `resolveExternalHref`) available at `src/components/ui/`
 - Test fixtures available at `tests/fixtures/site-config.ts`
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 ---
 
@@ -60,7 +60,7 @@ Implement the server-component `ContactLinks` primitive in `src/components/layou
 
 Write `src/components/layout/contact-links.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -123,7 +123,7 @@ export function ContactLinks({ channels, className }: ContactLinksProps): JSX.El
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/contact-links.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -159,7 +159,7 @@ Expected output: `PASS`
 
 Write `src/components/layout/site-footer.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -284,7 +284,7 @@ export function SiteFooter({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/site-footer.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -315,7 +315,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/contact-links.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -365,7 +365,7 @@ describe('ContactLinks Component (Req 9)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/contact-links.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -395,7 +395,7 @@ Expected output: `PASS`
 
 Append Property 8 test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -450,7 +450,7 @@ $content | Set-Content "tests\unit\components\layout\contact-links.test.tsx" -En
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/contact-links.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -482,7 +482,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/site-footer.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -576,7 +576,7 @@ describe('SiteFooter Component (Req 8)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/site-footer.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -605,7 +605,7 @@ Expected output: `PASS`
 
 Append Property 9 test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -664,7 +664,7 @@ $content | Set-Content "tests\unit\components\layout\site-footer.test.tsx" -Enco
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/site-footer.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -692,7 +692,7 @@ Expected output: `PASS`
 
 Append Property 10 test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -750,7 +750,7 @@ $content | Set-Content "tests\unit\components\layout\site-footer.test.tsx" -Enco
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/site-footer.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -776,7 +776,7 @@ Expected output: `PASS`
 
 Execute literal audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $files = @("src\components\layout\contact-links.tsx", "src\components\layout\site-footer.tsx")
 $forbiddenLiterals = @('Angelo', 'Andres', 'hello@example.com', 'example.vercel.app')
@@ -820,7 +820,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute hygiene audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $files = @("src\components\layout\contact-links.tsx", "src\components\layout\site-footer.tsx")
 $allPass = $true
@@ -868,7 +868,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npm run typecheck
 npm run lint
@@ -877,7 +877,7 @@ npm run test -- tests/unit/components/layout/contact-links.test.tsx tests/unit/c
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/layout/contact-links.test.tsx tests/unit/components/layout/site-footer.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
@@ -894,7 +894,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 5 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\layout\contact-links.tsx"
 Test-Path "src\components\layout\site-footer.tsx"
 Test-Path "tests\unit\components\layout\contact-links.test.tsx"

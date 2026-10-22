@@ -29,7 +29,7 @@ Implement the four core, directive-free, React-free pure logic modules underpinn
 - Test fixtures available at `tests/fixtures/site-config.ts`
 - Arbitraries available at `tests/fixtures/site-config-arbitraries.ts`
 - M3 URL validation helper `resolveExternalHref` available at `src/components/ui/external-link-attrs.ts`
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 ---
 
@@ -58,7 +58,7 @@ Implement the four core, directive-free, React-free pure logic modules underpinn
 
 Write `src/components/layout/current-route.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 /**
@@ -128,7 +128,7 @@ export function getCurrentEntryIndex(
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/current-route.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -161,7 +161,7 @@ Expected output: `PASS`
 
 Write `src/components/layout/contact-channels.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 /**
@@ -218,7 +218,7 @@ export function orderContactChannels(
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/contact-channels.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -251,7 +251,7 @@ Expected output: `PASS`
 
 Write `src/components/layout/nav-entries.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 /**
@@ -323,7 +323,7 @@ export function buildNavEntries(
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/nav-entries.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -355,7 +355,7 @@ Expected output: `PASS`
 
 Write `src/components/layout/disclosure.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 /**
@@ -398,7 +398,7 @@ export function disclosureReducer(
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/disclosure.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -424,7 +424,7 @@ Expected output: `PASS`
 
 Execute audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $pureFiles = @(
     "src\components\layout\current-route.ts",
@@ -479,7 +479,7 @@ Expected output from the PowerShell check: `PASS`
 
 Write `tests/unit/components/layout/current-route.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import { describe, it, expect } from 'vitest';
@@ -583,7 +583,7 @@ describe('Current Route Matching Logic (Req 5)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/current-route.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -615,7 +615,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/nav-entries.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import { describe, it, expect } from 'vitest';
@@ -725,7 +725,7 @@ describe('Navigation Entries Derivation (Req 4)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/nav-entries.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -756,7 +756,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/disclosure.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import { describe, it, expect } from 'vitest';
@@ -824,7 +824,7 @@ describe('Disclosure Reducer (Req 6)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/disclosure.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -855,7 +855,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/contact-channels.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import { describe, it, expect } from 'vitest';
@@ -946,7 +946,7 @@ describe('Contact Channels Utilities (Req 9)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/contact-channels.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -973,7 +973,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npm run typecheck
 npm run lint
@@ -982,7 +982,7 @@ npm run test -- tests/unit/components/layout/current-route.test.ts tests/unit/co
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/layout/current-route.test.ts tests/unit/components/layout/nav-entries.test.ts tests/unit/components/layout/disclosure.test.ts tests/unit/components/layout/contact-channels.test.ts" -NoNewWindow -PassThru -Wait).ExitCode
@@ -999,7 +999,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 2 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\layout\current-route.ts"
 Test-Path "src\components\layout\contact-channels.ts"
 Test-Path "src\components\layout\nav-entries.ts"

@@ -21,7 +21,7 @@ Establish the directory structure, base files, and foundation validators for the
 ## Prerequisites
 
 - Milestone 1 completed (`m1-baseline` tagged, clean working tree)
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `zod` installed in `dependencies` (`^3.23.0`)
 - `vitest` installed in `devDependencies`
 
@@ -41,13 +41,13 @@ Establish the directory structure, base files, and foundation validators for the
 - ✓ Directories are created without disturbing existing layout or app files
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 
 Execute the following PowerShell script:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $dirs = @(
     "src\content\schemas",
@@ -65,7 +65,7 @@ foreach ($dir in $dirs) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $valid = (Test-Path "src\content\schemas") -and (Test-Path "src\content\loaders") -and (Test-Path "src\content\markdown") -and (Test-Path "src\content\errors")
 if ($valid) { "PASS" } else { "FAIL" }
 ```
@@ -94,7 +94,7 @@ Expected output: `PASS`
 
 Write the utility module using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { z } from 'zod';
 
@@ -177,7 +177,7 @@ export const BlogSummarySchema = z
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/utils.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -205,7 +205,7 @@ Expected output: `PASS`
 
 Write the error handler module using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { ZodError } from 'zod';
 
@@ -265,7 +265,7 @@ export function renderErrorReport(errors: ValidationError[]): string {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/errors/handler.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -286,13 +286,13 @@ Expected output: `PASS`
 - ✓ JSON parses cleanly
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 
 Create fixture file using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\fixtures")) {
     New-Item -ItemType Directory -Path "tests\fixtures" -Force | Out-Null
@@ -335,7 +335,7 @@ if (-not (Test-Path "tests\fixtures")) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 try {
     $null = Get-Content "tests\fixtures\site.json" -Raw | ConvertFrom-Json
     "PASS"
@@ -366,7 +366,7 @@ Expected output: `PASS`
 
 Write the project fixture using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\fixtures\projects")) {
     New-Item -ItemType Directory -Path "tests\fixtures\projects" -Force | Out-Null
@@ -405,7 +405,7 @@ Detailed engineering breakdown and architectural decisions.
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $hasFile = Test-Path "tests\fixtures\projects\valid-project.mdx"
 $hasHeading = (Get-Content "tests\fixtures\projects\valid-project.mdx" -Raw) -match "## Build Documentation"
 if ($hasFile -and $hasHeading) { "PASS" } else { "FAIL" }
@@ -433,7 +433,7 @@ Expected output: `PASS`
 
 Write the certification fixture using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\fixtures\certifications")) {
     New-Item -ItemType Directory -Path "tests\fixtures\certifications" -Force | Out-Null
@@ -459,7 +459,7 @@ Supporting context and credential verification notes.
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $hasFile = Test-Path "tests\fixtures\certifications\valid-certification.mdx"
 if ($hasFile) { "PASS" } else { "FAIL" }
 ```
@@ -486,7 +486,7 @@ Expected output: `PASS`
 
 Write the blog fixture using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\fixtures\blog")) {
     New-Item -ItemType Directory -Path "tests\fixtures\blog" -Force | Out-Null
@@ -516,7 +516,7 @@ Post content describing participation, learnings, and engineering outcomes.
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $hasFile = Test-Path "tests\fixtures\blog\valid-blog-post.mdx"
 if ($hasFile) { "PASS" } else { "FAIL" }
 ```
@@ -544,7 +544,7 @@ Expected output: `PASS`
 
 Create the test file using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\unit\schemas")) {
     New-Item -ItemType Directory -Path "tests\unit\schemas" -Force | Out-Null
@@ -629,7 +629,7 @@ describe('Primitive Validation Utilities', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/schemas/utils.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -657,7 +657,7 @@ Expected output: `PASS`
 
 Write `src/types/content.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Content Contracts (Single Source of Truth)
@@ -672,7 +672,7 @@ export type { IsoDateString } from '@/content/schemas/utils';
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/types/content.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -699,7 +699,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test
@@ -707,7 +707,7 @@ npm run test
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test" -NoNewWindow -PassThru -Wait).ExitCode
@@ -724,7 +724,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 1 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\content\schemas\utils.ts"
 Test-Path "src\content\errors\handler.ts"
 Test-Path "tests\fixtures\site.json"

@@ -26,7 +26,7 @@ Conduct an exhaustive responsive design audit and design-token compliance verifi
 ## Prerequisites
 
 - Goals M4.G1 through M4.G7 completed (all layout components and app files exist)
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 ---
 
@@ -50,7 +50,7 @@ Conduct an exhaustive responsive design audit and design-token compliance verifi
 
 Execute breakpoint audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $targetDirs = @("src\components\layout", "src\app")
 $files = Get-ChildItem -Path $targetDirs -Include *.ts, *.tsx -Recurse
@@ -91,7 +91,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute touch target and overflow check using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $toggleFile = "src\components\layout\mobile-nav-toggle.tsx"
 $headerFile = "src\components\layout\site-header.tsx"
@@ -135,7 +135,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute primitive composition audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $violations = @()
 
@@ -216,7 +216,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute focus ring composition check using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $interactiveFiles = @(
     "src\components\layout\mobile-nav-toggle.tsx",
@@ -271,7 +271,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute token audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $targetDirs = @("src\components\layout", "src\app")
 $files = Get-ChildItem -Path $targetDirs -Include *.ts, *.tsx -Recurse
@@ -320,7 +320,7 @@ Expected output from the PowerShell check: `PASS`
 
 Append responsive protocol to `task-notes.md` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $protocolNotes = @'
 
@@ -357,7 +357,7 @@ Add-Content -Path ".kiro\specs\m4-global-layout-navigation\task-notes.md" -Value
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $notes = Get-Content ".kiro\specs\m4-global-layout-navigation\task-notes.md" -Raw
 if ($notes -match "Manual Responsive & Viewport Verification Protocol") { "PASS" } else { "FAIL" }
 ```
@@ -387,7 +387,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/compliance.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import { describe, it, expect } from 'vitest';
@@ -447,7 +447,7 @@ describe('Layout Compliance & Token Adherence (Req 12, 13)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/compliance.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -474,7 +474,7 @@ Expected output: `PASS`
 
 Execute diff check using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $diff = git diff tailwind.config.ts src/app/globals.css src/components/ui/
 if ($diff.Length -eq 0) {
@@ -508,7 +508,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute gap audit check using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $notes = Get-Content ".kiro\specs\m4-global-layout-navigation\task-notes.md" -Raw
 if ($notes.Contains("SkipLink Stacking (`z-50`)")) {
@@ -543,7 +543,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npm run typecheck
 npm run lint
@@ -552,7 +552,7 @@ npm run test -- tests/unit/components/layout/compliance.test.ts
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/layout/compliance.test.ts" -NoNewWindow -PassThru -Wait).ExitCode
@@ -569,7 +569,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 8 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "tests\unit\components\layout\compliance.test.ts"
 Test-Path ".kiro\specs\m4-global-layout-navigation\task-notes.md"
 npm run typecheck

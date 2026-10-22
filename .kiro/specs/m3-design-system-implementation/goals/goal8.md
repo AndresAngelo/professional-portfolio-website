@@ -24,7 +24,7 @@ Implement the server-component `MarkdownDoc` documentation layout in `src/compon
 ## Prerequisites
 
 - Goals M3.G1 through M3.G7 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `src/components/ui/cx.ts` and `focus-ring.ts` exist and compile
 
 ---
@@ -53,7 +53,7 @@ Implement the server-component `MarkdownDoc` documentation layout in `src/compon
 
 Write `src/components/ui/markdown-doc-enhance.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 /**
@@ -115,7 +115,7 @@ export function enhanceDocumentHtml(html: string, labels: EnhanceLabels): string
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/markdown-doc-enhance.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -146,7 +146,7 @@ Expected output: `PASS`
 
 Write `src/components/ui/markdown-doc.module.css` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 /* Markdown Documentation Prose Styling
@@ -239,7 +239,7 @@ cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-websit
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\ui\markdown-doc.module.css"
 ```
 Expected output: `True`
@@ -269,7 +269,7 @@ Expected output: `True`
 
 Write `src/components/ui/markdown-doc.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -321,7 +321,7 @@ export function MarkdownDoc({
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/markdown-doc.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -351,7 +351,7 @@ Expected output: `PASS`
 
 Write unit tests using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import { describe, it, expect } from 'vitest';
@@ -398,7 +398,7 @@ describe('enhanceDocumentHtml Pure Helper (Req 10.5, 10.6, 10.8)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/markdown-doc-enhance.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -427,7 +427,7 @@ Expected output: `PASS`
 
 Write component tests using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -476,7 +476,7 @@ describe('MarkdownDoc Primitive (Req 10)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/markdown-doc.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -505,7 +505,7 @@ Expected output: `PASS`
 
 Append property test to `tests/unit/components/ui/markdown-doc-enhance.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -539,7 +539,7 @@ $content | Set-Content "tests\unit\components\ui\markdown-doc-enhance.test.ts" -
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/markdown-doc-enhance.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -567,7 +567,7 @@ Expected output: `PASS`
 
 Append idempotence property test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -600,7 +600,7 @@ $content | Set-Content "tests\unit\components\ui\markdown-doc-enhance.test.ts" -
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/markdown-doc-enhance.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -628,7 +628,7 @@ Expected output: `PASS`
 
 Append axe check to `tests/unit/components/ui/markdown-doc.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -668,7 +668,7 @@ $content | Set-Content "tests\unit\components\ui\markdown-doc.test.tsx" -Encodin
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/markdown-doc.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -695,7 +695,7 @@ Expected output: `PASS`
 
 Execute source audit script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $files = @(
     "src\components\ui\markdown-doc.tsx",
@@ -748,7 +748,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test -- tests/unit/components/ui/markdown-doc-enhance.test.ts tests/unit/components/ui/markdown-doc.test.tsx
@@ -756,7 +756,7 @@ npm run test -- tests/unit/components/ui/markdown-doc-enhance.test.ts tests/unit
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/ui/markdown-doc-enhance.test.ts tests/unit/components/ui/markdown-doc.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
@@ -773,7 +773,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 8 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\ui\markdown-doc.tsx"
 Test-Path "src\components\ui\markdown-doc-enhance.ts"
 Test-Path "src\components\ui\markdown-doc.module.css"

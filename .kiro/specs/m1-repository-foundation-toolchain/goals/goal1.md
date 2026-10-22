@@ -67,7 +67,7 @@ Expected: Both commands output `PASS`.
 
 **Acceptance Criteria:**
 - ✓ Directory `personal-website-portfolio-v2` exists
-- ✓ Directory is located at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- ✓ Directory is located at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - ✓ Directory is empty or ready for initialization
 
 **Prerequisites:**
@@ -82,7 +82,7 @@ New-Item -ItemType Directory -Path "personal-website-portfolio-v2"
 
 **Validation:**
 ```powershell
-Test-Path "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+Test-Path "c:\dev\andres-webapp-professional\personal-website-portfolio"
 ```
 Expected: `True`
 
@@ -111,7 +111,7 @@ Expected: `True`
 Navigate into the project directory and run the interactive CLI or use flags for non-interactive automation. To ensure strict adherence to the requirements, use the following command:
 
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm
 ```
@@ -336,7 +336,7 @@ Expected: `PASS`
 Run the following to confirm all tasks in this goal are complete:
 ```powershell
 # Check if project root exists and has basic files
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio\"
 ls
 npm run dev -- --skip-install # Attempt to start dev server (might fail if ports are taken, but should not fail on missing files)
 ```

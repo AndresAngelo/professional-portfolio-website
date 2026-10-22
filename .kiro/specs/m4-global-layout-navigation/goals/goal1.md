@@ -26,7 +26,7 @@ Establish the foundational test fixtures, property-based testing arbitraries, fi
 
 - Milestones M1, M2, and M3 completed (`m3-baseline` tagged in Git)
 - Workspace root: `c:\dev\andres-webapp-professional\personal-website-portfolio`
-- Project root: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - Upstream packages installed: `vitest`, `@testing-library/react`, `fast-check`, `vitest-axe`
 
 ---
@@ -55,7 +55,7 @@ Establish the foundational test fixtures, property-based testing arbitraries, fi
 
 Write `tests/fixtures/site-config.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\fixtures")) {
     New-Item -ItemType Directory -Path "tests\fixtures" -Force | Out-Null
@@ -160,7 +160,7 @@ export const reorderedNavSiteConfig: SiteConfig = {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit tests/fixtures/site-config.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -192,7 +192,7 @@ Expected output: `PASS`
 
 Write `tests/fixtures/site-config-arbitraries.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import fc from 'fast-check';
@@ -268,7 +268,7 @@ export const invalidUrlArbitrary: fc.Arbitrary<string> = fc.oneof(
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit tests/fixtures/site-config-arbitraries.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -304,7 +304,7 @@ Expected output: `PASS`
 
 Write `src/components/layout/layout-text.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "src\components\layout")) {
     New-Item -ItemType Directory -Path "src\components\layout" -Force | Out-Null
@@ -342,7 +342,7 @@ export const NOT_FOUND_SECTIONS_LABEL = 'Browse a section';
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/layout-text.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -370,7 +370,7 @@ Expected output: `PASS`
 
 Execute inspection script using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $errors = @()
 
@@ -444,7 +444,7 @@ Expected output from the PowerShell check: `PASS`
 
 Write `task-notes.md` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path ".kiro\specs\m4-global-layout-navigation")) {
     New-Item -ItemType Directory -Path ".kiro\specs\m4-global-layout-navigation" -Force | Out-Null
@@ -478,7 +478,7 @@ None of these packages affect the static production bundle.
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path ".kiro\specs\m4-global-layout-navigation\task-notes.md"
 ```
 Expected output: `True`
@@ -504,7 +504,7 @@ Expected output: `True`
 
 Verify dependency presence using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 $installed = $pkg.devDependencies."@testing-library/user-event"
@@ -519,7 +519,7 @@ if ($null -eq $installed) {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 node -e "require('@testing-library/user-event'); console.log('PASS');"
 ```
 Expected output: `PASS`
@@ -545,14 +545,14 @@ Expected output: `PASS`
 
 Execute verification check via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 node -e "require('vitest-axe'); require('fast-check'); console.log('PASS');"
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $res = node -e "require('vitest-axe'); require('fast-check'); console.log('PASS');"
 if ($res -eq "PASS") { "PASS" } else { "FAIL" }
 ```
@@ -581,7 +581,7 @@ Expected output: `PASS`
 
 Write the unit tests using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\unit\components\layout")) {
     New-Item -ItemType Directory -Path "tests\unit\components\layout" -Force | Out-Null
@@ -631,7 +631,7 @@ describe('Layout Text & Structural Constants', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/layout-text.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -662,7 +662,7 @@ Expected output: `PASS`
 
 Write fixture sanity tests using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import { describe, it, expect } from 'vitest';
@@ -705,7 +705,7 @@ describe('SiteConfig Test Fixtures Sanity', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/fixtures/site-config.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -732,7 +732,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $diff = git diff tailwind.config.ts src/app/globals.css src/components/ui/
 if ($diff.Length -gt 0) {
@@ -747,7 +747,7 @@ npm run test -- tests/unit/components/layout/layout-text.test.ts tests/fixtures/
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $diff = git diff tailwind.config.ts src/app/globals.css src/components/ui/
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
@@ -765,7 +765,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 1 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "tests\fixtures\site-config.ts"
 Test-Path "tests\fixtures\site-config-arbitraries.ts"
 Test-Path "src\components\layout\layout-text.ts"

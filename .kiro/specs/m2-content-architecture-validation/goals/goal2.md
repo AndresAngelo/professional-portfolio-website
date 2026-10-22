@@ -23,7 +23,7 @@ Define all canonical enumeration schemas using Zod's `.enum()` constructor (`Pro
 ## Prerequisites
 
 - Goal M2.G1 completed successfully
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `src/content/schemas/utils.ts` and `src/types/content.ts` exist
 
 ---
@@ -48,7 +48,7 @@ Define all canonical enumeration schemas using Zod's `.enum()` constructor (`Pro
 
 Write the initial `enums.ts` module with `ProjectStatusSchema` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { z } from 'zod';
 
@@ -67,7 +67,7 @@ export type ProjectStatus = z.infer<typeof ProjectStatusSchema>;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/enums.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -94,7 +94,7 @@ Expected output: `PASS`
 
 Append `CertificationCategorySchema` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
 /**
@@ -118,7 +118,7 @@ Add-Content -Path "src\content\schemas\enums.ts" -Value $appendCode -Encoding UT
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/enums.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -145,7 +145,7 @@ Expected output: `PASS`
 
 Append `EventTypeSchema` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
 /**
@@ -167,7 +167,7 @@ Add-Content -Path "src\content\schemas\enums.ts" -Value $appendCode -Encoding UT
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/enums.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -194,7 +194,7 @@ Expected output: `PASS`
 
 Append `ContactChannelTypeSchema` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
 /**
@@ -215,7 +215,7 @@ Add-Content -Path "src\content\schemas\enums.ts" -Value $appendCode -Encoding UT
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/content/schemas/enums.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -243,7 +243,7 @@ Expected output: `PASS`
 
 Create the test file with the `ProjectStatusSchema` suite using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { describe, it, expect } from 'vitest';
 import {
@@ -279,7 +279,7 @@ describe('Enum Schemas Validation', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/schemas/enums.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -306,7 +306,7 @@ Expected output: `PASS`
 
 Append the `CertificationCategorySchema` suite using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
   describe('CertificationCategorySchema', () => {
@@ -342,7 +342,7 @@ $content | Set-Content "tests\unit\schemas\enums.test.ts" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/schemas/enums.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -369,7 +369,7 @@ Expected output: `PASS`
 
 Append the `EventTypeSchema` suite using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
   describe('EventTypeSchema', () => {
@@ -403,7 +403,7 @@ $content | Set-Content "tests\unit\schemas\enums.test.ts" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/schemas/enums.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -430,7 +430,7 @@ Expected output: `PASS`
 
 Append the `ContactChannelTypeSchema` suite using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $appendCode = @'
 
   describe('ContactChannelTypeSchema', () => {
@@ -463,7 +463,7 @@ $content | Set-Content "tests\unit\schemas\enums.test.ts" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/schemas/enums.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -490,7 +490,7 @@ Expected output: `PASS`
 
 Update `src/types/content.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Content Contracts (Single Source of Truth)
@@ -512,7 +512,7 @@ export type {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/types/content.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -539,7 +539,7 @@ Expected output: `PASS`
 
 Execute the quality checks using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 npm run lint
 npm run test
@@ -547,7 +547,7 @@ npm run test
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test" -NoNewWindow -PassThru -Wait).ExitCode
@@ -564,7 +564,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 2 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Get-Content "src\content\schemas\enums.ts" | Select-String "ProjectStatusSchema", "CertificationCategorySchema", "EventTypeSchema", "ContactChannelTypeSchema"
 Get-Content "src\types\content.ts" | Select-String "ProjectStatus", "CertificationCategory", "EventType", "ContactChannelType"
 npm run test -- tests/unit/schemas/enums.test.ts

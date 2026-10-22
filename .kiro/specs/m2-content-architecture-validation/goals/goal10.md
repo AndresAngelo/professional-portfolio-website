@@ -22,7 +22,7 @@ Finalize the comprehensive verification suite for Milestone 2, ensuring test cov
 ## Prerequisites
 
 - Goals M2.G1 through M2.G9 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - All schemas, loaders, markdown pipeline, and build validation scripts active
 
 ---
@@ -48,7 +48,7 @@ Finalize the comprehensive verification suite for Milestone 2, ensuring test cov
 
 Create `tests/unit/schemas/validation-rules.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import { describe, it, expect } from 'vitest';
 import {
@@ -129,7 +129,7 @@ describe('Exhaustive Validation Rules (AGENTS.md Section 5)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/schemas/validation-rules.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -163,7 +163,7 @@ Expected output: `PASS`
 
 Create `tests/unit/properties/correctness.test.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\unit\properties")) {
     New-Item -ItemType Directory -Path "tests\unit\properties" -Force | Out-Null
@@ -287,7 +287,7 @@ describe('M2 Correctness Properties Verification (design.md Section 6)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/properties/correctness.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -315,7 +315,7 @@ Expected output: `PASS`
 
 Write `TROUBLESHOOTING.md` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 # Content Authoring & Error Troubleshooting Guide
 
@@ -391,7 +391,7 @@ npm run validate:content
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "TROUBLESHOOTING.md"
 ```
 Expected output: `True`
@@ -418,13 +418,13 @@ Expected output: `True`
 
 Run coverage analysis using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test:coverage
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test:coverage
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -450,14 +450,14 @@ Expected output: `PASS`
 
 Run format check via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run format
 npm run format:check
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run format:check
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -483,13 +483,13 @@ Expected output: `PASS`
 
 Run linting via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -515,13 +515,13 @@ Expected output: `PASS`
 
 Run type checking via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run typecheck
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -548,13 +548,13 @@ Expected output: `PASS`
 
 Execute production build via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 if ($LASTEXITCODE -eq 0 -and (Test-Path "out\index.html")) { "PASS" } else { "FAIL" }
 ```
@@ -580,7 +580,7 @@ Expected output: `PASS`
 
 Execute Git commit and tagging via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 git add .
 git commit -m "feat(m2): content architecture, zod schemas, loaders, and validation pipeline"
 git tag -a "m2-baseline" -m "Milestone 2 Content Architecture & Validation Verified"
@@ -588,7 +588,7 @@ git tag -a "m2-baseline" -m "Milestone 2 Content Architecture & Validation Verif
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $tag = git tag -l "m2-baseline"
 if ($tag -eq "m2-baseline") { "PASS" } else { "FAIL" }
 ```
@@ -616,7 +616,7 @@ Expected output: `PASS`
 
 Update the state tracker using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 # Orchestrator Progress Tracker
 
@@ -647,7 +647,7 @@ git commit -m "docs(m2): record milestone 2 completion in progress tracker"
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $content = Get-Content "local-ai\program-states\progress-tracker.md" -Raw
 if ($content -match "M2: Content Architecture & Validation.*COMPLETED") { "PASS" } else { "FAIL" }
 ```
@@ -661,7 +661,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 10 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "TROUBLESHOOTING.md"
 Test-Path "tests\unit\schemas\validation-rules.test.ts"
 Test-Path "tests\unit\properties\correctness.test.ts"

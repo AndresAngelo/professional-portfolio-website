@@ -22,7 +22,7 @@ Configure Tailwind CSS and global stylesheets to map all SGDS-inspired design to
 ## Prerequisites
 
 - Goal M1.G1 and M1.G2 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `tailwind.config.ts` and `src/app/globals.css` exist from the initial Next.js scaffold
 
 ---
@@ -40,19 +40,19 @@ Configure Tailwind CSS and global stylesheets to map all SGDS-inspired design to
 - ✓ File contents are verified via PowerShell
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 Execute the following PowerShell script to check both files:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Get-Content "tailwind.config.ts" -Raw
 Get-Content "src\app\globals.css" -Raw
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 if ((Test-Path "tailwind.config.ts") -and (Test-Path "src\app\globals.css")) { "PASS" } else { "FAIL" }
 ```
 Expected output: `PASS`
@@ -72,12 +72,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G3.T1 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tailwind.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\tailwind.config.ts`
 
 **Implementation Details:**
 Write the foundational structure to `tailwind.config.ts`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import type { Config } from 'tailwindcss';
 
@@ -97,7 +97,7 @@ export default config;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $content = Get-Content "tailwind.config.ts" -Raw
 if ($content -match "\./src/\*\*/\*\.\{js,ts,jsx,tsx,mdx\}") { "PASS" } else { "FAIL" }
 ```
@@ -122,12 +122,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G3.T2 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tailwind.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\tailwind.config.ts`
 
 **Implementation Details:**
 Update `tailwind.config.ts` with color token bindings:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import type { Config } from 'tailwindcss';
 
@@ -164,7 +164,7 @@ export default config;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "tailwind.config.ts" -Raw
 if ($cfg -match "'brand-primary': 'var\(--color-brand-primary\)'" -and $cfg -match "'focus-ring': 'var\(--color-focus-ring\)'") { "PASS" } else { "FAIL" }
 ```
@@ -184,12 +184,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G3.T3 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tailwind.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\tailwind.config.ts`
 
 **Implementation Details:**
 Incorporate the spacing tokens into `tailwind.config.ts`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "tailwind.config.ts" -Raw
 $spacingBlock = @'
       spacing: {
@@ -210,7 +210,7 @@ $cfg | Set-Content "tailwind.config.ts" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "tailwind.config.ts" -Raw
 if ($cfg -match "'24': '6rem'") { "PASS" } else { "FAIL" }
 ```
@@ -238,12 +238,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G3.T4 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tailwind.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\tailwind.config.ts`
 
 **Implementation Details:**
 Append the fontSize block to `tailwind.config.ts`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "tailwind.config.ts" -Raw
 $fontBlock = @'
       fontSize: {
@@ -263,7 +263,7 @@ $cfg | Set-Content "tailwind.config.ts" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "tailwind.config.ts" -Raw
 if ($cfg -match "'heading-1': \['2.375rem', \{ lineHeight: '2.875rem' \}\]" -and $cfg -match "'caption': \['0.75rem'") { "PASS" } else { "FAIL" }
 ```
@@ -285,12 +285,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G3.T5 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\tailwind.config.ts`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\tailwind.config.ts`
 
 **Implementation Details:**
 Write the finalized, complete `tailwind.config.ts`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 import type { Config } from 'tailwindcss';
 
@@ -370,7 +370,7 @@ export default config;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content "tailwind.config.ts" -Raw
 if ($cfg -match "'elevation-1'" -and $cfg -match "'radius-lg'" -and $cfg -match "'fast': '150ms'") { "PASS" } else { "FAIL" }
 ```
@@ -392,12 +392,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G3.T6 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\src\app\globals.css`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\src\app\globals.css`
 
 **Implementation Details:**
 Write the light mode CSS variables to `src/app/globals.css`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 @tailwind base;
 @tailwind components;
@@ -428,7 +428,7 @@ cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-websit
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $css = Get-Content "src\app\globals.css" -Raw
 if ($css -match "--color-brand-primary: #0052A5;" -and $css -match "--color-bg-page: #FFFFFF;") { "PASS" } else { "FAIL" }
 ```
@@ -452,12 +452,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G3.T7 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\src\app\globals.css`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\src\app\globals.css`
 
 **Implementation Details:**
 Append the dark mode block to `src/app/globals.css`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $darkCss = @'
 
 @media (prefers-color-scheme: dark) {
@@ -485,7 +485,7 @@ Add-Content -Path "src\app\globals.css" -Value $darkCss -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $css = Get-Content "src\app\globals.css" -Raw
 if ($css -match "prefers-color-scheme: dark" -and $css -match "--color-brand-primary: #4FA3E3;") { "PASS" } else { "FAIL" }
 ```
@@ -506,12 +506,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G3.T8 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\src\app\globals.css`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\src\app\globals.css`
 
 **Implementation Details:**
 Append the `@layer base` configuration to `src/app/globals.css`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $baseLayer = @'
 
 @layer base {
@@ -534,7 +534,7 @@ Add-Content -Path "src\app\globals.css" -Value $baseLayer -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $css = Get-Content "src\app\globals.css" -Raw
 if ($css -match "@layer base" -and $css -match "ring-focus-ring") { "PASS" } else { "FAIL" }
 ```
@@ -559,13 +559,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Execute the Next.js production build:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run build
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -579,7 +579,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 3 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Get-Content "tailwind.config.ts" | Select-String "page:", "brand-primary:", "elevation-1:"
 Get-Content "src\app\globals.css" | Select-String "--color-brand-primary", "prefers-color-scheme"
 npm run build

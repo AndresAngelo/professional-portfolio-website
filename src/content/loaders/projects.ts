@@ -1,1 +1,0 @@
-// Scaffolded project loading and validation logic will go here (M2.G4.T4)

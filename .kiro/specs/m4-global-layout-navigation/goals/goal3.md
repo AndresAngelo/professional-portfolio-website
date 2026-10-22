@@ -29,7 +29,7 @@ Implement the interactive navigation components in `src/components/layout/`: the
 - Layout text constants available at `src/components/layout/layout-text.ts`
 - M3 primitives (`FOCUS_RING`, `MOTION_FAST`, `cx`) available at `src/components/ui/`
 - `@testing-library/user-event` installed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 ---
 
@@ -55,7 +55,7 @@ Implement the interactive navigation components in `src/components/layout/`: the
 
 Write the skeleton of `src/components/layout/mobile-nav-toggle.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 'use client';
@@ -83,7 +83,7 @@ export interface MobileNavToggleProps {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/mobile-nav-toggle.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -114,7 +114,7 @@ Expected output: `PASS`
 
 Append component structure to `src/components/layout/mobile-nav-toggle.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -212,7 +212,7 @@ Add-Content -Path "src\components\layout\mobile-nav-toggle.tsx" -Value $appendCo
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/mobile-nav-toggle.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -240,7 +240,7 @@ Expected output: `PASS`
 
 Update `src/components/layout/mobile-nav-toggle.tsx` using PowerShell to add keydown and pathname observation logic:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $fullComponent = @'
 'use client';
@@ -372,7 +372,7 @@ export function MobileNavToggle({ entries }: MobileNavToggleProps): JSX.Element 
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/mobile-nav-toggle.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -403,7 +403,7 @@ Expected output: `PASS`
 
 Write `src/components/layout/primary-nav.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -437,7 +437,7 @@ export function PrimaryNav({ navigation, contactChannels }: PrimaryNavProps): JS
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/layout/primary-nav.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -468,7 +468,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/mobile-nav-toggle.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -565,7 +565,7 @@ describe('MobileNavToggle Component (Req 6)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/mobile-nav-toggle.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -595,7 +595,7 @@ Expected output: `PASS`
 
 Append Property 6 test to `tests/unit/components/layout/mobile-nav-toggle.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -646,7 +646,7 @@ $content | Set-Content "tests\unit\components\layout\mobile-nav-toggle.test.tsx"
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/mobile-nav-toggle.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -676,7 +676,7 @@ Expected output: `PASS`
 
 Write `tests/unit/components/layout/primary-nav.test.tsx` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 @'
 import React from 'react';
@@ -741,7 +741,7 @@ describe('PrimaryNav Component (Req 1, 4, 5)', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/primary-nav.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -770,7 +770,7 @@ Expected output: `PASS`
 
 Append server HTML test using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $appendCode = @'
 
@@ -803,7 +803,7 @@ $content | Set-Content "tests\unit\components\layout\primary-nav.test.tsx" -Enco
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/layout/primary-nav.test.tsx
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -830,7 +830,7 @@ Expected output: `PASS`
 
 Execute client boundary audit using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 $layoutFiles = Get-ChildItem -Path "src\components\layout" -Filter "*.ts*"
 $violations = @()
@@ -876,7 +876,7 @@ Expected output from the PowerShell check: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 npm run typecheck
 npm run lint
@@ -885,7 +885,7 @@ npm run test -- tests/unit/components/layout/mobile-nav-toggle.test.tsx tests/un
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
 $s = (Start-Process -FilePath "npm" -ArgumentList "run test -- tests/unit/components/layout/mobile-nav-toggle.test.tsx tests/unit/components/layout/primary-nav.test.tsx" -NoNewWindow -PassThru -Wait).ExitCode
@@ -902,7 +902,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 3 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\layout\mobile-nav-toggle.tsx"
 Test-Path "src\components\layout\primary-nav.tsx"
 Test-Path "tests\unit\components\layout\mobile-nav-toggle.test.tsx"

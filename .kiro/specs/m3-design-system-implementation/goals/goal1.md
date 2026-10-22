@@ -25,7 +25,7 @@ Establish the shared foundational styling and utility modules in `src/components
 ## Prerequisites
 
 - Milestone 1 and Milestone 2 completed (`m2-baseline` tagged, clean working tree)
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - Node.js LTS and npm available
 - Pre-installed test framework: `vitest`
 
@@ -46,14 +46,14 @@ Establish the shared foundational styling and utility modules in `src/components
 - ✓ Contains no dependencies on `clsx` or `tailwind-merge` (`AGENTS.md` 6.2, Req 16.5)
 
 **Prerequisites:**
-- Workspace at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Workspace at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - Target directory `src/components/ui/` exists
 
 **Implementation Details:**
 
 Write `src/components/ui/cx.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "src\components\ui")) {
     New-Item -ItemType Directory -Path "src\components\ui" -Force | Out-Null
@@ -74,7 +74,7 @@ export function cx(...values: ClassValue[]): string {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/cx.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -104,7 +104,7 @@ Expected output: `PASS`
 
 Write `src/components/ui/focus-ring.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Focus Ring Utility Composition
@@ -119,7 +119,7 @@ export const FOCUS_RING =
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/focus-ring.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -149,7 +149,7 @@ Expected output: `PASS`
 
 Write `src/components/ui/motion.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Canonical Motion and Transition Utilities
@@ -170,7 +170,7 @@ export const MOTION_STANDARD =
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/motion.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -199,7 +199,7 @@ Expected output: `PASS`
 
 Write `src/components/ui/heading-level.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * Constrained heading level union for accessible cards and empty states.
@@ -213,7 +213,7 @@ export type HeadingTag = `h${HeadingLevel}`;
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/heading-level.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -243,7 +243,7 @@ Expected output: `PASS`
 
 Write `src/components/ui/external-link-attrs.ts` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 /**
  * External Link Validation and Attribute Utilities
@@ -277,7 +277,7 @@ export function resolveExternalHref(href: string | null | undefined): HttpsUrl |
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npx tsc --noEmit src/components/ui/external-link-attrs.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -307,7 +307,7 @@ Expected output: `PASS`
 
 Write the unit test file using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path "tests\unit\components\ui")) {
     New-Item -ItemType Directory -Path "tests\unit\components\ui" -Force | Out-Null
@@ -385,7 +385,7 @@ describe('M3 Shared Internals', () => {
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run test -- tests/unit/components/ui/shared.test.ts
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -413,7 +413,7 @@ Expected output: `PASS`
 
 Write `task-notes.md` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 
 if (-not (Test-Path ".kiro\specs\m3-design-system-implementation")) {
     New-Item -ItemType Directory -Path ".kiro\specs\m3-design-system-implementation" -Force | Out-Null
@@ -445,7 +445,7 @@ Neither package affects the production bundle (`devDependencies` only).
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path ".kiro\specs\m3-design-system-implementation\task-notes.md"
 ```
 Expected output: `True`
@@ -472,13 +472,13 @@ Expected output: `True`
 
 Install `vitest-axe` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm install --save-dev --save-exact vitest-axe@0.1.0
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.devDependencies."vitest-axe" -eq "0.1.0") { "PASS" } else { "FAIL" }
 ```
@@ -505,13 +505,13 @@ Expected output: `PASS`
 
 Install `fast-check` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm install --save-dev --save-exact fast-check@3.23.2
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.devDependencies."fast-check" -eq "3.23.2") { "PASS" } else { "FAIL" }
 ```
@@ -538,7 +538,7 @@ Expected output: `PASS`
 
 Execute verification commands via PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $diff = git diff tailwind.config.ts src/app/globals.css
 if ($diff.Length -gt 0) {
     Write-Error "CRITICAL: tailwind.config.ts or globals.css was modified!"
@@ -552,7 +552,7 @@ npm run test -- tests/unit/components/ui/shared.test.ts
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $diff = git diff tailwind.config.ts src/app/globals.css
 $t = (Start-Process -FilePath "npm" -ArgumentList "run typecheck" -NoNewWindow -PassThru -Wait).ExitCode
 $l = (Start-Process -FilePath "npm" -ArgumentList "run lint" -NoNewWindow -PassThru -Wait).ExitCode
@@ -570,7 +570,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 1 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Test-Path "src\components\ui\cx.ts"
 Test-Path "src\components\ui\focus-ring.ts"
 Test-Path "src\components\ui\motion.ts"

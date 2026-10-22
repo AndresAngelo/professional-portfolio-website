@@ -25,7 +25,7 @@ Configure ESLint with strict TypeScript validation, Next.js Core Web Vitals chec
 ## Prerequisites
 
 - Goal M1.G1, M1.G2, and M1.G3 completed
-- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Working directory: `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 - `package.json` and basic ESLint setup from Next.js initialization present
 
 ---
@@ -42,18 +42,18 @@ Configure ESLint with strict TypeScript validation, Next.js Core Web Vitals chec
 - ✓ Discrepancies against M1 requirements are identified
 
 **Prerequisites:**
-- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\`
+- Project root exists at `c:\dev\andres-webapp-professional\personal-website-portfolio\`
 
 **Implementation Details:**
 Execute the following PowerShell script to check for existing configuration:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Get-ChildItem -Path . -Filter ".eslintrc*" | ForEach-Object { Get-Content $_.FullName -Raw }
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $eslintFile = Get-ChildItem -Path . -Filter ".eslintrc*"
 if ($eslintFile) { "PASS" } else { "FAIL" }
 ```
@@ -80,13 +80,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Install the required packages using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-jsx-a11y
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 $dev = $pkg.devDependencies
 if ($dev."@typescript-eslint/parser" -and $dev."@typescript-eslint/eslint-plugin" -and $dev."eslint-plugin-jsx-a11y") { "PASS" } else { "FAIL" }
@@ -108,12 +108,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G4.T2 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.eslintrc.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.eslintrc.json`
 
 **Implementation Details:**
 Create or overwrite `.eslintrc.json` using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 {
   "root": true,
@@ -128,7 +128,7 @@ cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-websit
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 if ($cfg.root -eq $true -and $cfg.extends -contains "plugin:jsx-a11y/recommended") { "PASS" } else { "FAIL" }
 ```
@@ -150,12 +150,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G4.T3 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.eslintrc.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.eslintrc.json`
 
 **Implementation Details:**
 Update `.eslintrc.json` with parser settings:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 $cfg | Add-Member -MemberType NoteProperty -Name "parser" -Value "@typescript-eslint/parser" -Force
 $parserOptions = [PSCustomObject]@{
@@ -171,7 +171,7 @@ $cfg | ConvertTo-Json -Depth 10 | Set-Content ".eslintrc.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 if ($cfg.parser -eq "@typescript-eslint/parser" -and $cfg.parserOptions.ecmaFeatures.jsx -eq $true) { "PASS" } else { "FAIL" }
 ```
@@ -191,12 +191,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G4.T4 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.eslintrc.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.eslintrc.json`
 
 **Implementation Details:**
 Update the `plugins` field in `.eslintrc.json`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 $cfg | Add-Member -MemberType NoteProperty -Name "plugins" -Value @("@typescript-eslint", "jsx-a11y") -Force
 $cfg | ConvertTo-Json -Depth 10 | Set-Content ".eslintrc.json" -Encoding UTF8
@@ -204,7 +204,7 @@ $cfg | ConvertTo-Json -Depth 10 | Set-Content ".eslintrc.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 if ($cfg.plugins -contains "@typescript-eslint" -and $cfg.plugins -contains "jsx-a11y") { "PASS" } else { "FAIL" }
 ```
@@ -226,12 +226,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G4.T5 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.eslintrc.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.eslintrc.json`
 
 **Implementation Details:**
 Add TypeScript-specific rules to `.eslintrc.json`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 if (-not $cfg.rules) {
     $cfg | Add-Member -MemberType NoteProperty -Name "rules" -Value ([PSCustomObject]@{}) -Force
@@ -246,7 +246,7 @@ $cfg | ConvertTo-Json -Depth 10 | Set-Content ".eslintrc.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 if ($cfg.rules."@typescript-eslint/no-explicit-any" -eq "error" -and $cfg.rules."@typescript-eslint/no-unsafe-assignment" -eq "error") { "PASS" } else { "FAIL" }
 ```
@@ -266,12 +266,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G4.T6 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.eslintrc.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.eslintrc.json`
 
 **Implementation Details:**
 Add accessibility anchor rule options to `.eslintrc.json`:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 
 $anchorRule = @(
@@ -289,7 +289,7 @@ $cfg | ConvertTo-Json -Depth 10 | Set-Content ".eslintrc.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $cfg = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
 if ($cfg.rules."jsx-a11y/anchor-is-valid"[0] -eq "error") { "PASS" } else { "FAIL" }
 ```
@@ -309,12 +309,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G4.T7 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\.eslintrc.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\.eslintrc.json`
 
 **Implementation Details:**
 Write the complete `.eslintrc.json` to ensure formatting and property order:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 @'
 {
   "root": true,
@@ -355,7 +355,7 @@ cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-websit
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 try {
     $null = Get-Content ".eslintrc.json" -Raw | ConvertFrom-Json
     "PASS"
@@ -379,12 +379,12 @@ Expected output: `PASS`
 
 **Prerequisites:**
 - M1.G4.T8 completed
-- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2\package.json`
+- Target file: `c:\dev\andres-webapp-professional\personal-website-portfolio\package.json`
 
 **Implementation Details:**
 Update the `package.json` scripts block using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 $pkg.scripts.lint = "next lint"
 $pkg | ConvertTo-Json -Depth 10 | Set-Content "package.json" -Encoding UTF8
@@ -392,7 +392,7 @@ $pkg | ConvertTo-Json -Depth 10 | Set-Content "package.json" -Encoding UTF8
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
 if ($pkg.scripts.lint) { "PASS" } else { "FAIL" }
 ```
@@ -417,13 +417,13 @@ Expected output: `PASS`
 **Implementation Details:**
 Run the lint command using PowerShell:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 ```
 
 **Validation:**
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 npm run lint
 if ($LASTEXITCODE -eq 0) { "PASS" } else { "FAIL" }
 ```
@@ -437,7 +437,7 @@ Expected output: `PASS`
 
 Run the following command sequence to confirm Goal 4 is complete:
 ```powershell
-cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio"
 Get-Content ".eslintrc.json" | Select-String "@typescript-eslint/no-explicit-any", "jsx-a11y"
 npm run lint
 ```
