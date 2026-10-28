@@ -1,0 +1,584 @@
+{
+  "pbtResults": {
+    "1.3 Write the workspace-scoped storage property test": {
+      "status": "failed",
+      "failingExample": "ModuleNotFoundError: No module named 'hypothesis' during collection of tests/test_property_11_storage_paths.py",
+      "lastRunTimestamp": 1792709696266
+    },
+    "2.2 Write the eligible-discovery and faithful-parsing property test": {
+      "status": "failed",
+      "failingExample": "Collection failed: ModuleNotFoundError: No module named 'hypothesis'",
+      "lastRunTimestamp": 1792710289175
+    },
+    "2.4 Write the numeric-ordering property test": {
+      "status": "failed",
+      "failingExample": "Collection failed: ModuleNotFoundError: No module named 'hypothesis'",
+      "lastRunTimestamp": 1792710289406
+    },
+    "2.3 Write the invalid/duplicate exclusion property test": {
+      "status": "failed",
+      "failingExample": "ERROR: file or directory not found: local-ai/tests/test_property_02_invalid_duplicates.py",
+      "lastRunTimestamp": 1792710170403
+    },
+    "4.2 Write the fresh-request isolation property test": {
+      "status": "failed",
+      "failingExample": "ModuleNotFoundError: No module named 'hypothesis' during collection of tests/test_property_05_fresh_requests.py. The requested --hypothesis-profile=ci was also unavailable: pytest reported unrecognized arguments: --hypothesis-profile=ci.",
+      "lastRunTimestamp": 1792711242267
+    },
+    "5.5 Write the command-authorization property test": {
+      "status": "failed",
+      "failingExample": "ERROR: usage: python -m pytest [options] [file_or_dir] [file_or_dir] [...]\npython -m pytest: error: unrecognized arguments: --hypothesis-profile=ci\n  inifile: C:\\dev\\andres-webapp-professional\\personal-website-portfolio\\local-ai\\pyproject.toml\n  rootdir: C:\\dev\\andres-webapp-professional\\personal-website-portfolio\\local-ai",
+      "lastRunTimestamp": 1792712021080
+    },
+    "5.2 Write the protocol validation/confinement property test": {
+      "status": "failed",
+      "failingExample": "ERROR: usage: python -m pytest [options] [file_or_dir] [file_or_dir] [...]\npython -m pytest: error: unrecognized arguments: --hypothesis-profile=ci\n  inifile: C:\\dev\\andres-webapp-professional\\personal-website-portfolio\\local-ai\\pyproject.toml\n  rootdir: C:\\dev\\andres-webapp-professional\\personal-website-portfolio\\local-ai",
+      "lastRunTimestamp": 1792711517878
+    },
+    "5.3 Write the invalid-protocol preservation property test": {
+      "status": "failed",
+      "failingExample": "ERROR: pytest rejected --hypothesis-profile=ci as an unrecognized argument; the active environment does not provide Hypothesis's pytest profile option.",
+      "lastRunTimestamp": 1792711539120
+    },
+    "6.2 Write the deterministic-mode-selection property test": {
+      "status": "failed",
+      "failingExample": "pytest was invoked from local-ai, so the requested path local-ai/tests/test_property_09_mode_selection.py resolved to a nonexistent nested path. No Hypothesis counterexample was generated.",
+      "lastRunTimestamp": 1792713796992
+    },
+    "6.3 Write the ordered-validation/bounded-retry property test": {
+      "status": "not_run",
+      "lastRunTimestamp": 1792713818231
+    },
+    "6.4 Write the permanent-failure preservation property test": {
+      "status": "failed",
+      "failingExample": "Collection failed before generated examples: ModuleNotFoundError: No module named 'hypothesis'",
+      "lastRunTimestamp": 1792714082798
+    },
+    "7.2 Write the low-VRAM capability-gate property test": {
+      "status": "failed",
+      "failingExample": "ImportError while importing test module 'C:\\dev\\andres-webapp-professional\\personal-website-portfolio\\local-ai\\tests\\test_property_12_low_vram.py'.\nE   ModuleNotFoundError: No module named 'hypothesis'",
+      "lastRunTimestamp": 1792715786642
+    }
+  },
+  "executionHistory": {
+    "1.1 Create the local Python project and deterministic test tooling": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109153
+      },
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709118902
+      },
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709209684
+      }
+    ],
+    "1.4 Implement configuration, typed records, and static runtime artifacts": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109201
+      },
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709594569
+      },
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709717631
+      }
+    ],
+    "2.5 Implement discovery, parser, source hashing, and parse quarantine": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109261
+      },
+      {
+        "executionId": "bfa7dac8-e274-4205-94d2-5deffa08654c",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710199082
+      },
+      {
+        "executionId": "bfa7dac8-e274-4205-94d2-5deffa08654c",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710308275
+      }
+    ],
+    "3.3 Implement atomic artifact persistence and the durable scheduler": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109299
+      },
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711005048
+      },
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711148561
+      }
+    ],
+    "4.3 Implement the bounded packer and fresh local-model lifecycle adapter": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109341
+      },
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711261871
+      },
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711375036
+      }
+    ],
+    "5.6 Implement strict JSON protocol validation and safe workspace mutations": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109380
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711838560
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711940336
+      }
+    ],
+    "5.7 Implement command authorization, PowerShell execution, and validation artifacts": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109420
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711944939
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792712046178
+      }
+    ],
+    "6.5 Implement mode inspection and the bounded Error-mode state machine": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109461
+      },
+      {
+        "executionId": "a1e86be3-31a8-4611-97aa-23e1b0d0e9ff",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792714118979
+      },
+      {
+        "executionId": "a1e86be3-31a8-4611-97aa-23e1b0d0e9ff",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792714361136
+      }
+    ],
+    "7.3 Implement capability gating and append-only telemetry": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109509
+      },
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715591587
+      },
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715820984
+      }
+    ],
+    "8.3 Implement CLI composition, controlled pilot support, and local operator artifacts": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109553
+      },
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715985418
+      },
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792716137227
+      }
+    ],
+    "9. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "178ff320-37dc-43ca-9e2f-e7c7c3676aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709109618
+      },
+      {
+        "executionId": "c41921cf-ed0e-4bda-b6a9-060eec834c97",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792716319100
+      }
+    ],
+    "1.2 Write test-first configuration and model-contract tests": [
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709475878
+      },
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709585014
+      }
+    ],
+    "1.3 Write the workspace-scoped storage property test": [
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709475925
+      },
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709585202
+      }
+    ],
+    "1. Establish the Python package, immutable configuration, and domain contracts": [
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709717696
+      }
+    ],
+    "2.1 Write test-first discovery and Markdown parser examples": [
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709735891
+      },
+      {
+        "executionId": "bfa7dac8-e274-4205-94d2-5deffa08654c",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710190445
+      }
+    ],
+    "2.2 Write the eligible-discovery and faithful-parsing property test": [
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709735924
+      },
+      {
+        "executionId": "bfa7dac8-e274-4205-94d2-5deffa08654c",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710190492
+      }
+    ],
+    "2.3 Write the invalid/duplicate exclusion property test": [
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709735965
+      },
+      {
+        "executionId": "bfa7dac8-e274-4205-94d2-5deffa08654c",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710190688
+      }
+    ],
+    "2.4 Write the numeric-ordering property test": [
+      {
+        "executionId": "d6b4f636-fb31-4ed4-a091-91fe19c38aae",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792709736069
+      }
+    ],
+    "2. Build numeric goal discovery, Markdown parsing, and malformed-input quarantine": [
+      {
+        "executionId": "bfa7dac8-e274-4205-94d2-5deffa08654c",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710308323
+      }
+    ],
+    "3.1 Write test-first atomic-state and scheduler examples": [
+      {
+        "executionId": "bfa7dac8-e274-4205-94d2-5deffa08654c",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710317885
+      }
+    ],
+    "3.2 Write the single-active-task/restart property test": [
+      {
+        "executionId": "bfa7dac8-e274-4205-94d2-5deffa08654c",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710317944
+      },
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710907043
+      },
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792710996016
+      }
+    ],
+    "3. Add atomic run state, lock-controlled one-at-a-time scheduling, and tracker projection": [
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711148643
+      }
+    ],
+    "4.1 Write test-first context-packer and LM Studio adapter examples": [
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711162439
+      },
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711256901
+      }
+    ],
+    "4.2 Write the fresh-request isolation property test": [
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711162520
+      },
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711256958
+      }
+    ],
+    "4. Implement bounded fresh-turn context packing and the local LM Studio planner/executor adapter": [
+      {
+        "executionId": "417a8517-be7c-43ff-b11c-99d3ee057f77",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711375127
+      }
+    ],
+    "5.1 Write test-first Tool Protocol and workspace-operation examples": [
+      {
+        "executionId": "40c40728-bad6-4157-b301-cc59f94c35b0",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711440727
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711825900
+      }
+    ],
+    "5.2 Write the protocol validation/confinement property test": [
+      {
+        "executionId": "40c40728-bad6-4157-b301-cc59f94c35b0",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711440787
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711825831
+      }
+    ],
+    "5.3 Write the invalid-protocol preservation property test": [
+      {
+        "executionId": "40c40728-bad6-4157-b301-cc59f94c35b0",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711440962
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711826222
+      }
+    ],
+    "5.4 Write test-first command-guard, PowerShell, and ordered-validation examples": [
+      {
+        "executionId": "40c40728-bad6-4157-b301-cc59f94c35b0",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711441022
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711826099
+      }
+    ],
+    "5.5 Write the command-authorization property test": [
+      {
+        "executionId": "40c40728-bad6-4157-b301-cc59f94c35b0",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711441205
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711733799
+      },
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792711826156
+      }
+    ],
+    "5. Implement JSON protocol workspace operations and the command/PowerShell safety boundary": [
+      {
+        "executionId": "c92c9a7d-0c30-4449-a9c2-aa3336ab44f3",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792712046258
+      }
+    ],
+    "6.1 Write test-first mode-selection and retry examples": [
+      {
+        "executionId": "d8286a53-fd2c-4938-b418-b78c2dc97439",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792713653956
+      },
+      {
+        "executionId": "a1e86be3-31a8-4611-97aa-23e1b0d0e9ff",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792714112340
+      }
+    ],
+    "6.2 Write the deterministic-mode-selection property test": [
+      {
+        "executionId": "d8286a53-fd2c-4938-b418-b78c2dc97439",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792713654034
+      },
+      {
+        "executionId": "a1e86be3-31a8-4611-97aa-23e1b0d0e9ff",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792714112603
+      }
+    ],
+    "6.3 Write the ordered-validation/bounded-retry property test": [
+      {
+        "executionId": "d8286a53-fd2c-4938-b418-b78c2dc97439",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792713654151
+      },
+      {
+        "executionId": "a1e86be3-31a8-4611-97aa-23e1b0d0e9ff",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792714112653
+      }
+    ],
+    "6.4 Write the permanent-failure preservation property test": [
+      {
+        "executionId": "d8286a53-fd2c-4938-b418-b78c2dc97439",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792713654359
+      },
+      {
+        "executionId": "a1e86be3-31a8-4611-97aa-23e1b0d0e9ff",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792713967753
+      },
+      {
+        "executionId": "a1e86be3-31a8-4611-97aa-23e1b0d0e9ff",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792714112870
+      }
+    ],
+    "6. Add observable execution modes, bounded Error recovery, and permanent-failure evidence": [
+      {
+        "executionId": "a1e86be3-31a8-4611-97aa-23e1b0d0e9ff",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792714361235
+      }
+    ],
+    "7.1 Write test-first capability and telemetry examples": [
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715418973
+      },
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715578265
+      }
+    ],
+    "7.2 Write the low-VRAM capability-gate property test": [
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715419036
+      },
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715578338
+      }
+    ],
+    "7. Implement capability-gated low-VRAM telemetry": [
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715821064
+      }
+    ],
+    "8.1 Write integration tests using a fake local LM Studio service": [
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715835005
+      },
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715979911
+      }
+    ],
+    "8.2 Write CLI/pilot command tests without a real model": [
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715835081
+      },
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792715979985
+      }
+    ],
+    "8. Compose the CLI, fake-LM integration coverage, and an explicit controlled pilot path": [
+      {
+        "executionId": "178da4ad-0a7b-486d-8188-ca9bb1ab1797",
+        "chatSessionId": "sess_6dd9dde6-f5b9-4ed9-bd39-bfcf4c9d2542",
+        "timestamp": 1792716137307
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+# Orchestrator architecture schema
+
+`config.py` provides immutable runtime authority. `models.py` contains JSON-safe typed records. Discovery and parsing create `GoalTask` values; scheduling persists `RunState`; bounded context and LM Studio calls use only the active task. The Python orchestrator selects the execution mode from observed evidence. The configured model receives one fresh, no-history request for each selected mode/attempt. Executor output is validated against the strict Tool Protocol before workspace operations. Validation is limited to parser-derived declared commands, and all artifacts remain under `local-ai/` within the configured workspace.
+
+LM Studio uses exactly one configured model: `yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF`. The model is not switched or loaded/unloaded by the orchestrator. Runtime capabilities verify the requested low-VRAM KV-cache policy before benchmark use. At most one task is in progress. Error-mode requests are capped at three.

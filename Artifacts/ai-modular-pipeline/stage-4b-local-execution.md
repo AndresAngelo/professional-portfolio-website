@@ -11,8 +11,8 @@ Stage 4b executes the automated Python orchestrator harness created in Stage 4a 
 
 ## Execution Division of Labor
 
-1. **Bonsai 2 27B PTQ1 (Reasoning / CoT Generator)**: Parses task requirements and generates concise step-by-step logic plans (`task_N_CoT.md`).
-2. **Gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF (Code Execution Workhorse)**: Ingests `task_N_CoT.md` and outputs clean, production-grade code directly into target files via local LM Studio stateless requests.
+1. **google/gemma-4-12b-qat (Reasoning / CoT Generator)**: Parses task requirements and generates concise step-by-step logic plans (`task_N_CoT.md`).
+2. **google/gemma-4-e2b (Code Execution Workhorse)**: Ingests `task_N_CoT.md` and outputs clean, production-grade code directly into target files via local LM Studio stateless requests.
 
 ## Workflow Execution
 

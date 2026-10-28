@@ -1,0 +1,39 @@
+[workspace]
+root = "C:/dev/andres-webapp-professional/personal-website-portfolio"
+spec_root = ".kiro/specs"
+local_storage = "local-ai"
+
+[discovery]
+enabled_milestones = [1, 2, 3, 4, 5]
+future_milestones = [6, 7, 8, 9, 10]
+goal_glob = "m{milestone}-*/goals/goal{goal}.md"
+required_goal_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+[legacy_instruction_migration]
+accepted_root_aliases = ["C:/dev/andres-webapp-professional/personal-website-portfolio/personal-website-portfolio-v2"]
+tracker_path = "local-ai/program-states/progress-tracker.md"
+tracker_mode = "orchestrator-owned"
+
+[lm_studio]
+base_url = "http://127.0.0.1:1234/v1"
+model_id = "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF"
+request_timeout_seconds = 120
+allow_loopback_only = true
+
+[context]
+max_total_bytes = 120000
+max_file_bytes = 24000
+max_active_files = 8
+rules_path = "local-ai/context/pipeline-rules.md"
+architecture_path = "local-ai/context/architecture-schema.md"
+
+[retry]
+max_error_mode_requests = 3
+
+[low_vram]
+benchmark_enabled = false
+requested_flash_attention = "auto"
+requested_unified_kv = "auto"
+requested_kv_cache_type = "Q4_0"
+requested_kv_offload = "auto"
+requested_gpu_offload_layers = "auto"

@@ -1,1 +1,19 @@
 # Empty stub for gitignore
+# Secrets and local credentials: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+.npmrc
+.netrc
+.pypirc
+credentials.json
+secrets.json
+service-account*.json
+*.tfstate
+*.tfstate.backup

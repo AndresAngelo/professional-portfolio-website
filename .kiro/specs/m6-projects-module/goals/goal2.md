@@ -338,6 +338,31 @@ if ($violations.Count -eq 0) { "PASS" } else { $violations | ForEach-Object { Wr
 ```
 
 **Validation:**
+```powershell
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+
+$files = @(
+    "src\lib\projects\filter-params.ts",
+    "src\lib\projects\derive-filter-options.ts"
+)
+$violations = @()
+
+foreach ($file in $files) {
+    $content = Get-Content $file -Raw
+    if ($content -match "['""]use client['""]") {
+        $violations += "Forbidden 'use client' found in $file"
+    }
+    if ($content -match "\bfrom\s+['""](react|next|next\/[^'""]+)['""]") {
+        $violations += "Forbidden React/Next import found in $file"
+    }
+    if ($content -match "\b(window|document)\b") {
+        $violations += "Forbidden DOM global found in $file"
+    }
+}
+
+if ($violations.Count -eq 0) { "PASS" } else { $violations | ForEach-Object { Write-Host $_ }; "FAIL" }
+```
+
 Expected output from the PowerShell check: `PASS`
 
 **Satisfies Requirements:** Req 17.3, Req 17.7

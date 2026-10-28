@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Stateless Turn Tool Protocol",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "task_id", "target_path", "action", "arguments", "expected_result"],
+  "properties": {
+    "protocol_version": {"const": "1.0"},
+    "task_id": {"type": "string", "pattern": "^M[1-9][0-9]*\\.G[1-9][0-9]*\\.T[1-9][0-9]*$"},
+    "target_path": {"type": "string", "minLength": 1},
+    "action": {"enum": ["mkdir", "write_file", "patch_file", "delete_file"]},
+    "arguments": {"type": "object"},
+    "expected_result": {"type": "string", "minLength": 1}
+  }
+}

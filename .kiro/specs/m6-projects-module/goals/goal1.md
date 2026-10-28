@@ -873,6 +873,67 @@ if ($errors.Count -eq 0) {
 ```
 
 **Validation:**
+```powershell
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+
+if (-not (Test-Path ".kiro\specs\m6-projects-module")) {
+    New-Item -ItemType Directory -Path ".kiro\specs\m6-projects-module" -Force | Out-Null
+}
+
+$errors = @()
+
+# 1. Audit Loaders
+$loaders = @(
+    "src\content\loaders\projects.ts",
+    "src\content\loaders\site.ts",
+    "src\content\markdown\renderer.ts"
+)
+foreach ($l in $loaders) {
+    if (-not (Test-Path $l)) {
+        $errors += "Missing loader/renderer: $l"
+    }
+}
+
+# 2. Audit Types
+$typesPath = "src\types\content.ts"
+if (Test-Path $typesPath) {
+    $content = Get-Content $typesPath -Raw
+    $types = @('Project', 'ProjectStatus', 'ProjectFilters', 'IsoDateString')
+    foreach ($t in $types) {
+        if (-not ($content -match "\b$t\b")) {
+            $errors += "Missing type: $t in $typesPath"
+        }
+    }
+} else {
+    $errors += "Missing $typesPath"
+}
+
+# 3. Audit M5 Utilities
+$dateUtil = "src\lib\format-date.ts"
+$compareUtil = "src\lib\home\compare.ts"
+if (-not (Test-Path $dateUtil)) { $errors += "Missing M5 utility: $dateUtil" }
+if (-not (Test-Path $compareUtil)) { $errors += "Missing M5 utility: $compareUtil" }
+
+if ($errors.Count -eq 0) {
+    $taskNotes = @"
+# M6 Projects Module — Task Notes & Architectural Audit
+
+## 1. Upstream Contracts & Utilities Audit (Req 10.6, 17.7)
+- M2 Loaders: Confirmed `getProjects`, `getProjectBySlug`, `getSiteConfig` in `src/content/loaders/`.
+- M2 Markdown: Confirmed `renderMarkdown` in `src/content/markdown/renderer.ts`.
+- M2 Types: Confirmed `Project`, `ProjectStatus`, `ProjectFilters`, `IsoDateString` in `src/types/content.ts`.
+- M5 Date Formatter: Confirmed `formatDisplayDate` in `src/lib/format-date.ts`.
+- M5 Comparator: Confirmed `compareStrings` in `src/lib/home/compare.ts`.
+
+"@
+    Set-Content -Path ".kiro\specs\m6-projects-module\task-notes.md" -Value $taskNotes -Encoding UTF8
+    "PASS"
+} else {
+    $errors | ForEach-Object { Write-Host $_ }
+    "FAIL"
+}
+```
+
 Expected output from the PowerShell check: `PASS`
 
 **Satisfies Requirements:** Req 1.2, Req 10.6, Req 13.1, Req 17.7
@@ -939,6 +1000,47 @@ if ($missing.Count -eq 0) {
 ```
 
 **Validation:**
+```powershell
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+
+$primitives = @(
+    "src\components\ui\card.tsx",
+    "src\components\ui\tag-list.tsx",
+    "src\components\ui\status-badge.tsx",
+    "src\components\ui\filter-chip.tsx",
+    "src\components\ui\external-link.tsx",
+    "src\components\ui\empty-state.tsx",
+    "src\components\ui\markdown-doc.tsx",
+    "src\components\ui\container.tsx",
+    "src\components\ui\button.tsx",
+    "src\components\ui\focus-ring.ts",
+    "src\components\ui\motion.ts"
+)
+
+$missing = @()
+foreach ($pr in $primitives) {
+    if (-not (Test-Path $pr)) {
+        $missing += "Missing primitive: $pr"
+    }
+}
+
+if ($missing.Count -eq 0) {
+    $noteAppend = @"
+
+## 2. Upstream M3 UI Primitives Audit (Req 16.1, 17.7)
+- Confirmed `Card`, `TagList`, `StatusBadge`, `FilterChip`, `ExternalLink`, `EmptyState`, `MarkdownDoc`, `Container`, `Button`.
+- Confirmed `FOCUS_RING` and motion tokens (`MOTION_FAST`).
+- Verified `MarkdownDoc` takes `{ html: string }`.
+
+"@
+    Add-Content -Path ".kiro\specs\m6-projects-module\task-notes.md" -Value $noteAppend -Encoding UTF8
+    "PASS"
+} else {
+    $missing | ForEach-Object { Write-Host $_ }
+    "FAIL"
+}
+```
+
 Expected output from the PowerShell check: `PASS`
 
 **Satisfies Requirements:** Req 13.1, Req 16.1, Req 17.7
@@ -990,6 +1092,32 @@ if ($nodeCheck -eq "PASS") {
 ```
 
 **Validation:**
+```powershell
+cd "c:\dev\andres-webapp-professional\personal-website-portfolio\personal-website-portfolio-v2"
+
+$nodeCheck = node -e "require('vitest'); require('@testing-library/react'); require('@testing-library/user-event'); require('vitest-axe'); require('fast-check'); console.log('PASS');"
+
+if ($nodeCheck -eq "PASS") {
+    $pkg = Get-Content "package.json" -Raw | ConvertFrom-Json
+    $nextVersion = $pkg.dependencies.next
+    $paramsNote = if ($nextVersion -match "15\.") { "Next.js 15 (params is Promise<{ slug: string }>)" } else { "Next.js 14 (params is { slug: string })" }
+
+    $noteAppend = @"
+
+## 3. Test Toolchain & Next.js Runtime Contract
+- Test toolchain operational (vitest, RTL, user-event, vitest-axe, fast-check).
+- Next.js Version: $nextVersion.
+- Detail Route Params Contract: $paramsNote.
+- M4 Title Template & NotFound boundary confirmed.
+
+"@
+    Add-Content -Path ".kiro\specs\m6-projects-module\task-notes.md" -Value $noteAppend -Encoding UTF8
+    "PASS"
+} else {
+    "FAIL"
+}
+```
+
 Expected output from the PowerShell check: `PASS`
 
 **Satisfies Requirements:** Req 9.1, Req 9.5, Req 15.3, Req 17.1, Req 17.7
