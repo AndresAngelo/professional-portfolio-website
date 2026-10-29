@@ -1,0 +1,35 @@
+{
+  "model_id": "gemma-3-1b-it-qat",
+  "request_id": "req_41b5a50e77264ae2a9a04076fd1bd507",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "content": "{\n  \"task_id\": \"M5.G1.T1\",\n  \"sanitized_constraints\": [\n    \"The parser preserves each declared task field.\",\n    \"The parser records canonical validation commands.\"\n  ],\n  \"target_paths\": [],\n  \"context_chunk_ids\": []\n}",
+          "reasoning_content": "",
+          "role": "assistant",
+          "tool_calls": []
+        }
+      }
+    ],
+    "created": 1793274426,
+    "id": "chatcmpl-jeduzkynvzo2s98n2dgwit",
+    "model": "gemma-3-1b-it-qat",
+    "object": "chat.completion",
+    "stats": {},
+    "system_fingerprint": "gemma-3-1b-it-qat",
+    "usage": {
+      "completion_tokens": 84,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "prompt_tokens": 170,
+      "total_tokens": 254
+    }
+  },
+  "role": "router",
+  "task_id": "M5.G1.T1"
+}

@@ -83,12 +83,28 @@ tracker_mode = "orchestrator-owned"
 
 [lm_studio]
 base_url = "http://127.0.0.1:1234/v1"
-model_id = "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF"
 request_timeout_seconds = 1
 allow_loopback_only = true
 
+[lm_studio.models.embedding]
+model_id = "embed-text-embedding-nomic-embed-text-v1.5"
+context_length = 2048
+output_reserve_tokens = 0
+max_prompt_bytes = 8192
+
+[lm_studio.models.router]
+model_id = "1b-gemma-3-1b-it-qat"
+context_length = 2048
+output_reserve_tokens = 512
+max_prompt_bytes = 6144
+
+[lm_studio.models.executor]
+model_id = "1b-gemma-4-e2b-it-qat"
+context_length = 4096
+output_reserve_tokens = 1024
+max_prompt_bytes = 12288
+
 [context]
-max_total_bytes = 120000
 max_file_bytes = 24000
 max_active_files = 8
 rules_path = "local-ai/context/pipeline-rules.md"
@@ -178,7 +194,7 @@ def test_fake_lm_completes_discovered_task_with_ordered_validation_and_confined_
     config, store, scheduler = initialized_pipeline(workspace)
     selected = scheduler.select_next()
     fake_lm = FakeLocalModel(responses=[{"plan": "write output"}, operation(str(selected.id))], calls=[])
-    adapter = LmStudioAdapter(model_port=fake_lm)
+    adapter = LmStudioAdapter(config=config.lm_studio, model_port=fake_lm)
 
     assert adapter.request({"task_id": str(selected.id), "mode": "Scaffold"}) == {"plan": "write output"}
     executor_response = adapter.request({"task_id": str(selected.id), "mode": "CoT-Task"})
@@ -192,7 +208,7 @@ def test_fake_lm_completes_discovered_task_with_ordered_validation_and_confined_
     completed = store.load()
     assert completed.active_task_id is None
     assert completed.task_records[str(selected.id)].status is TaskStatus.COMPLETED
-    assert [call["model"] for call in fake_lm.calls] == [config.lm_studio.model_id, config.lm_studio.model_id]
+    assert [call["model"] for call in fake_lm.calls] == [config.lm_studio.models.executor.model_id] * 2
     assert [call["argv"][-1] for call in fake_process.calls] == [selected.validation_commands[0].canonical_text]
     assert (workspace / "src" / "generated.txt").read_text(encoding="utf-8") == "created by fake executor\n"
     assert not list(workspace.rglob(".git"))

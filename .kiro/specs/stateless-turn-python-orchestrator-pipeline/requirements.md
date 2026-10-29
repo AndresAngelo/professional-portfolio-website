@@ -14,8 +14,8 @@ The Stateless Turn Python Orchestrator Pipeline is a local coding automation sys
 - **Task Queue**: The ordered collection of parsed Goal Tasks awaiting processing.
 - **Run State**: The durable local record of Task Queue status, current Task Identifier, retry count, execution mode, timestamps, model request identifiers, validation outcome, and artifact paths for one Workspace.
 - **Local AI Storage**: The Workspace-local directory that stores Run State, generated plans, JSON protocol records, telemetry, validation output, and quarantine reports.
-- **Planner Model**: The LM Studio model identifier `google/gemma-4-12b-qat` used to generate a Goal Task plan.
-- **Executor Model**: The LM Studio model identifier `google/gemma-4-e2b` used to generate Goal Task coding actions.
+- **Router Model**: The LM Studio model bound to the router role (gemma-3-1b-it-qat), resolved at startup from the loaded models. It plans and audits through JSON-schema replies.
+- **Executor Model**: The LM Studio model bound to the executor role (gemma-4-e2b-it-qat@q4_k_xl), resolved at startup. It generates Goal Task coding actions.
 - **Fresh Request**: A single LM Studio HTTP request whose message payload is constructed for one Goal Task and is not reused by a later Goal Task.
 - **Tool Protocol**: A JSON request and response contract that identifies a Workspace-relative action, declared arguments, and execution result.
 - **Declared Command**: A PowerShell command present in the active Goal Task validation block after Markdown parsing.
@@ -65,8 +65,8 @@ The Stateless Turn Python Orchestrator Pipeline is a local coding automation sys
 
 #### Acceptance Criteria
 
-1. WHEN the Stateless Turn Python Orchestrator Pipeline begins planning for a Goal Task, THE Stateless Turn Python Orchestrator Pipeline SHALL send one Fresh Request to the Planner Model identifier `google/gemma-4-12b-qat` through the configured local LM Studio endpoint.
-2. WHEN the Stateless Turn Python Orchestrator Pipeline begins coding for a Goal Task, THE Stateless Turn Python Orchestrator Pipeline SHALL send one Fresh Request to the Executor Model identifier `google/gemma-4-e2b` through the configured local LM Studio endpoint.
+1. WHEN the Stateless Turn Python Orchestrator Pipeline begins routing for a Goal Task, THE Stateless Turn Python Orchestrator Pipeline SHALL send one Fresh Request to the Router Model through the configured local LM Studio endpoint, constrained to a JSON schema, with at most three attempts.
+2. WHEN the Stateless Turn Python Orchestrator Pipeline begins coding for a Goal Task, THE Stateless Turn Python Orchestrator Pipeline SHALL send one Fresh Request to the Executor Model through the configured local LM Studio endpoint.
 3. WHEN the Stateless Turn Python Orchestrator Pipeline creates a Fresh Request, THE Stateless Turn Python Orchestrator Pipeline SHALL include the active Goal Task, selected Execution Mode, declared validation block, Workspace-relative active file context, and applicable pipeline rules.
 4. WHEN the Stateless Turn Python Orchestrator Pipeline starts a later Goal Task, THE Stateless Turn Python Orchestrator Pipeline SHALL construct a new request payload and SHALL omit prior Goal Task conversational messages from the new request payload.
 5. IF the configured local LM Studio endpoint returns a connection error, timeout, or non-success response, THEN THE Stateless Turn Python Orchestrator Pipeline SHALL retain Run State as `in_progress`, preserve Workspace changes, and record the request error, model identifier, timestamp, and Task Identifier in Local AI Storage.

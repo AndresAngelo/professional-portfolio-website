@@ -1,0 +1,35 @@
+{
+  "model_id": "gemma-3-1b-it-qat",
+  "request_id": "req_b6370d6f2da944cc88097f9b16a5b48a",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "content": "OK.",
+          "reasoning_content": "",
+          "role": "assistant",
+          "tool_calls": []
+        }
+      }
+    ],
+    "created": 1793278056,
+    "id": "chatcmpl-zksmwmjx54jhluqsam9w",
+    "model": "gemma-3-1b-it-qat",
+    "object": "chat.completion",
+    "stats": {},
+    "system_fingerprint": "gemma-3-1b-it-qat",
+    "usage": {
+      "completion_tokens": 3,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "prompt_tokens": 18,
+      "total_tokens": 21
+    }
+  },
+  "role": "router",
+  "task_id": "M5.G1.T1"
+}

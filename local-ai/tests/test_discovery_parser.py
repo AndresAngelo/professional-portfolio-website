@@ -42,12 +42,28 @@ tracker_mode = "orchestrator-owned"
 
 [lm_studio]
 base_url = "http://127.0.0.1:1234/v1"
-model_id = "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF"
 request_timeout_seconds = 120
 allow_loopback_only = true
 
+[lm_studio.models.embedding]
+model_id = "embed-text-embedding-nomic-embed-text-v1.5"
+context_length = 2048
+output_reserve_tokens = 0
+max_prompt_bytes = 8192
+
+[lm_studio.models.router]
+model_id = "1b-gemma-3-1b-it-qat"
+context_length = 2048
+output_reserve_tokens = 512
+max_prompt_bytes = 6144
+
+[lm_studio.models.executor]
+model_id = "1b-gemma-4-e2b-it-qat"
+context_length = 4096
+output_reserve_tokens = 1024
+max_prompt_bytes = 12288
+
 [context]
-max_total_bytes = 120000
 max_file_bytes = 24000
 max_active_files = 8
 rules_path = "local-ai/context/pipeline-rules.md"
@@ -152,7 +168,7 @@ def test_parser_preserves_all_task_fields_and_source_hash(workspace: Path) -> No
     """A complete task becomes a typed record with a hash of the exact source bytes."""
     config = load_configuration(write_config(workspace))
     goal_path = write_goal_file(workspace, milestone=3, goal=2, task=7)
-    source = goal_path.read_text(encoding="utf-8")
+    source_bytes = goal_path.read_bytes()
 
     parsed_tasks = parse_goal_file(goal_path, config)
 
@@ -160,7 +176,7 @@ def test_parser_preserves_all_task_fields_and_source_hash(workspace: Path) -> No
     parsed = parsed_tasks[0]
     assert str(parsed.id) == "M3.G2.T7"
     assert parsed.source_path == ".kiro/specs/m3-synthetic/goals/goal2.md"
-    assert parsed.source_hash == hashlib.sha256(source.encode("utf-8")).hexdigest()
+    assert parsed.source_hash == hashlib.sha256(source_bytes).hexdigest()
     assert parsed.heading == "Create a parser contract"
     assert parsed.objective == "Create the parser-facing module at `local-ai/orchestrator/example.py`."
     assert parsed.acceptance_criteria == (

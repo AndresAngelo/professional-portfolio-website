@@ -7,7 +7,7 @@ name = "stateless-turn-orchestrator"
 version = "0.1.0"
 description = "Local-first stateless turn orchestrator"
 requires-python = ">=3.12,<3.13"
-dependencies = []
+dependencies = ["pydantic==2.14.1"]
 
 [project.optional-dependencies]
 dev = [

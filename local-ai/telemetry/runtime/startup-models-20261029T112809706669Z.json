@@ -1,0 +1,90 @@
+{
+  "bindings": [
+    {
+      "configured_context_length": 2048,
+      "label": "embed-text-embedding-nomic-embed-text-v1.5",
+      "loaded_context_length": 2048,
+      "model_id": "text-embedding-nomic-embed-text-v1.5",
+      "problems": [],
+      "role": "embedding",
+      "state": "loaded",
+      "warnings": []
+    },
+    {
+      "configured_context_length": 2048,
+      "label": "1b-gemma-3-1b-it-qat",
+      "loaded_context_length": 16128,
+      "model_id": "gemma-3-1b-it-qat",
+      "problems": [
+        "gemma-3-1b-it-qat is loaded at context 16128, but the configured cap is 2048; reload it in LM Studio with context length 2048"
+      ],
+      "role": "router",
+      "state": "loaded",
+      "warnings": []
+    },
+    {
+      "configured_context_length": 4096,
+      "label": "1b-gemma-4-e2b-it-qat",
+      "loaded_context_length": 65792,
+      "model_id": "gemma-4-e2b-it-qat@q4_k_xl",
+      "problems": [
+        "gemma-4-e2b-it-qat@q4_k_xl is loaded at context 65792, but the configured cap is 4096; reload it in LM Studio with context length 4096"
+      ],
+      "role": "executor",
+      "state": "loaded",
+      "warnings": []
+    }
+  ],
+  "catalog": [
+    {
+      "loaded_context_length": 2048,
+      "max_context_length": 2048,
+      "model_id": "text-embedding-nomic-embed-text-v1.5",
+      "state": "loaded"
+    },
+    {
+      "loaded_context_length": 16128,
+      "max_context_length": 32768,
+      "model_id": "gemma-3-1b-it-qat",
+      "state": "loaded"
+    },
+    {
+      "loaded_context_length": 65792,
+      "max_context_length": 131072,
+      "model_id": "gemma-4-e2b-it-qat@q4_k_xl",
+      "state": "loaded"
+    },
+    {
+      "loaded_context_length": null,
+      "max_context_length": 131072,
+      "model_id": "gemma-4-e2b-it-qat@f16",
+      "state": "not-loaded"
+    },
+    {
+      "loaded_context_length": null,
+      "max_context_length": 262144,
+      "model_id": "gemma-4-12b-it-qat@q4_k_xl",
+      "state": "not-loaded"
+    },
+    {
+      "loaded_context_length": null,
+      "max_context_length": 262144,
+      "model_id": "gemma-4-12b-it-qat@q8_0",
+      "state": "not-loaded"
+    },
+    {
+      "loaded_context_length": null,
+      "max_context_length": 262144,
+      "model_id": "google/gemma-4-12b-qat",
+      "state": "not-loaded"
+    },
+    {
+      "loaded_context_length": null,
+      "max_context_length": 131072,
+      "model_id": "google/gemma-4-e4b",
+      "state": "not-loaded"
+    }
+  ],
+  "ok": false,
+  "recorded_at": "2026-10-29T11:28:09.708343+00:00"
+}

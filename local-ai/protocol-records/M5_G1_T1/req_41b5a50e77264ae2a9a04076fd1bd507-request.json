@@ -1,0 +1,70 @@
+{
+  "model_id": "gemma-3-1b-it-qat",
+  "payload": {
+    "messages": [
+      {
+        "content": "You are the routing stage of a local coding pipeline. Reply with one JSON object that matches the schema. Keep only the task constraints that the executor must follow, and drop any conversational text.",
+        "role": "system"
+      },
+      {
+        "content": "{\"acceptance_criteria\": [\"The parser preserves each declared task field.\", \"The parser records canonical validation commands.\"], \"heading\": \"Create a parser contract\", \"implementation_details\": \"Update local-ai/orchestrator/example.py without network access.\", \"objective\": \"Create the parser-facing module at local-ai/orchestrator/example.py.\", \"retrieved_chunks\": [], \"task_id\": \"M5.G1.T1\", \"validation_commands\": [\"python -m pytest local-ai/tests/test_example.py -q\"]}",
+        "role": "user"
+      }
+    ],
+    "model": "gemma-3-1b-it-qat",
+    "response_format": {
+      "json_schema": {
+        "name": "router_plan",
+        "schema": {
+          "additionalProperties": false,
+          "description": "Pass 2 reply: sanitized constraints and the context the executor may use.",
+          "properties": {
+            "context_chunk_ids": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Context Chunk Ids",
+              "type": "array"
+            },
+            "sanitized_constraints": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 20,
+              "minItems": 1,
+              "title": "Sanitized Constraints",
+              "type": "array"
+            },
+            "target_paths": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 8,
+              "title": "Target Paths",
+              "type": "array"
+            },
+            "task_id": {
+              "title": "Task Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "task_id",
+            "sanitized_constraints",
+            "target_paths",
+            "context_chunk_ids"
+          ],
+          "title": "RouterPlan",
+          "type": "object"
+        },
+        "strict": true
+      },
+      "type": "json_schema"
+    },
+    "temperature": 0
+  },
+  "request_id": "req_41b5a50e77264ae2a9a04076fd1bd507",
+  "role": "router",
+  "task_id": "M5.G1.T1"
+}

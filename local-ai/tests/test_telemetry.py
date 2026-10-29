@@ -94,7 +94,7 @@ def test_benchmarked_requests_append_one_ndjson_record_and_preserve_absent_memor
     writer.append_benchmark_request(
         task_id="M5.G1.T1",
         request_id="req_first",
-        model_id="yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF",
+        model_id="gemma-4-e2b-it-qat@q4_k_xl",
         execution_mode="CoT-Task",
         timestamp="2026-01-01T00:00:00Z",
         elapsed_ms=1250,
@@ -104,7 +104,7 @@ def test_benchmarked_requests_append_one_ndjson_record_and_preserve_absent_memor
     writer.append_benchmark_request(
         task_id="M5.G1.T1",
         request_id="req_second",
-        model_id="yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF",
+        model_id="gemma-4-e2b-it-qat@q4_k_xl",
         execution_mode="Error",
         timestamp="2026-01-01T00:00:01Z",
         elapsed_ms=900,

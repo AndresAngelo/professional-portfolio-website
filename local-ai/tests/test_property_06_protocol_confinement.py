@@ -23,16 +23,15 @@ _TASK_ID = st.builds(
     st.integers(min_value=1, max_value=99),
 )
 _SAFE_PATH = st.lists(_COMPONENT, min_size=1, max_size=3).map(lambda parts: "/".join(parts))
-_HOSTILE_PATH = st.sampled_from(
-    (
-        "../outside.txt",
-        "nested/../../outside.txt",
-        "/absolute/outside.txt",
-        r"C:\\outside.txt",
-        r"..\\outside.txt",
-        "link-outside/escape.txt",
-    )
+_HOSTILE_PATH_VALUES = (
+    "../outside.txt",
+    "nested/../../outside.txt",
+    "/absolute/outside.txt",
+    r"C:\\outside.txt",
+    r"..\\outside.txt",
+    "link-outside/escape.txt",
 )
+_HOSTILE_PATH = st.sampled_from(_HOSTILE_PATH_VALUES)
 _ACTION = st.sampled_from(("mkdir", "write_file", "patch_file"))
 _INVALID_VARIANT = st.sampled_from(
     ("unknown_field", "wrong_version", "wrong_task", "unknown_action", "missing_result")
@@ -77,13 +76,14 @@ def _is_descendant(path: Path, workspace: Path) -> bool:
     variant=st.one_of(st.none(), _INVALID_VARIANT),
 )
 def test_protocol_validation_and_workspace_confinement(
-    tmp_path: Path,
+    tmp_path_factory: pytest.TempPathFactory,
     active_task_id: str,
     target_path: str,
     action: str,
     variant: str | None,
 ) -> None:
     """Only complete active-task documents may resolve to canonical workspace targets."""
+    tmp_path = tmp_path_factory.mktemp("protocol-confinement")
     workspace = tmp_path / "workspace"
     workspace.mkdir()
     outside = tmp_path / "outside"
@@ -112,7 +112,7 @@ def test_protocol_validation_and_workspace_confinement(
     try:
         resolved_path = resolve_workspace_path(workspace=workspace, target_path=operation.target_path)
     except WorkspacePathError:
-        assert target_path in _HOSTILE_PATH
+        assert target_path in _HOSTILE_PATH_VALUES
         return
 
     canonical_workspace = workspace.resolve()

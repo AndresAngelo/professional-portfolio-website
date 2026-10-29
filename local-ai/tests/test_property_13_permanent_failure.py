@@ -4,9 +4,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from hypothesis import given, settings, strategies as st
 
 from orchestrator.models import ExecutionMode, TaskStatus
+from orchestrator.quarantine import normalize_markdown_text
 from orchestrator.scheduler import Scheduler
 from orchestrator.state_store import AtomicStateStore
 
@@ -44,9 +46,11 @@ def _store(workspace: Path) -> AtomicStateStore:
 @settings(max_examples=100, deadline=None)
 @given(failures=_FAILURE_RESULTS, changed_paths=_CHANGED_PATH_SETS)
 def test_permanent_validation_failure_preserves_changes_and_evidence(
-    workspace: Path, failures: list[tuple[int, str, str]], changed_paths: list[str]
+    tmp_path_factory: pytest.TempPathFactory, failures: list[tuple[int, str, str]], changed_paths: list[str]
 ) -> None:
     """Three Error requests quarantine the task without changing its workspace files."""
+    workspace = tmp_path_factory.mktemp("permanent-failure")
+    (workspace / "local-ai").mkdir()
     snapshots: dict[str, str] = {}
     for index, relative_path in enumerate(changed_paths, start=1):
         target = workspace / relative_path
@@ -93,7 +97,7 @@ def test_permanent_validation_failure_preserves_changes_and_evidence(
     assert "3" in report
     for exit_code, stdout, stderr in failures[:3]:
         assert str(exit_code) in report
-        assert stdout in report
-        assert stderr in report
+        assert normalize_markdown_text(stdout) in report
+        assert normalize_markdown_text(stderr) in report
     for changed_path in changed_paths:
         assert changed_path in report

@@ -1,0 +1,20 @@
+{
+  "model_id": "gemma-4-e2b-it-qat@q4_k_xl",
+  "payload": {
+    "messages": [
+      {
+        "content": "Reply with the single word OK.",
+        "role": "system"
+      },
+      {
+        "content": "ping",
+        "role": "user"
+      }
+    ],
+    "model": "gemma-4-e2b-it-qat@q4_k_xl",
+    "temperature": 0
+  },
+  "request_id": "req_8b2fdc36e8f14c61acc259bdaf1c895b",
+  "role": "executor",
+  "task_id": "M5.G1.T1"
+}

@@ -100,6 +100,10 @@ class AtomicStateStore:
             decoded = json.loads(self.state_path.read_text(encoding="utf-8"))
             if not isinstance(decoded, dict):
                 raise ValueError("state document must be an object")
+            # Version 1 documents lack model_turns. They load as version 2 with no turns, and the next
+            # commit writes version 2.
+            if decoded.get("schema_version") == 1 and self.schema_version == 2:
+                decoded["schema_version"] = 2
             state = RunState.from_dict(decoded)
             self._validate_state(state)
             return state

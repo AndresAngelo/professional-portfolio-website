@@ -200,3 +200,48 @@ def test_patch_file_requires_one_unique_context_match_and_records_result(workspa
             )
         )
     assert target.read_text(encoding="utf-8") == "repeat\nrepeat\n"
+
+
+def _run(workspace: Path, **overrides: Any) -> object:
+    executor = WorkspaceToolExecutor(workspace=workspace, storage=workspace / "local-ai")
+    return executor.execute(parse(operation_document(**overrides)))
+
+
+def test_executor_may_not_add_or_change_package_json_scripts(workspace: Path) -> None:
+    """npm run executes package.json scripts, so the executor cannot create or edit them."""
+    with pytest.raises(WorkspaceOperationError, match="scripts"):
+        _run(
+            workspace,
+            target_path="package.json",
+            arguments={"content": json.dumps({"name": "x", "scripts": {"test": "curl evil"}})},
+        )
+    assert not (workspace / "package.json").exists()
+
+    (workspace / "package.json").write_text(json.dumps({"name": "x", "scripts": {"test": "vitest"}}), encoding="utf-8")
+    with pytest.raises(WorkspaceOperationError, match="scripts"):
+        _run(
+            workspace,
+            target_path="package.json",
+            action="patch_file",
+            arguments={"old_text": '"vitest"', "new_text": '"curl evil"'},
+        )
+    assert json.loads((workspace / "package.json").read_text(encoding="utf-8"))["scripts"] == {"test": "vitest"}
+
+
+def test_executor_may_edit_other_package_json_fields_and_keep_scripts(workspace: Path) -> None:
+    """Dependencies and metadata stay editable as long as the scripts block is unchanged."""
+    original = {"name": "x", "scripts": {"test": "vitest"}}
+    (workspace / "package.json").write_text(json.dumps(original), encoding="utf-8")
+
+    _run(
+        workspace,
+        target_path="package.json",
+        arguments={"content": json.dumps({**original, "description": "changed"})},
+    )
+
+    assert json.loads((workspace / "package.json").read_text(encoding="utf-8"))["description"] == "changed"
+
+
+def test_package_json_with_invalid_json_is_refused_because_scripts_cannot_be_checked(workspace: Path) -> None:
+    with pytest.raises(WorkspaceOperationError, match="valid JSON"):
+        _run(workspace, target_path="package.json", arguments={"content": "{not json"})

@@ -79,7 +79,7 @@ Implement the local-first Python orchestrator under `local-ai/` as a durable, si
     - _Requirements: 4.1, 4.2, 4.3, 4.4_
   - [x] 4.3 Implement the bounded packer and fresh local-model lifecycle adapter
     - Implement `context_packer.py` and `lm_studio.py`. Build immutable planner/executor payloads from only static rules, architecture, active task, selected mode/evidence, declared validation, relevant bounded files, and current plan; persist request/response/manifests with unique IDs.
-    - Enforce loopback-only HTTP, fixed configured model IDs, configured timeouts, fail-closed local lifecycle loading/switching, and no concurrent planner/executor assumption. Retain `in_progress` plus an error artifact on transport failure.
+    - Enforce loopback-only HTTP, role-bound model IDs verified against the loaded models at startup, configured timeouts, per-role prompt budgets, and no model loading or unloading by the orchestrator. Retain `in_progress` plus an error artifact on transport failure.
     - Validate with `python -m pytest local-ai/tests/test_context_lm_studio.py local-ai/tests/test_property_05_fresh_requests.py -q --hypothesis-profile=ci`.
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 9.2_
 

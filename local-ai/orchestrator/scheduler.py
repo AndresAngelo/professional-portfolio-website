@@ -7,9 +7,12 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Callable
 
-from .models import ExecutionMode, GoalTask, TaskId, TaskStatus
+from .models import ErrorHistoryEntry, ExecutionMode, GoalTask, ModelTurn, TaskId, TaskStatus
 from .quarantine import write_state_quarantine_report, write_validation_failure_quarantine_report
 from .state_store import AtomicStateStore, StateLoadError
+
+# Maximum Error-mode executor requests per task. Matches the orchestrator's retry configuration.
+ERROR_MODE_LIMIT = 3
 
 
 class StateExecutionRefused(RuntimeError):
@@ -67,7 +70,7 @@ class Scheduler:
             raise ValueError("active task is not in progress")
         return state, record
 
-    def select_next(self, *, on_selected: Callable[[GoalTask], None] | None = None) -> GoalTask:
+    def select_next(self, *, on_selected: Callable[[GoalTask], None] | None = None, start_at: TaskId | None = None) -> GoalTask:
         """Resume persisted active work or durably claim the first queued task."""
         state = self._load_or_refuse()
         if state.active_task_id is not None:
@@ -78,6 +81,8 @@ class Scheduler:
             raise StateExecutionRefused("state active task is absent from the durable queue")
 
         for queued in state.queue:
+            if start_at is not None and queued.task.id < start_at:
+                continue
             task_id = str(queued.task.id)
             record = state.task_records.get(task_id)
             if record is None:
@@ -119,13 +124,33 @@ class Scheduler:
     def record_validation_failure(
         self, *, task_id: TaskId, command: str, stdout: str, stderr: str, exit_code: int, artifact_path: str
     ) -> ErrorModeContext:
-        """Persist Error mode and its exact nonzero validation evidence."""
+        """Keep a nonzero validation result in the error history and decide whether it earns a request.
+
+        A failure earns an Error-mode request only while the durable request count is below
+        ``ERROR_MODE_LIMIT``. Earned failures enter ``mode_history``; refused failures are kept
+        only as ``refused_retry_limit`` evidence, so ``mode_history`` never counts a request
+        that was not made.
+        """
         if exit_code == 0:
             raise ValueError("only nonzero validation failures select Error mode")
         if not artifact_path.startswith("local-ai/") or ".." in artifact_path.split("/"):
             raise ValueError("validation artifact path must be workspace-local")
         state, record = self._active_record(task_id)
-        record.mode_history.append(ExecutionMode.ERROR)
+        granted = record.error_mode_requests < ERROR_MODE_LIMIT
+        timestamp = self._timestamp()
+        record.error_history.append(
+            ErrorHistoryEntry(
+                attempt=len(record.error_history) + 1,
+                command=command,
+                exit_code=exit_code,
+                artifact_path=artifact_path,
+                disposition="error_request_granted" if granted else "refused_retry_limit",
+                error_mode_request_number=record.error_mode_requests + 1 if granted else None,
+                recorded_at=timestamp,
+            )
+        )
+        if granted:
+            record.mode_history.append(ExecutionMode.ERROR)
         record.validation_artifact_paths.append(artifact_path)
         self._validation_failures.setdefault(str(task_id), []).append(
             {
@@ -136,17 +161,23 @@ class Scheduler:
                 "artifact_path": artifact_path,
             }
         )
-        state.updated_at = self._timestamp()
+        state.updated_at = timestamp
         self.store.commit(state)
         return ErrorModeContext(ExecutionMode.ERROR, command, stdout, stderr, exit_code, artifact_path)
 
     def begin_error_mode_request(self, *, task_id: TaskId) -> ErrorModeRequest:
-        """Atomically increment the Error request count immediately before a fresh request."""
+        """Atomically count one Error-mode request immediately before its fresh model request.
+
+        The retry limit is checked first, so a refused attempt reports the limit rather than
+        a missing failure. A request is allowed only for the single granted failure that has
+        not yet been turned into a request.
+        """
         state, record = self._active_record(task_id)
-        if not record.mode_history or record.mode_history[-1] is not ExecutionMode.ERROR:
-            raise ValueError("Error request requires a recorded Error-mode validation failure")
-        if record.error_mode_requests >= 3:
+        if record.error_mode_requests >= ERROR_MODE_LIMIT:
             raise StateExecutionRefused("Error-mode request limit reached")
+        granted_failures = record.mode_history.count(ExecutionMode.ERROR)
+        if granted_failures != record.error_mode_requests + 1 or record.mode_history[-1] is not ExecutionMode.ERROR:
+            raise ValueError("Error request requires one granted Error-mode validation failure")
         record.error_mode_requests += 1
         state.updated_at = self._timestamp()
         self.store.commit(state)
@@ -169,10 +200,61 @@ class Scheduler:
         )
         return self.begin_error_mode_request(task_id=task_id)
 
+    def record_model_turn(
+        self,
+        *,
+        task_id: TaskId,
+        pass_name: str,
+        role: str,
+        model_id: str,
+        attempt: int,
+        mode: str | None,
+        request_id: str,
+        outcome: str,
+    ) -> ModelTurn:
+        """Append one model request to the active task's provenance ledger and commit it.
+
+        The scheduler numbers and timestamps each turn, so a caller cannot write a gap or a
+        duplicate sequence number. Turns are provenance only: this method never changes status,
+        mode history, or retry counts. A request identifier that the task already used is refused.
+        """
+        state, record = self._active_record(task_id)
+        if request_id in record.request_ids:
+            raise ValueError("model turn request identifiers must be unique within a task")
+        turn = ModelTurn(
+            turn_id=len(record.model_turns) + 1,
+            pass_name=pass_name,
+            role=role,
+            model_id=model_id,
+            attempt=attempt,
+            mode=mode,
+            request_id=request_id,
+            timestamp=self._timestamp(),
+            outcome=outcome,
+        )
+        record.model_turns.append(turn)
+        record.request_ids.append(request_id)
+        state.updated_at = turn.timestamp
+        self.store.commit(state)
+        return turn
+
+    def quarantine_task(self, *, task_id: TaskId, report_path: Path, changed_workspace_paths: list[str]) -> None:
+        """Quarantine the active task after a report exists (invalid output, unsafe operation, audit failure).
+
+        Workspace edits are preserved. This does not touch retry counts.
+        """
+        state, record = self._active_record(task_id)
+        record.changed_workspace_paths = list(changed_workspace_paths)
+        record.status = TaskStatus.QUARANTINED
+        record.quarantine_report_path = report_path.resolve().relative_to(self.store.workspace).as_posix()
+        state.active_task_id = None
+        state.updated_at = self._timestamp()
+        self.store.commit(state)
+
     def quarantine_after_retry_limit(self, *, task_id: TaskId, changed_workspace_paths: list[str]) -> Path:
         """Quarantine after exactly three Error requests without rolling back workspace edits."""
         state, record = self._active_record(task_id)
-        if record.error_mode_requests < 3:
+        if record.error_mode_requests < ERROR_MODE_LIMIT:
             raise ValueError("task has not reached the Error-mode retry limit")
         task = next((entry.task for entry in state.queue if entry.task.id == task_id), None)
         if task is None:

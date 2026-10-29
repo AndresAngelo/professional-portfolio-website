@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+import pytest
 from hypothesis import given, settings, strategies as st
 
 from orchestrator.telemetry import LowVramCapabilityGate, TelemetryWriter
@@ -46,7 +47,7 @@ def _benchmark_requests(draw: st.DrawFn) -> list[dict[str, Any]]:
         request: dict[str, Any] = {
             "task_id": draw(_TASK_IDS),
             "request_id": f"req-{index}",
-            "model_id": "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF",
+            "model_id": "gemma-4-e2b-it-qat@q4_k_xl",
             "execution_mode": draw(_MODES),
             "timestamp": f"2026-01-01T00:00:{index:02d}Z",
             "elapsed_ms": draw(st.integers(min_value=0, max_value=120_000)),
@@ -64,7 +65,7 @@ def _benchmark_requests(draw: st.DrawFn) -> list[dict[str, Any]]:
     benchmark_requests=_benchmark_requests(),
 )
 def test_low_vram_settings_are_capability_gated_and_benchmark_telemetry_is_append_only(
-    tmp_path: Path,
+    tmp_path_factory: pytest.TempPathFactory,
     support_matrix: dict[str, Any],
     requested: dict[str, str],
     benchmark_requests: list[dict[str, Any]],
@@ -84,6 +85,7 @@ def test_low_vram_settings_are_capability_gated_and_benchmark_telemetry_is_appen
         else:
             assert resolved == {"status": "not-reported"}
 
+    tmp_path = tmp_path_factory.mktemp("low-vram")
     writer = TelemetryWriter(tmp_path / "local-ai")
     for request in benchmark_requests:
         writer.append_benchmark_request(**request, low_vram=applied)
@@ -98,7 +100,7 @@ def test_low_vram_settings_are_capability_gated_and_benchmark_telemetry_is_appen
         assert record["model_id"] == source["model_id"]
         assert record["execution_mode"] == source["execution_mode"]
         assert record["elapsed_ms"] == source["elapsed_ms"]
-        assert record["low_vram"] == applied
+        assert record["low_vram"] == dict(applied)
         if "reported_memory" in source:
             assert record["reported_memory"] == source["reported_memory"]
         else:

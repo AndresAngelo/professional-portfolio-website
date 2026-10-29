@@ -1,0 +1,8 @@
+{
+  "after_used_mib": 6519,
+  "before_used_mib": 6519,
+  "floor_mib": 700,
+  "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU",
+  "passed": true,
+  "total_mib": 8151
+}

@@ -4,7 +4,7 @@
 
 The Stateless Turn Python Orchestrator Pipeline is a local-first Python application that converts approved Markdown goal files into a durable, one-at-a-time coding queue. It lives under `local-ai/`, treats each LM Studio call as an isolated request, and permits only validated workspace-local tool operations and task-declared PowerShell validation commands.
 
-The design targets an 8 GB VRAM machine and uses one configured model, `yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF`, for every task attempt. Python deterministically selects the Scaffold, Aligner, CoT-Task, or Error mode; the model does not select its own role or mode. Keeping the configured model active avoids repeated model-switching overhead across the backlog, including repeated load/unload waiting, associated PCIe traffic, and thermal cycles. This is a qualitative operational benefit, not a claim of a specific total time, traffic, energy, or temperature saving. Optional low-VRAM controls are capability-gated, benchmarked, and recorded; they are never claimed or enabled merely because they appear in configuration.
+The design targets an 8 GB VRAM machine and uses three resident LM Studio models, one per role: embedding (nomic), router and auditor (gemma-3-1b), and executor (gemma-4-e2b). Each task runs four passes: retrieval, router, executor with declared validation, and auditor. Router and auditor replies are constrained to JSON schemas and validated with Pydantic (three attempts, separate from the three Error-mode executor requests). Python deterministically selects the Scaffold, Aligner, CoT-Task, or Error mode; the model does not select its own role or mode. Keeping the three models resident avoids repeated model-switching overhead across the backlog, including repeated load/unload waiting, associated PCIe traffic, and thermal cycles. This is a qualitative operational benefit, not a claim of a specific total time, traffic, energy, or temperature saving. Optional low-VRAM controls are capability-gated, benchmarked, and recorded; they are never claimed or enabled merely because they appear in configuration.
 
 The orchestrator’s source of truth is its own workspace-local durable state. It does not mutate Git, create commits/tags/branches, contact remote endpoints other than the configured loopback LM Studio endpoint, or roll back partial source changes after an error. A permanent failure is quarantined with an actionable Markdown report and leaves the workspace intact.
 
@@ -46,12 +46,32 @@ tracker_mode = "orchestrator-owned"
 
 [lm_studio]
 base_url = "http://127.0.0.1:1234/v1"
-model_id = "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF"
 request_timeout_seconds = 120
 allow_loopback_only = true
 
+# Labels are search keys. Startup binds each to one loaded LM Studio identifier and fails closed.
+[lm_studio.models.embedding]
+model_id = "embed-text-embedding-nomic-embed-text-v1.5"
+context_length = 2048
+output_reserve_tokens = 0
+max_prompt_bytes = 8192
+
+[lm_studio.models.router]
+model_id = "1b-gemma-3-1b-it-qat"
+context_length = 2048
+output_reserve_tokens = 512
+max_prompt_bytes = 6144
+
+[lm_studio.models.executor]
+model_id = "1b-gemma-4-e2b-it-qat"
+context_length = 4096
+output_reserve_tokens = 1024
+max_prompt_bytes = 12288
+
+[vram]
+min_headroom_mb = 700
+
 [context]
-max_total_bytes = 120000
 max_file_bytes = 24000
 max_active_files = 8
 rules_path = "local-ai/context/pipeline-rules.md"
@@ -315,7 +335,7 @@ stateDiagram-v2
     Quarantined --> SelectQueued
 ```
 
-Python selects `Scaffold`, `Aligner`, and `CoT-Task` from preflight evidence, and selects `Error` only after validation fails. Every task attempt has exactly one selected mode and produces exactly one request to the configured model; the same model returns the strict Tool Protocol JSON for all modes. `Scaffold` and `Aligner` include their observed condition, while `Error` includes the failed command result. Every transition updates `mode_history` before the outgoing request.
+Python selects `Scaffold`, `Aligner`, and `CoT-Task` from preflight evidence, and selects `Error` only after validation fails. Every task attempt has exactly one selected mode and produces exactly one request to the executor model; the executor returns the strict Tool Protocol JSON for all modes. `Scaffold` and `Aligner` include their observed condition, while `Error` includes the failed command result. Every transition updates `mode_history` before the outgoing request.
 
 Transport failures are not permanent task quarantines: they retain the committed `in_progress` record, partial workspace changes, and a request-error artifact so a later `resume` uses the same active task. Invalid protocol output is quarantined because execution safety cannot be established.
 
@@ -331,11 +351,11 @@ Each task attempt constructs one new, immutable HTTP payload with exactly three 
 
 `ContextPacker` selects files only from task target hints, parsed import relationships, and mode diagnostics. It uses deterministic path ordering, per-file byte caps, a total byte cap, and explicit truncation markers. It never adds prior-task prompts, responses, validation logs, arbitrary repository files, or conversation history. The packer emits a manifest with included file paths, hashes, truncation status, payload byte count, configured model ID, and selected mode; the manifest is persisted beside the request record.
 
-### Single-model request policy
+### Role-bound model request policy
 
-`LmStudioAdapter` sends each request to the one configuration-owned `model_id` and accepts no task or model-output model-choice input. It uses that configured model throughout queue processing. Before requests begin, the adapter verifies that the active local runtime reports the configured model as available and records its capability report. Connection, timeout, and non-success responses are captured with configured model ID, endpoint class, status/error, task ID, mode, and timestamp. Request bodies and response artifacts receive unique IDs and are not reused.
+`LmStudioAdapter` sends each request to the configuration-owned model bound to an explicit role (embedding, router, or executor) and accepts no task or model-output model-choice input. Before requests begin, `verify-models` binds each configured label to exactly one loaded LM Studio identifier and checks the loaded context length against the configured cap; any mismatch blocks the run. The orchestrator never loads or unloads a model. Router and auditor replies use a `json_schema` response format and Pydantic validation, with three attempts per call that are separate from the three Error-mode executor requests. Connection, timeout, and non-success responses are captured with configured model ID, endpoint class, status/error, task ID, mode, and timestamp. Request bodies and response artifacts receive unique IDs and are not reused.
 
-A fresh HTTP request means the orchestrator creates a new payload and supplies no prior conversation history. It does not, by closing the request, promise that a serving runtime has cleared its KV cache. Any KV-cache reset/clearing requirement must be explicitly configured in the active runtime and verified from that runtime's capability/effective-configuration evidence before it is recorded as satisfied. The single configured model avoids repeated model load/unload waits, PCIe transfers, and thermal cycling caused by model switching across the backlog; actual end-to-end savings depend on runtime behavior and workload and must be measured rather than assumed.
+A fresh HTTP request means the orchestrator creates a new payload and supplies no prior conversation history. It does not, by closing the request, promise that a serving runtime has cleared its KV cache. Any KV-cache reset/clearing requirement must be explicitly configured in the active runtime and verified from that runtime's capability/effective-configuration evidence before it is recorded as satisfied. Keeping the three models resident avoids repeated model load/unload waits, PCIe transfers, and thermal cycling caused by model switching across the backlog; actual end-to-end savings depend on runtime behavior and workload and must be measured rather than assumed.
 
 ```mermaid
 sequenceDiagram
@@ -385,7 +405,7 @@ For benchmarked requests only, the telemetry writer creates one append-only NDJS
 {
   "task_id": "M5.G1.T1",
   "request_id": "req_...",
-  "model_id": "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF",
+  "model_id": "gemma-4-e2b-it-qat@q4_k_xl",
   "execution_mode": "CoT-Task",
   "timestamp": "2026-01-01T00:00:00Z",
   "elapsed_ms": 1250,

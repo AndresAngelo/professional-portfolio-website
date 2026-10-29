@@ -95,6 +95,7 @@ class WorkspaceToolExecutor:
             content = operation.arguments.get("content")
             if not isinstance(content, str):
                 raise WorkspaceOperationError("write_file requires string content")
+            self._reject_package_script_change(target, before, content)
             self._atomic_write(target, content)
         elif operation.action == "patch_file":
             old_text = operation.arguments.get("old_text")
@@ -105,7 +106,9 @@ class WorkspaceToolExecutor:
                 raise WorkspaceOperationError("patch target does not exist")
             if not old_text or before.count(old_text) != 1:
                 raise WorkspaceOperationError("patch context must have one unique match")
-            self._atomic_write(target, before.replace(old_text, new_text, 1))
+            patched = before.replace(old_text, new_text, 1)
+            self._reject_package_script_change(target, before, patched)
+            self._atomic_write(target, patched)
         elif operation.action == "delete_file":
             if not self.delete_enabled:
                 raise WorkspaceOperationError("delete_file is disabled")
@@ -125,6 +128,24 @@ class WorkspaceToolExecutor:
         )
         self._record(operation=operation, result=result, before=before, after=after)
         return result
+
+    @staticmethod
+    def _package_scripts(text: str | None) -> object:
+        """Return the ``scripts`` value of a package.json text, ``{}`` if absent or the file is new."""
+        if text is None:
+            return {}
+        try:
+            document = json.loads(text)
+        except json.JSONDecodeError as error:
+            raise WorkspaceOperationError("package.json is not valid JSON, so its scripts cannot be checked") from error
+        return document.get("scripts", {}) if isinstance(document, dict) else {}
+
+    def _reject_package_script_change(self, target: Path, before: str | None, after: str) -> None:
+        """The executor may not add or change ``scripts`` in package.json: ``npm run`` would execute them."""
+        if target.name != "package.json":
+            return
+        if self._package_scripts(before) != self._package_scripts(after):
+            raise WorkspaceOperationError("package.json scripts may not be changed by the executor")
 
     def _atomic_write(self, target: Path, content: str) -> None:
         target.parent.mkdir(parents=True, exist_ok=True)

@@ -5,10 +5,11 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+import pytest
 from hypothesis import given, settings, strategies as st
 
 from orchestrator.models import DeclaredCommand, GoalTask, RunState, TaskId, TaskQueueRecord, TaskRunRecord, TaskStatus
-from orchestrator.scheduler import Scheduler
+from orchestrator.scheduler import Scheduler, StateExecutionRefused
 from orchestrator.state_store import AtomicStateStore
 
 
@@ -69,10 +70,11 @@ def _active_scheduler(tmp_path: Path, task: GoalTask) -> tuple[Scheduler, Atomic
 @settings(max_examples=100, deadline=None)
 @given(command_count=_COMMAND_COUNT, outcomes=_RETRY_OUTCOMES)
 def test_ordered_validation_and_bounded_error_recovery(
-    tmp_path: Path, command_count: int, outcomes: list[bool]
+    tmp_path_factory: pytest.TempPathFactory, command_count: int, outcomes: list[bool]
 ) -> None:
     """Validation retries remain ordered, capped at three, and persist exact success counts."""
     task = _task(command_count)
+    tmp_path = tmp_path_factory.mktemp("validation-retries")
     scheduler, store = _active_scheduler(tmp_path, task)
     expected_commands = [command.canonical_text for command in task.validation_commands]
 
@@ -95,6 +97,13 @@ def test_ordered_validation_and_bounded_error_recovery(
             assert persisted.error_mode_requests == outcomes.index(True)
             assert [result["command"] for result in validation_results] == expected_commands
             return
+
+        persisted = store.load().task_records[str(task.id)]
+        if persisted.error_mode_requests == 3:
+            # The durable cap refuses a fourth Error-mode request instead of counting it.
+            with pytest.raises(StateExecutionRefused):
+                scheduler.record_error_mode_request(task_id=task.id, validation_results=validation_results)
+            break
 
         scheduler.record_error_mode_request(task_id=task.id, validation_results=validation_results)
         persisted = store.load().task_records[str(task.id)]

@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Protocol
 from urllib.parse import urlparse
 
-from .config import ConfigurationError, OrchestratorConfig, load_configuration
+from .config import LOOPBACK_HOST, ConfigurationError, OrchestratorConfig, load_configuration
 from .discovery import discover_goal_files
 from .models import RunState
 from .state_store import AtomicStateStore, StateLoadError
@@ -62,7 +62,7 @@ class LocalCommandService:
         self.store = AtomicStateStore(
             workspace=config.workspace.root,
             workspace_id=str(config.workspace.root),
-            schema_version=1,
+            schema_version=2,
         )
         self.pilot_procedure_path = config.workspace.local_storage / "context" / "pilot-procedure.md"
 
@@ -105,7 +105,7 @@ class LocalCommandService:
 
     def _loopback_is_safe(self) -> bool:
         parsed = urlparse(self.config.lm_studio.base_url)
-        return self.config.lm_studio.allow_loopback_only and parsed.hostname in {"127.0.0.1", "localhost"}
+        return self.config.lm_studio.allow_loopback_only and parsed.hostname == LOOPBACK_HOST
 
 
 def compose_local_command_service(config_path: Path) -> LocalCommandService:

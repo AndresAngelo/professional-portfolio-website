@@ -54,7 +54,7 @@ def _declared(command: str) -> DeclaredCommand:
 
 @settings(max_examples=100, deadline=None)
 @given(
-    declared_command=_SAFE_COMMANDS,
+    declared_command=st.sampled_from(_SAFE_COMMANDS),
     unsafe_candidate=_UNSAFE_COMMANDS,
     separators=st.lists(_WHITESPACE, min_size=2, max_size=5),
 )

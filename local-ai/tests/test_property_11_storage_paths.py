@@ -57,13 +57,14 @@ def _is_descendant(path: Path, root: Path) -> bool:
     relative_name=_HOSTILE_RELATIVE_NAME,
 )
 def test_all_local_artifact_paths_remain_workspace_scoped(
-    tmp_path: Path,
+    tmp_path_factory: pytest.TempPathFactory,
     workspace_name: str,
     artifact_kind: str,
     task_id: str,
     relative_name: str,
 ) -> None:
     """Every accepted artifact path resolves below the canonical workspace."""
+    tmp_path = tmp_path_factory.mktemp("storage-paths")
     workspace = tmp_path / workspace_name
     workspace.mkdir()
     canonical_workspace = workspace.resolve()

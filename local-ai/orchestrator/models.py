@@ -115,6 +115,108 @@ class TaskQueueRecord:
         return cls(task=GoalTask.from_dict(value["task"]), ordinal=int(value["ordinal"]))
 
 
+ErrorHistoryDisposition = Literal["error_request_granted", "refused_retry_limit"]
+
+
+@dataclass(frozen=True)
+class ErrorHistoryEntry:
+    """One nonzero validation result on the active task and the scheduler's decision about it.
+
+    ``error_request_granted`` entries earned an Error-mode request and appear in ``mode_history``.
+    ``refused_retry_limit`` entries were kept as evidence, but no Error-mode request was made.
+    """
+
+    attempt: int
+    command: str
+    exit_code: int
+    artifact_path: str
+    disposition: ErrorHistoryDisposition
+    error_mode_request_number: int | None
+    recorded_at: str
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "attempt": self.attempt, "command": self.command, "exit_code": self.exit_code,
+            "artifact_path": self.artifact_path, "disposition": self.disposition,
+            "error_mode_request_number": self.error_mode_request_number, "recorded_at": self.recorded_at,
+        }
+
+    @classmethod
+    def from_dict(cls, value: dict[str, Any]) -> ErrorHistoryEntry:
+        disposition = str(value["disposition"])
+        if disposition not in {"error_request_granted", "refused_retry_limit"}:
+            raise ValueError(f"unknown error history disposition: {disposition}")
+        request_number = value.get("error_mode_request_number")
+        return cls(
+            attempt=int(value["attempt"]),
+            command=str(value["command"]),
+            exit_code=int(value["exit_code"]),
+            artifact_path=str(value["artifact_path"]),
+            disposition=disposition,  # type: ignore[arg-type]
+            error_mode_request_number=None if request_number is None else int(request_number),
+            recorded_at=str(value["recorded_at"]),
+        )
+
+
+MODEL_TURN_PASSES = frozenset({"embedding", "router", "executor", "auditor"})
+MODEL_TURN_ROLES = frozenset({"embedding", "router", "executor"})
+MODEL_TURN_OUTCOMES = frozenset(
+    {"accepted", "schema_rejected", "transport_failed", "validation_failed", "audit_rejected"}
+)
+
+
+@dataclass(frozen=True)
+class ModelTurn:
+    """One model request made for a task, with the exact model identifier that served it.
+
+    Turns are provenance only. Scheduling never reads them, so a turn cannot change task state.
+    """
+
+    turn_id: int
+    pass_name: str
+    role: str
+    model_id: str
+    attempt: int
+    mode: str | None
+    request_id: str
+    timestamp: str
+    outcome: str
+
+    def __post_init__(self) -> None:
+        if self.turn_id < 1 or self.attempt < 1:
+            raise ValueError("turn_id and attempt must be positive")
+        if self.pass_name not in MODEL_TURN_PASSES:
+            raise ValueError(f"unknown model turn pass: {self.pass_name}")
+        if self.role not in MODEL_TURN_ROLES:
+            raise ValueError(f"unknown model turn role: {self.role}")
+        if self.outcome not in MODEL_TURN_OUTCOMES:
+            raise ValueError(f"unknown model turn outcome: {self.outcome}")
+        if not self.model_id or not self.request_id:
+            raise ValueError("model turns need a model identifier and a request identifier")
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "turn_id": self.turn_id, "pass_name": self.pass_name, "role": self.role,
+            "model_id": self.model_id, "attempt": self.attempt, "mode": self.mode,
+            "request_id": self.request_id, "timestamp": self.timestamp, "outcome": self.outcome,
+        }
+
+    @classmethod
+    def from_dict(cls, value: dict[str, Any]) -> ModelTurn:
+        mode = value.get("mode")
+        return cls(
+            turn_id=int(value["turn_id"]),
+            pass_name=str(value["pass_name"]),
+            role=str(value["role"]),
+            model_id=str(value["model_id"]),
+            attempt=int(value["attempt"]),
+            mode=None if mode is None else str(mode),
+            request_id=str(value["request_id"]),
+            timestamp=str(value["timestamp"]),
+            outcome=str(value["outcome"]),
+        )
+
+
 @dataclass
 class TaskRunRecord:
     task_id: TaskId
@@ -127,6 +229,8 @@ class TaskRunRecord:
     validation_artifact_paths: list[str] = field(default_factory=list)
     changed_workspace_paths: list[str] = field(default_factory=list)
     quarantine_report_path: str | None = None
+    error_history: list[ErrorHistoryEntry] = field(default_factory=list)
+    model_turns: list[ModelTurn] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -137,6 +241,8 @@ class TaskRunRecord:
             "validation_artifact_paths": self.validation_artifact_paths,
             "changed_workspace_paths": self.changed_workspace_paths,
             "quarantine_report_path": self.quarantine_report_path,
+            "error_history": [entry.to_dict() for entry in self.error_history],
+            "model_turns": [turn.to_dict() for turn in self.model_turns],
         }
 
     @classmethod
@@ -152,6 +258,8 @@ class TaskRunRecord:
             validation_artifact_paths=[str(item) for item in value.get("validation_artifact_paths", [])],
             changed_workspace_paths=[str(item) for item in value.get("changed_workspace_paths", [])],
             quarantine_report_path=value.get("quarantine_report_path"),
+            error_history=[ErrorHistoryEntry.from_dict(item) for item in value.get("error_history", [])],
+            model_turns=[ModelTurn.from_dict(item) for item in value.get("model_turns", [])],
         )
 
 

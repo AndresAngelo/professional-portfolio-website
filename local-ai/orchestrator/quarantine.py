@@ -8,6 +8,11 @@ from pathlib import Path
 from .config import OrchestratorConfig, derive_artifact_path
 
 
+def normalize_markdown_text(value: str) -> str:
+    """Return captured text with LF line endings so reports read back identically on every platform."""
+    return value.replace("\r\n", "\n").replace("\r", "\n")
+
+
 def write_parse_quarantine_report(
     config: OrchestratorConfig,
     *,
@@ -34,8 +39,9 @@ def write_parse_quarantine_report(
         f"- **Source:** `{relative_source}`\n"
         f"- **Missing or invalid element:** {missing_element}\n"
         f"- **Parser timestamp:** {datetime.now(UTC).isoformat()}"
-        f"{extra}\n\n## Raw Markdown section\n\n{raw_section}\n",
+        f"{extra}\n\n## Raw Markdown section\n\n{normalize_markdown_text(raw_section)}\n",
         encoding="utf-8",
+        newline="\n",
     )
     return report
 
@@ -55,7 +61,9 @@ def write_state_quarantine_report(
     except ValueError as error:
         raise ValueError("state quarantine report must remain workspace-local") from error
     report.parent.mkdir(parents=True, exist_ok=True)
-    evidence_section = f"\n## Evidence\n\n```text\n{evidence}\n```\n" if evidence else ""
+    evidence_section = (
+        f"\n## Evidence\n\n```text\n{normalize_markdown_text(evidence)}\n```\n" if evidence else ""
+    )
     report.write_text(
         "# Quarantine: Run State\n\n"
         f"- **Category:** {category}\n"
@@ -64,6 +72,7 @@ def write_state_quarantine_report(
         "- **Recovery:** task execution is refused until valid state is restored\n"
         f"{evidence_section}",
         encoding="utf-8",
+        newline="\n",
     )
     return report
 
@@ -93,11 +102,11 @@ def write_validation_failure_quarantine_report(
                 f"- **Exit code:** {failure['exit_code']}",
                 "- **Standard output:**",
                 "```text",
-                str(failure['stdout']),
+                normalize_markdown_text(str(failure['stdout'])),
                 "```",
                 "- **Standard error:**",
                 "```text",
-                str(failure['stderr']),
+                normalize_markdown_text(str(failure['stderr'])),
                 "```",
             ]
         )
@@ -130,11 +139,11 @@ def write_validation_failure_quarantine_report(
                 f"- **Exit code:** {exit_code}",
                 "- **Standard output:**",
                 "```text",
-                stdout,
+                normalize_markdown_text(stdout),
                 "```",
                 "- **Standard error:**",
                 "```text",
-                stderr,
+                normalize_markdown_text(stderr),
                 "```",
             ]
         )
@@ -158,5 +167,6 @@ def write_validation_failure_quarantine_report(
         "## Changed workspace paths\n\n"
         f"{changed}\n",
         encoding="utf-8",
+        newline="\n",
     )
     return report

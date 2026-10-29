@@ -17,3 +17,16 @@ secrets.json
 service-account*.json
 *.tfstate
 *.tfstate.backup
+# Python bytecode caches
+__pycache__/
+*.pyc
+# Generated local retrieval index (rebuild with: python -m orchestrator build-index)
+local-ai/embeddings/
+
+node_modules/
+
+node_modules/
+
+node_modules/
+
+ode_modules/

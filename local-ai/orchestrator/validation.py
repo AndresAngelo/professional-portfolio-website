@@ -29,11 +29,13 @@ class ValidationRecord:
 class OrderedValidator:
     """Authorize and execute declarations in order, stopping at first failure."""
 
-    def __init__(self, *, task_id: TaskId, workspace: Path, runner: PowerShellRunner) -> None:
+    def __init__(
+        self, *, task_id: TaskId, workspace: Path, runner: PowerShellRunner, denylist: bool = True
+    ) -> None:
         self._task_id = task_id
         self._workspace = workspace.resolve()
         self._runner = runner
-        self._guard = CommandGuard()
+        self._guard = CommandGuard(denylist=denylist)
 
     def run(self, commands: tuple[DeclaredCommand, ...]) -> list[ValidationRecord]:
         """Run every authorized declaration until the first non-zero exit result."""

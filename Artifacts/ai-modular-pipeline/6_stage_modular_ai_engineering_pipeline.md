@@ -22,7 +22,7 @@ It enforces repository state as the single source of truth, eliminates context d
 | **Stage 2** | Spec-Driven Development | Kiro IDE (Qwen Coder Next + Claude Haiku) | Transform master specs into a 3-layer ~1,000-task execution hierarchy ($10 \times 10 \times 10$). Produces `tasks.md` per milestone containing the 10-goals structure and Stage 3 delegation instructions only. | `specs/M[N]/` (`requirements.md`, `design.md`, `tasks.md`) |
 | **Stage 3** | Scaffolding & Framework Architect | Google AI Studio API in VS Code Agent Chat | Ingest 1M+ token context (master-files, pipeline specs, all `tasks.md` files) to: (1) generate `goal1.md`–`goal10.md` per milestone, each with ~10 fully-detailed atomic tasks, then (2) produce zero-placeholder scaffolding. | `specs/M[N]/goal[1-10].md`, core directory tree, manifests, DDLs, and `HANDOFF.md` |
 | **Stage 4a** | Orchestrator Pipeline Creator | Codex / Python | Construct the local, deterministic Python orchestrator harness using the Stateless Turn Pattern. | Python orchestrator scripts & 4 mode prompts (`local-ai/`) |
-| **Stage 4b** | Local Agentic AI Workhorse | Python Harness + LM Studio (RTX 5070 8GB) | Sequential execution using **Bonsai 2 27B PTQ1** (CoT) and **Gemma-4-12B-agentic** (Code Execution). | Fully implemented codebase, `local-ai/program-states/progress-tracker.md` |
+| **Stage 4b** | Local Agentic AI Workhorse | Python Harness + LM Studio (RTX 5070 8GB) | Four-pass pipeline over three resident models: nomic embeddings (retrieval), gemma-3-1b router and auditor, gemma-4-e2b executor. | Fully implemented codebase, `local-ai/program-states/progress-tracker.md` |
 | **Stage 5** | Senior QA & Production Engineer | Cursor IDE + CodeRabbit | Static code inspection, unit/E2E testing, security audits, and production deployment. | Audit report, `.coderabbit.yaml`, verified test suite, deployment |
 
 ---
@@ -90,15 +90,15 @@ It enforces repository state as the single source of truth, eliminates context d
 
 ---
 
-### Stage 4b: Local Agentic Execution & Sequential Model Swapping
+### Stage 4b: Local Agentic Execution & Resident Model Mesh
 - **Hardware Baseline**: ASUS TUF A14/A16 (2025) | AMD Ryzen 9 | NVIDIA RTX 5070 Laptop GPU (8GB VRAM) | 32GB RAM.
 - **VRAM Constraint & Solution**:
-  - **Bonsai 2 27B PTQ1** (Reasoning/CoT): ~5.93 GB VRAM.
-  - **Gemma-4-12B-agentic** (Code Execution): ~7.0–7.5 GB VRAM.
-  - Both models **cannot fit simultaneously in 8GB VRAM**.
-  - **Sequential Model Swapping** must be enforced by the Python orchestrator for all ~1,000 tasks.
+  - **gemma-3-1b-it-qat** (router and auditor): context 2048, output reserve 512 tokens.
+  - **gemma-4-e2b-it-qat@q4_k_xl** (executor): context 4096, output reserve 1024 tokens. **text-embedding-nomic-embed-text-v1.5** (retrieval): context 2048.
+  - All three models stay resident together. The speculative-decoding draft model and the vision projector must be off, and at least 700 MiB of VRAM must stay free.
+  - The orchestrator never loads or unloads a model. It verifies the loaded models and context caps at startup and fails closed on a mismatch.
 
-#### Dual-Model Swapping Execution Flow
+#### Resident Model Mesh Execution Flow
 For every task $N$ in the execution queue:
 
 ```
@@ -106,14 +106,14 @@ For every task $N$ in the execution queue:
 │                 PYTHON ORCHESTRATOR LOOP                    │
 └──────────────────────────────┬──────────────────────────────┘
                                │
-       Phase 1: CoT GENERATION (Bonsai 2 27B)
-       ├── 1. Command LM Studio: Unload all & Load Bonsai 2 27B
-       ├── 2. Send task prompt -> Generate `local-ai/tasks/task_N_CoT.md`
-       └── 3. Command LM Studio: Unload Bonsai 2 27B from VRAM
+       Pass 1-2: RETRIEVAL + ROUTING (nomic embeddings, gemma-3-1b router)
+       ├── 1. Embed the task query and retrieve the top chunks from the local index
+       ├── 2. Router returns a schema-valid plan (constraints, target paths, chunk IDs)
+       └── 3. No model is loaded or unloaded; all three stay resident
                                │
                                ▼
-       Phase 2: CODE EXECUTION (Gemma-4-12B-agentic)
-       ├── 1. Command LM Studio: Load Gemma-4-12B into VRAM
+       Pass 3-4: EXECUTION + AUDIT (gemma-4-e2b executor, gemma-3-1b auditor)
+       ├── 1. Verify loaded models and context caps (fail closed)
        ├── 2. Perform pre-flight mode check (Scaffold / Aligner)
        ├── 3. Execute code generation pass (`CoT-Task-mode.md`)
        ├── 4. Run post-flight syntax linter (Trigger `Error-mode.md` on failure)
@@ -127,7 +127,7 @@ For every task $N$ in the execution queue:
 All stage 4 execution states, logs, and tracking metrics reside in `local-ai/`:
 - `local-ai/program-states/progress-tracker.md`
 - `local-ai/program-states/current-issues.md`
-- `local-ai/tasks/task_N_CoT.md`
+- `local-ai/embeddings/index.json`
 
 ---
 

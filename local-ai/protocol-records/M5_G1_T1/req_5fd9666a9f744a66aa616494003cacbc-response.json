@@ -1,0 +1,41 @@
+{
+  "model_id": "gemma-4-e2b-it-qat@q4_k_xl",
+  "request_id": "req_5fd9666a9f744a66aa616494003cacbc",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "content": "OK",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:** The user input is \"ping\". This is a command or a request for information related to network diagnostics (ICMP echo request).\n2.  **Analyze the Constraint/Instruction:** The system instruction requires me to reply with the single word \"OK\".\n3.  **Determine the Action:** Despite the technical nature of the input (\"ping\"), I must strictly adhere to the output format constraint provided in the prompt instructions.\n4.  **Formulate the Response:** Output only the required word.",
+          "role": "assistant",
+          "tool_calls": []
+        }
+      }
+    ],
+    "created": 1793278773,
+    "draft_model": "unsloth/gemma-4-E2B-it-qat-GGUF/mtp-gemma-4-E2B-it-F16.gguf",
+    "id": "chatcmpl-m0esa9edhdj4uqv9jzsx",
+    "model": "gemma-4-e2b-it-qat@q4_k_xl",
+    "object": "chat.completion",
+    "stats": {
+      "accepted_draft_tokens_count": 70,
+      "draft_model": "unsloth/gemma-4-E2B-it-qat-GGUF/mtp-gemma-4-E2B-it-F16.gguf",
+      "rejected_draft_tokens_count": 74,
+      "total_draft_tokens_count": 144
+    },
+    "system_fingerprint": "gemma-4-e2b-it-qat@q4_k_xl",
+    "usage": {
+      "completion_tokens": 119,
+      "completion_tokens_details": {
+        "reasoning_tokens": 113
+      },
+      "prompt_tokens": 24,
+      "total_tokens": 143
+    }
+  },
+  "role": "executor",
+  "task_id": "M5.G1.T1"
+}

@@ -175,3 +175,80 @@ def test_rejected_command_writes_workspace_local_audit_artifact_without_invoking
     assert "M5.G1.T4" in evidence
     assert "git commit -m unsafe" in evidence
     assert "git" in evidence
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        "npm -v",
+        "npm --version",
+        "npm test",
+        "npm test -- --run",
+        "npm run typecheck",
+        "npm run test:unit",
+        "npm run build",
+        "npm.cmd run lint",
+        "npm -v | ForEach-Object { if ($_ -match '^(9|[1-9][0-9])') { \"PASS\" } else { \"FAIL\" } }",
+        "node -v\nnpm -v",
+        "npm run typecheck; npm test",
+    ],
+)
+def test_command_guard_allows_declared_npm_version_test_and_run_forms(command: str) -> None:
+    """npm is allowed for version checks, npm test, and npm run <script> when the command is declared."""
+    assert CommandGuard().authorize(candidate=command, declared_commands=(declared(command),)) == command
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        "npm install",
+        "npm i left-pad",
+        "npm ci",
+        "npm add left-pad",
+        "npm update",
+        "npm exec some-tool",
+        "npm publish",
+        "npm uninstall left-pad",
+        "npm audit fix",
+        "npm",
+        "npm run",
+        "npm run --prefix ../elsewhere build",
+        "npm run build && npm install",
+        "npm test; npm ci",
+        "npm -v | npm install",
+        "npx create-next-app",
+        "pnpm install",
+        "yarn add left-pad",
+    ],
+)
+def test_command_guard_denies_every_other_npm_form_and_other_package_managers(command: str) -> None:
+    """Install-type and state-changing package manager activity stays denied, even when declared."""
+    with pytest.raises(CommandAuthorizationError, match="package"):
+        CommandGuard().authorize(candidate=command, declared_commands=(declared(command),))
+
+
+def test_full_line_comments_that_mention_denied_words_do_not_deny_a_declared_command() -> None:
+    """PowerShell comments never run, so 'npm' or 'git' inside a comment must not trigger a denial."""
+    command = "# Verify npm version is 9 or higher\n# no git push here\nnpm -v"
+
+    assert CommandGuard().authorize(candidate=command, declared_commands=(declared(command),)) == command
+
+
+def test_a_real_npx_line_is_still_denied_even_after_a_comment() -> None:
+    command = "# check the types\nnpx tsc --noEmit tests/fixtures/home-data.ts"
+
+    with pytest.raises(CommandAuthorizationError, match="package"):
+        CommandGuard().authorize(candidate=command, declared_commands=(declared(command),))
+
+
+def test_denylist_switch_off_runs_declared_install_and_npx_commands_but_still_requires_a_declaration() -> None:
+    """With the denylist off, a declared npm install or npx command is authorized. Undeclared text never is."""
+    guard = CommandGuard(denylist=False)
+    commands = (declared("npm install"), declared("npx tsc --noEmit tests/fixtures/home-data.ts"))
+
+    assert guard.authorize(candidate="npm install", declared_commands=commands) == "npm install"
+    assert guard.authorize(
+        candidate="npx tsc --noEmit tests/fixtures/home-data.ts", declared_commands=commands
+    ).startswith("npx tsc")
+    with pytest.raises(CommandAuthorizationError, match="declared"):
+        guard.authorize(candidate="npm install left-pad", declared_commands=commands)

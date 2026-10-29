@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
-from pathlib import Path
+import json
 from typing import Any
 
+import pytest
 from hypothesis import given, settings, strategies as st
 
+from orchestrator.config import LmStudioConfig, ModelRole, ModelRoles
 from orchestrator.context_packer import ContextPacker
 from orchestrator.lm_studio import LmStudioAdapter
 from orchestrator.models import DeclaredCommand, ExecutionMode, GoalTask, TaskId
@@ -25,6 +27,38 @@ _TASK_NUMBERS = st.tuples(
     st.integers(min_value=1, max_value=99),
 )
 _MODES = st.sampled_from(tuple(ExecutionMode))
+# Shared static anchors must be identical for every task, so they never embed task markers.
+_SHARED_RULES = "Shared rules contract for every request"
+_ARCHITECTURE = "Architecture contract"
+
+
+def _lm_config() -> LmStudioConfig:
+    """Bind the three configured roles; requests without a role use the executor model."""
+    return LmStudioConfig(
+        base_url="http://127.0.0.1:1234/v1",
+        request_timeout_seconds=12,
+        allow_loopback_only=True,
+        models=ModelRoles(
+            embedding=ModelRole(
+                model_id="embed-text-embedding-nomic-embed-text-v1.5",
+                context_length=2048,
+                output_reserve_tokens=0,
+                max_prompt_bytes=8192,
+            ),
+            router=ModelRole(
+                model_id="1b-gemma-3-1b-it-qat",
+                context_length=2048,
+                output_reserve_tokens=512,
+                max_prompt_bytes=6144,
+            ),
+            executor=ModelRole(
+                model_id="1b-gemma-4-e2b-it-qat",
+                context_length=4096,
+                output_reserve_tokens=1024,
+                max_prompt_bytes=12288,
+            ),
+        ),
+    )
 
 
 class _FakeLocalModel:
@@ -38,6 +72,14 @@ class _FakeLocalModel:
         return {"id": f"request-{len(self.requests)}", "content": "{}"}
 
 
+def _envelope(marker: str) -> str:
+    """Wrap a generated marker in angle brackets, which generated text never contains.
+
+    A bare marker such as "0" is a substring of "00", so isolation is checked on envelopes.
+    """
+    return f"<{marker}>"
+
+
 def _task(coordinates: tuple[int, int, int], marker: str) -> GoalTask:
     """Build a minimal task whose marker must never cross a request boundary."""
     milestone, goal, task = coordinates
@@ -47,11 +89,11 @@ def _task(coordinates: tuple[int, int, int], marker: str) -> GoalTask:
         id=task_id,
         source_path=f".kiro/specs/m{milestone}-generated/goals/goal{goal}.md",
         source_hash=f"hash-{marker}",
-        heading=f"Task {marker}",
-        objective=f"Complete {marker}",
-        acceptance_criteria=(f"Criterion {marker}",),
+        heading=f"Task {_envelope(marker)}",
+        objective=f"Complete {_envelope(marker)}",
+        acceptance_criteria=(f"Criterion {_envelope(marker)}",),
         prerequisites=(),
-        implementation_details=f"Implementation {marker}",
+        implementation_details=f"Implementation {_envelope(marker)}",
         validation_commands=(
             DeclaredCommand(raw_text=command, canonical_text=command, ordinal=1),
         ),
@@ -61,8 +103,6 @@ def _task(coordinates: tuple[int, int, int], marker: str) -> GoalTask:
 
 def _serialized(payload: dict[str, Any]) -> str:
     """Use the protocol serializer so containment checks cover every nested field."""
-    import json
-
     return json.dumps(payload, sort_keys=True)
 
 
@@ -76,7 +116,7 @@ def _serialized(payload: dict[str, Any]) -> str:
     second_marker=_TEXT,
 )
 def test_fresh_model_request_isolation_and_routing(
-    tmp_path: Path,
+    tmp_path_factory: pytest.TempPathFactory,
     first_coordinates: tuple[int, int, int],
     second_coordinates: tuple[int, int, int],
     first_mode: ExecutionMode,
@@ -88,8 +128,7 @@ def test_fresh_model_request_isolation_and_routing(
     if first_coordinates == second_coordinates or first_marker == second_marker:
         return
 
-    rules = f"Rules for {first_marker} and {second_marker}"
-    architecture = "Architecture contract"
+    tmp_path = tmp_path_factory.mktemp("fresh-requests")
     first = _task(first_coordinates, first_marker)
     second = _task(second_coordinates, second_marker)
     first_path = tmp_path / "src" / f"{first_marker}.py"
@@ -100,14 +139,14 @@ def test_fresh_model_request_isolation_and_routing(
 
     packer = ContextPacker(
         workspace=tmp_path,
-        rules_text=rules,
-        architecture_text=architecture,
-        max_total_bytes=8_000,
+        rules_text=_SHARED_RULES,
+        architecture_text=_ARCHITECTURE,
+        prompt_budget_bytes=8_000,
         max_file_bytes=1_000,
         max_active_files=1,
     )
     model = _FakeLocalModel()
-    adapter = LmStudioAdapter(model_port=model)
+    adapter = LmStudioAdapter(config=_lm_config(), model_port=model)
 
     first_request = packer.build_payload(
         task=first,
@@ -140,12 +179,7 @@ def test_fresh_model_request_isolation_and_routing(
     )
     adapter.request(second_planned_request)
 
-    assert [request["model"] for request in model.requests] == [
-        "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF",
-        "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF",
-        "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF",
-        "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF",
-    ]
+    assert [request["model"] for request in model.requests] == ["1b-gemma-4-e2b-it-qat"] * 4
 
     for payload, task, mode, marker in (
         (first_request, first, first_mode, first_marker),
@@ -157,10 +191,10 @@ def test_fresh_model_request_isolation_and_routing(
         assert str(task.id) in rendered
         assert mode.value in rendered
         assert task.validation_commands[0].canonical_text in rendered
-        assert marker in rendered
-        assert rules in rendered
+        assert _envelope(marker) in rendered
+        assert _SHARED_RULES in rendered
 
     second_rendered = _serialized(second_request) + _serialized(second_planned_request)
-    assert str(first.id) not in second_rendered
-    assert first.validation_commands[0].canonical_text not in second_rendered
-    assert first_marker not in second_rendered
+    assert f'"{first.id}"' not in second_rendered
+    assert f'"{first.validation_commands[0].canonical_text}"' not in second_rendered
+    assert _envelope(first_marker) not in second_rendered

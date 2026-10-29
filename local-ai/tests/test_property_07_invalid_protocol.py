@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import pytest
 from hypothesis import given, settings, strategies as st
 
 from orchestrator.protocol import ProtocolProcessor
@@ -76,9 +77,10 @@ class _RecordingToolExecutor:
 @settings(max_examples=100, deadline=None)
 @given(response_text=_INVALID_OUTPUTS)
 def test_invalid_protocol_output_preserves_active_task_and_workspace(
-    tmp_path: Path, response_text: str
+    tmp_path_factory: pytest.TempPathFactory, response_text: str
 ) -> None:
     """Invalid executor output is quarantined without touching tools, state, or source files."""
+    tmp_path = tmp_path_factory.mktemp("invalid-protocol")
     source = tmp_path / "src" / "kept.txt"
     source.parent.mkdir()
     original = "pre-existing workspace change\\n"

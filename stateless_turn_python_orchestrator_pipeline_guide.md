@@ -21,24 +21,27 @@ The hardware footprint relies on strict separation between high-level cloud plan
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│ google/gemma-4-12b-qat (Local GPU ~6.5GB VRAM Footprint)    │
-│ Role: CoT Planning Generator                                │
-│ Task: Ingests goalpost specs and outputs step-by-step reasoning│
-│       and file manipulation blueprints (`task_N_CoT.md`).   │
+│ gemma-3-1b-it-qat (Local GPU, context 2048)                 │
+│ Role: Router and Auditor                                    │
+│ Task: Turns retrieved chunks into a schema-valid plan, then │
+│       audits the executor's change against the TRD rules.   │
 └──────────────────────────────┬──────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│ google/gemma-4-e2b (Local GPU ~1.8GB VRAM Footprint)        │
+│ gemma-4-e2b-it-qat@q4_k_xl (Local GPU, context 4096)        │
 │ Role: Execution Workhorse                                   │
-│ Task: Ingests `task_N_CoT.md` and active context files;     │
+│ Task: Ingests the router plan and active context files;     │
 │       outputs clean, syntax-compliant code via LM Studio.   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Why This Updated Local Pair Wins on 8GB VRAM:
-1. **`google/gemma-4-12b-qat` (CoT Generator):** Quantization-Aware Training (QAT) preserves high-level reasoning and architectural understanding while keeping memory footprint tight. It generates structural logic plans (`task_N_CoT.md`) without wasting VRAM on execution state.
-2. **`google/gemma-4-e2b` (Execution Workhorse):** Extremely fast, hyper-efficient small model engineered for high token throughput (~60+ t/s on RTX 5070). Because it receives pre-calculated reasoning from the 12B QAT model, it can focus 100% of its parameters on raw syntax generation, file manipulation, and linter compliance.
+### Why a Resident Three-Model Mesh Fits 8GB VRAM:
+1. **`gemma-3-1b-it-qat` (Router and Auditor):** Small enough to stay loaded next to the executor. Its replies are constrained to JSON schemas and validated with Pydantic, so a weak reply is rejected and retried instead of trusted.
+2. **`gemma-4-e2b-it-qat@q4_k_xl` (Execution Workhorse):** Fast and small. It receives a pre-filtered plan and retrieved context, so it can focus on syntax generation and file manipulation.
+3. **`text-embedding-nomic-embed-text-v1.5` (Retrieval):** Ranks spec and context chunks so only the relevant ones reach the router.
+
+No model is swapped during the run. The orchestrator verifies loaded identifiers and context caps at startup and fails closed.
 
 ---
 
@@ -52,7 +55,7 @@ The core principle of this architecture is **Stateless Context Management**. Ins
 - **The 3-Bucket Context Structure:** Every request constructs a context payload adhering to three distinct layers:
   1. *System Rules (Static Top Anchor):* Coding standards and output constraints (`6modular_pipeline_rules.md`).
   2. *Architecture Schema (Static Middle Anchor):* Types, DB schemas, and interfaces (`architecture_schema.md`).
-  3. *Active Task Scope (Dynamic Bottom Anchor):* The active `task_N_CoT.md` plan and target source file stubs.
+  3. *Active Task Scope (Dynamic Bottom Anchor):* The router plan, retrieved chunks, and target source file stubs.
 
 ---
 
@@ -88,7 +91,7 @@ Scaffold-mode.md        Aligner-mode.md               Error-mode.md
 
 | Execution Mode | Trigger Condition | Operational Function |
 | :--- | :--- | :--- |
-| **`CoT-Task-mode.md`** | **Default.** Pre-flight pass: target file exists and interfaces align. | Standard code generation following `task_N_CoT.md`. |
+| **`CoT-Task-mode.md`** | **Default.** Pre-flight pass: target file exists and interfaces align. | Standard code generation following the router plan. |
 | **`Scaffold-mode.md`** | Pre-flight check fails: target file path does not exist on disk. | Generates directory paths and creates initial boilerplate file templates. |
 | **`Aligner-mode.md`** | Pre-flight check fails: missing imports or mismatched AST signatures detected. | Generates missing interface contracts, type stubs, or imports before coding. |
 | **`Error-mode.md`** | Post-flight check fails: Python linter/compiler returns non-zero error trace. | Injects `stderr` error logs into context to force a targeted syntax fix. |
@@ -126,20 +129,21 @@ You are tasked with generating a production-grade Python Orchestrator Script for
 
 #### Hardware & Model Target:
 - GPU VRAM: 8GB (RTX 5070 Laptop GPU)
-- Local Server Endpoint: LM Studio REST API (`http://localhost:1234/v1`)
-- Planning Model: `google/gemma-4-12b-qat`
-- Code Execution Model: `google/gemma-4-e2b`
+- Local Server Endpoint: LM Studio REST API (`http://127.0.0.1:1234/v1`)
+- Embedding Model: `text-embedding-nomic-embed-text-v1.5`
+- Router and Auditor Model: `gemma-3-1b-it-qat`
+- Code Execution Model: `gemma-4-e2b-it-qat@q4_k_xl`
 
 #### Structural Requirements for the Generated Python Script:
 1. **Stateless Request Loop:**
    - Must use standard `requests.post` or `OpenAI()` client pointing to LM Studio.
    - Must NOT persist messages array across task iterations. Each task must send a fresh payload containing:
-     `[Rules Markdown] + [Architecture Schema Markdown] + [Mode Driver] + [task_N_CoT.md] + [Active Source File]`
+     `[Rules Markdown] + [Architecture Schema Markdown] + [Mode Driver] + [Router Plan] + [Active Source File]`
    
-2. **Model Swapping Routines:**
-   - Implement CLI model swapping calls using LM Studio CLI (`lms unload --all` followed by `lms load <model_name>`).
-   - Phase 1: Load `google/gemma-4-12b-qat` to generate `tasks/task_{N}_CoT.md`.
-   - Phase 2: Load `google/gemma-4-e2b` to execute code generation and mode handling.
+2. **Resident Model Mesh:**
+   - Do not load or unload models. Verify the loaded identifiers and context caps through LM Studio's model endpoints and fail closed on a mismatch.
+   - Pass 1-2: retrieve chunks with the embedding model, then get a schema-valid plan from the router.
+   - Pass 3-4: run the executor and declared validation, then audit with the router.
 
 3. **4-State Interceptor Machine:**
    - **Scaffold Interceptor:** Check if target file path exists. If not, load `Scaffold-mode.md`, write empty file stub.

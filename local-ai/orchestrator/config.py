@@ -4,12 +4,26 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Literal
 from urllib.parse import urlparse
 import tomllib
 
 
 class ConfigurationError(ValueError):
     """Raised when runtime configuration would violate a safety boundary."""
+
+
+LOOPBACK_HOST = "127.0.0.1"
+ModelRoleName = Literal["embedding", "router", "executor"]
+MODEL_ROLE_NAMES: tuple[ModelRoleName, ...] = ("embedding", "router", "executor")
+# The pinned single-model identifier is retired. It is rejected as a role binding and never routed.
+RETIRED_MODEL_IDS: frozenset[str] = frozenset(
+    {"yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF"}
+)
+# Planning estimate of UTF-8 prompt bytes per token. It is not a tokenizer measurement.
+BYTES_PER_TOKEN = 4
+_MODEL_ROLE_KEYS = frozenset({"model_id", "context_length", "output_reserve_tokens", "max_prompt_bytes"})
+DEFAULT_MIN_HEADROOM_MB = 700
 
 
 @dataclass(frozen=True)
@@ -35,16 +49,38 @@ class LegacyInstructionMigrationConfig:
 
 
 @dataclass(frozen=True)
+class ModelRole:
+    """One LM Studio model binding with its context cap and prompt byte budget."""
+
+    model_id: str
+    context_length: int
+    output_reserve_tokens: int
+    max_prompt_bytes: int
+
+
+@dataclass(frozen=True)
+class ModelRoles:
+    """The three LM Studio model bindings used by the mesh."""
+
+    embedding: ModelRole
+    router: ModelRole
+    executor: ModelRole
+
+    def for_role(self, role: ModelRoleName) -> ModelRole:
+        bindings = {"embedding": self.embedding, "router": self.router, "executor": self.executor}
+        return bindings[role]
+
+
+@dataclass(frozen=True)
 class LmStudioConfig:
     base_url: str
-    model_id: str
     request_timeout_seconds: int
     allow_loopback_only: bool
+    models: ModelRoles
 
 
 @dataclass(frozen=True)
 class ContextConfig:
-    max_total_bytes: int
     max_file_bytes: int
     max_active_files: int
     rules_path: Path
@@ -67,6 +103,23 @@ class LowVramConfig:
 
 
 @dataclass(frozen=True)
+class VramConfig:
+    """GPU memory that must stay free after the mesh is loaded, in MiB."""
+
+    min_headroom_mb: int
+
+    @classmethod
+    def from_raw(cls, raw: dict[str, Any]) -> VramConfig:
+        section = raw.get("vram", {})
+        if not isinstance(section, dict):
+            raise ConfigurationError("[vram] must be a table")
+        headroom = section.get("min_headroom_mb", DEFAULT_MIN_HEADROOM_MB)
+        if not _is_positive_int(headroom):
+            raise ConfigurationError("[vram] min_headroom_mb must be a positive integer")
+        return cls(min_headroom_mb=headroom)
+
+
+@dataclass(frozen=True)
 class OrchestratorConfig:
     workspace: WorkspaceConfig
     discovery: DiscoveryConfig
@@ -75,6 +128,7 @@ class OrchestratorConfig:
     context: ContextConfig
     retry: RetryConfig
     low_vram: LowVramConfig
+    vram: VramConfig
 
 
 def _resolve_under(root: Path, raw_path: str, *, name: str) -> Path:
@@ -98,8 +152,68 @@ def _validate_loopback(base_url: str, loopback_only: bool) -> None:
     parsed = urlparse(base_url)
     if parsed.scheme not in {"http", "https"} or not parsed.hostname:
         raise ConfigurationError("LM Studio base URL must be a valid loopback URL")
-    if loopback_only and parsed.hostname not in {"127.0.0.1", "localhost"}:
-        raise ConfigurationError("LM Studio base URL must use an allowed loopback host")
+    if not loopback_only:
+        raise ConfigurationError("LM Studio allow_loopback_only must be true; remote endpoints are not supported")
+    if parsed.hostname != LOOPBACK_HOST:
+        raise ConfigurationError(f"LM Studio base URL must use the loopback host {LOOPBACK_HOST}")
+
+
+def _is_positive_int(value: object) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value >= 1
+
+
+def _is_non_negative_int(value: object) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value >= 0
+
+
+def _parse_model_role(role_name: str, raw: object) -> ModelRole:
+    if not isinstance(raw, dict) or set(raw) != _MODEL_ROLE_KEYS:
+        raise ConfigurationError(
+            f"model role {role_name!r} must define exactly model_id, context_length, "
+            "output_reserve_tokens, and max_prompt_bytes"
+        )
+    model_id = raw["model_id"]
+    context_length = raw["context_length"]
+    output_reserve = raw["output_reserve_tokens"]
+    prompt_budget = raw["max_prompt_bytes"]
+    if not isinstance(model_id, str) or not model_id or model_id != model_id.strip():
+        raise ConfigurationError(f"model role {role_name!r} needs a non-empty model_id without surrounding spaces")
+    if model_id in RETIRED_MODEL_IDS:
+        raise ConfigurationError(f"model role {role_name!r} uses the retired pinned model identifier")
+    if not _is_positive_int(context_length):
+        raise ConfigurationError(f"model role {role_name!r} needs a positive integer context_length")
+    if not _is_non_negative_int(output_reserve) or output_reserve >= context_length:
+        raise ConfigurationError(
+            f"model role {role_name!r} needs output_reserve_tokens from 0 up to, but not including, context_length"
+        )
+    capacity = (context_length - output_reserve) * BYTES_PER_TOKEN
+    if not _is_positive_int(prompt_budget) or prompt_budget > capacity:
+        raise ConfigurationError(
+            f"model role {role_name!r} needs max_prompt_bytes from 1 to {capacity} "
+            f"((context_length - output_reserve_tokens) x {BYTES_PER_TOKEN})"
+        )
+    return ModelRole(
+        model_id=model_id,
+        context_length=context_length,
+        output_reserve_tokens=output_reserve,
+        max_prompt_bytes=prompt_budget,
+    )
+
+
+def _parse_model_roles(lm_raw: dict[str, Any]) -> ModelRoles:
+    if "model_id" in lm_raw:
+        raise ConfigurationError(
+            "single [lm_studio] model_id is retired; define [lm_studio.models.embedding], "
+            "[lm_studio.models.router], and [lm_studio.models.executor] instead"
+        )
+    models_raw = lm_raw.get("models")
+    if not isinstance(models_raw, dict) or set(models_raw) != set(MODEL_ROLE_NAMES):
+        raise ConfigurationError("[lm_studio.models] must define exactly the roles embedding, router, and executor")
+    roles = {name: _parse_model_role(name, models_raw[name]) for name in MODEL_ROLE_NAMES}
+    identifiers = [role.model_id for role in roles.values()]
+    if len(set(identifiers)) != len(identifiers):
+        raise ConfigurationError("model roles must use three distinct model identifiers")
+    return ModelRoles(embedding=roles["embedding"], router=roles["router"], executor=roles["executor"])
 
 
 def load_configuration(config_path: Path) -> OrchestratorConfig:
@@ -129,13 +243,13 @@ def load_configuration(config_path: Path) -> OrchestratorConfig:
     allow_loopback_only = bool(lm_raw["allow_loopback_only"])
     base_url = str(lm_raw["base_url"])
     _validate_loopback(base_url, allow_loopback_only)
-    model_id = str(lm_raw["model_id"])
-    if model_id != "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF":
-        raise ConfigurationError("LM Studio model identifier is fixed")
+    model_roles = _parse_model_roles(lm_raw)
     timeout = int(lm_raw["request_timeout_seconds"])
-    total, per_file, active = int(context_raw["max_total_bytes"]), int(context_raw["max_file_bytes"]), int(context_raw["max_active_files"])
-    if min(timeout, total, per_file, active) < 1 or per_file > total:
-        raise ConfigurationError("timeout and context limits must be positive and coherent")
+    if "max_total_bytes" in context_raw:
+        raise ConfigurationError("[context] max_total_bytes is retired; set max_prompt_bytes on each model role")
+    per_file, active = int(context_raw["max_file_bytes"]), int(context_raw["max_active_files"])
+    if min(timeout, per_file, active) < 1:
+        raise ConfigurationError("timeout and context limits must be positive")
     retries = int(retry_raw["max_error_mode_requests"])
     if retries != 3:
         raise ConfigurationError("max error-mode requests must be exactly three")
@@ -145,10 +259,16 @@ def load_configuration(config_path: Path) -> OrchestratorConfig:
         legacy_instruction_migration=LegacyInstructionMigrationConfig(
             tuple(_resolve_under(root, str(alias), name="legacy root alias") for alias in legacy_raw["accepted_root_aliases"]),
             _resolve_under(root, str(legacy_raw["tracker_path"]), name="tracker path"), str(legacy_raw["tracker_mode"])),
-        lm_studio=LmStudioConfig(base_url, model_id, timeout, allow_loopback_only),
-        context=ContextConfig(total, per_file, active, _resolve_under(root, str(context_raw["rules_path"]), name="rules path"), _resolve_under(root, str(context_raw["architecture_path"]), name="architecture path")),
+        lm_studio=LmStudioConfig(
+            base_url=base_url,
+            request_timeout_seconds=timeout,
+            allow_loopback_only=allow_loopback_only,
+            models=model_roles,
+        ),
+        context=ContextConfig(per_file, active, _resolve_under(root, str(context_raw["rules_path"]), name="rules path"), _resolve_under(root, str(context_raw["architecture_path"]), name="architecture path")),
         retry=RetryConfig(retries),
         low_vram=LowVramConfig(**low_vram_raw),
+        vram=VramConfig.from_raw(raw),
     )
 
 

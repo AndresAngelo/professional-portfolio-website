@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from hypothesis import given, settings, strategies as st
 
 from orchestrator.models import (
@@ -87,11 +88,12 @@ def _assert_single_active(state: RunState) -> None:
     transitions=st.lists(st.booleans(), min_size=1, max_size=80),
 )
 def test_single_active_task_and_restart_priority(
-    tmp_path: Path,
+    tmp_path_factory: pytest.TempPathFactory,
     queue_size: int,
     transitions: list[bool],
 ) -> None:
     """Every restart resumes durable active work before advancing the queue."""
+    tmp_path = tmp_path_factory.mktemp("scheduler")
     workspace = tmp_path / "workspace"
     workspace.mkdir(exist_ok=True)
     store = AtomicStateStore(
